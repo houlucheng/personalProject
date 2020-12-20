@@ -1,0 +1,18 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view style="" class="usermotto">
+    <input class="username" type="text" placeholder="请输入用户名" value="{{userName}}" data-name="userName" bindinput="inputChangeHandl" />
+    <input class="password" type="password" placeholder="请输入密码" value="{{password}}" data-name="password" bindinput="inputChangeHandl" />
+    <view>
+      <button type="primary" class="userlogin" bindtap="loginHandl" >登陆</button>
+      <button type="default" bindtap="registerHandl" >注册</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,37 @@
+<view class="root">
+  <view class="tabs">
+    <view class="item active">
+      <text>个性推荐</text>
+    </view>
+    <view class="item">
+      <text>歌单</text>
+    </view>
+    <view class="item">
+      <text>主播电台</text>
+    </view>
+    <view class="item">
+      <text>排行榜</text>
+    </view>
+  </view>
+  <view class="content">
+    <view class="slide">
+      <image src="./images/slide.jpg"></image>
+    </view>
+    <view class="portals"></view>
+    <view class="list"></view>
+  </view>
+  <view class="player">
+    <view class="poster" >
+      <image src="./images/poster2.jpg"></image>
+    </view>
+    <view class="info">
+      <text class="title">一生中最爱</text>
+      <text class="artist">谭咏麟</text>
+    </view>
+    <view class="controls">
+      <image src="./images/icon_nav_form.png"></image>
+      <mp-icon icon="play2" color="#0BBFED" size="{{25}}"></mp-icon>
+      <mp-icon icon="play" color="#0BBFED" size="{{25}}"></mp-icon>
+    </view>
+  </view>
+</view>

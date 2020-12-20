@@ -1,0 +1,6 @@
+{
+  "navigationBarBackgroundColor": "#333",
+  "usingComponents": {
+    "mp-icon": "../../components/icon/icon"
+  }
+}

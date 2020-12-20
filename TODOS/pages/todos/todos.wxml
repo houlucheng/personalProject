@@ -1,0 +1,19 @@
+
+<view class="container">
+  <view class="search">
+    <image src="../../images/plus.png"></image>
+    <input type="text" placeholder="Anything here..." value="{{search}}" />
+  </view>
+  <view class="todos">
+    <view class="item {{item.completed?'completed':''}}" wx:for="{{ todos }}">
+      <icon type="{{item.completed?'success':'circle'}}"></icon>
+      <text>{{item.name}}</text>
+      <icon type="clear"  size="16"></icon>
+    </view>
+  </view>
+  <view class="footer">
+    <text>Toggle all</text>
+    <text>{{todos.length}} item left</text>
+    <text>Clear completed</text>
+  </view>
+</view>

@@ -1,0 +1,44 @@
+{
+  "pages":[
+    "pages/wxml/index",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "window":{
+    "navigationBarTitleText": "晨宇",
+    "backgroundColor": "#f0f",
+    "backgroundTextStyle":"light",
+    "enablePullDownRefresh": true
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+
+  "tabBar": {  
+    "color": "#a9b7b7",  
+    "selectedColor": "#11cd6e",  
+    "borderStyle": "black" ,
+    "position": "bottom",
+    "list": [{  
+      "selectedIconPath": "images/avatar.jpg",  
+      "iconPath": "images/avatar1.jpg",  
+      "pagePath": "pages/index/index",  
+      "text": "肉肉"  
+    }, {  
+      "selectedIconPath": "images/avatar.jpg",  
+      "iconPath": "images/avatar2.jpg",  
+      "pagePath": "pages/logs/logs",  
+      "text": "宝贝"  
+    },{  
+      "selectedIconPath": "images/avatar.jpg",  
+      "iconPath": "images/avatar3.jpg",  
+      "pagePath": "pages/wxml/index",  
+      "text": "笨蛋"  
+    }
+    ]  
+  } 
+}
