@@ -1,7 +1,7 @@
 .container {
   border-top: 1rpx solid #e0e0e0;
 }
-.search {
+.header {
   display: flex;
   margin: 20rpx;
   border: 1rpx solid #e0e0e0;
@@ -10,7 +10,7 @@
   padding: 20rpx;
   align-items: center;
 }
-.search image { 
+.header image { 
   width: 40rpx;
   height: 40rpx;
   margin-right: 20rpx;
