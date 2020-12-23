@@ -48,7 +48,7 @@ AppID(小程序ID)：	wxf32cee7cda1902c0
 `<block wx:if="{{true}}"></block> //一次性判断多个组件标签`  
 
 **5. wx:for**         
-`<view wx:for="{{array}}">{{index}}: {{item.message}}</view>  `  
+`<view wx:for="{{array}}" wx:key="index" >{{index}}: {{item.message}}</view>  `  
                       `默认数组的当前项的下标变量名默认为 index，数组当前项的变量名默认为 item `  
 
 **6. wx:for-item**    

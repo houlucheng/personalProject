@@ -31,12 +31,8 @@ Page({
   },
   removeTodoHandl (e){
     var todos = this.data.todos;
-    var item = this.data.todos[e.currentTarget.dataset.index]
-    var leftCount = this.data.leftCount;
-    if(!item.completed){
-      leftCount = leftCount - 1
-    }
-    todos.splice(e.currentTarget.dataset.index,1);
+    var item = todos.splice(e.currentTarget.dataset.index,1)[0];
+    var leftCount = this.data.leftCount - (item.completed ? 0 : 1)
     this.setData({todos: todos, leftCount: leftCount})
   },
   toggleAllHandl (){

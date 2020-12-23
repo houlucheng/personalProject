@@ -1,0 +1,24 @@
+
+<view class="container">
+  <view class="header">
+    <image src="../../images/plus.png" bindtap="addTodoHandle"></image>
+    <input type="text" placeholder="Anything here..." bindinput="inputChangeHandl" bindconfirm="addTodoHandle" value="{{input}}" />
+  </view>
+  <block wx:if="{{todos.length}}" >
+    <view class="todos">
+      <view class="item {{item.completed?'completed':''}}" data-index="{{index}}" bindtap="toggleTodoHandl" wx:for="{{ todos }}" wx:key="index" >
+        <icon type="{{item.completed?'success':'circle'}}"></icon>
+        <text>{{item.name}}</text>
+        <icon type="clear" catchtap="removeTodoHandl" data-index="{{index}}" size="16"></icon>
+      </view>
+    </view>
+    <view class="footer">
+      <text bindtap="toggleAllHandl" >Toggle all</text>
+      <text wx:if="{{ leftCount }}" >{{leftCount}} {{ leftCount > 1 ? 'items' : 'item' }} left</text>
+      <text bindtap="clearHandl">Clear completed</text>
+    </view>
+  </block>
+  <view wx:else>
+    <text>没有啦！</text>
+  </view>
+</view>
