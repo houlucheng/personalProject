@@ -32,7 +32,7 @@ Page({
   removeTodoHandl (e){
     var todos = this.data.todos;
     var item = this.data.todos[e.currentTarget.dataset.index]
-    var leftCount = this.data.leftCount
+    var leftCount = this.data.leftCount;
     if(!item.completed){
       leftCount = leftCount - 1
     }
