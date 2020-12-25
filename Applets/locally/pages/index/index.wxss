@@ -1,0 +1,41 @@
+.slides {
+  height: 252rpx;
+}
+
+.slides image {
+  width: 100%;
+  height: 100%;
+}
+
+.grids {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fff;
+  border-left: 1rpx solid #eee;
+  border-bottom: 1rpx solid #eee;
+  color: #888;
+  font-size: 28rpx;
+}
+
+.grids .item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33.3333333%;
+  height: 250rpx;
+  border-right: 1rpx solid #eee;
+  border-top: 1rpx solid #eee;
+  box-sizing: border-box;
+}
+
+.grids .item image{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.grids .item text {
+  margin-top: 20rpx;
+  color: #888;
+  font-size: 28rpx;
+}
