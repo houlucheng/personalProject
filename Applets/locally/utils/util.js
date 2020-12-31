@@ -1,19 +1,16 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
-module.exports = {
-  formatTime: formatTime
+module.exports = (url, data, method = 'GET', header = {}) => {
+  wx.showLoading({ title: 'Loading...' })
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: "https://locally.uieee.com/" + url,
+      data,
+      header,
+      method,
+      dataType: 'json',
+      success: resolve,
+      fail: reject,
+      complete: wx.hideLoading
+    })
+  })
 }

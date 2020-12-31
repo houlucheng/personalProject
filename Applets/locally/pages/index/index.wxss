@@ -2,7 +2,7 @@
   height: 252rpx;
 }
 
-.slides image {
+.slides image, .slides navigator{
   width: 100%;
   height: 100%;
 }
