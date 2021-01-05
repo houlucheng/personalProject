@@ -326,7 +326,7 @@ Page({
 })
 ```
 
-4. 下拉刷新
+**下拉刷新**
 ```
 //page.json
 {"enablePullDownRefresh": true }
@@ -341,7 +341,7 @@ Page({
 })
 ```
 
-5. 上拉触底
+**上拉触底**
 ```
 //page.json
 // 界面的下方距离页面底部距离小于onReachBottomDistance像素时触发onReachBottom回调
@@ -354,6 +354,32 @@ Page({
   }
 })
 ```
+**WXS 模块**  
+
+wxml模版里无法调用逻辑层的方法 但可以用wxs模块，WXS 代码可以编写在 wxml 文件中的 <wxs> 标签内，或以 .wxs 为后缀名的文件内
+```
+<image src="{{util.size}}" />
+
+<wxs module="util"> 
+//这里不支持新特性 不支持es6语法
+module.exports = {
+  size: function(value){
+    return value + "aa"
+  }
+}
+</wxs>
+
+```
+
+**预览图片**
+```
+wx.previewImage({
+  current: '', // 当前显示图片的http链接
+  urls: [] // 需要预览的图片http链接列表
+})
+```
+
+
 ***当然我们有些时候并不想整个页面进行滚动，而是页面中某一小块区域需要可滚动，此时就要用到宿主环境所提供的scroll-view可滚动视图组件***
 
 
