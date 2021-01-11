@@ -77,7 +77,7 @@
 
 /* ie低版本缓存问题 以及 读取文件 */
         let xhr4 = new XMLHttpRequest();
-        xhr4.open('GET','http://localhost:3003/catch?t=' + Math.random());
+        xhr4.open('GET','http://localhost:3003/catch?t=' + Math.random()); //ie低版本浏览器中后面加上随机参数
         xhr4.onreadystatechange = function (){
             if(xhr4.readyState == 4 && xhr4.status == 200){
                 console.log(xhr4.responseText)
@@ -89,6 +89,58 @@
         }
         xhr4.send();
 
+
+/* ajax封装 */
+        function ajax({type='get',url,dataType='application/x-www-form-urlencoded',data = {},success = function(){},error = function(){}}){
+            let xhr = new XMLHttpRequest();
+            var params = "";
+            for( var attr in data){
+                params += attr + "=" + data[attr] + "&";
+            }
+            params = params.substr(0,params.length-1)
+            if(type == 'get'){
+                url = url + "?" + params;
+            }
+            xhr.open(type,url);
+            if(type == "post"){
+                xhr.setRequestHeader('Content-Type',dataType)
+                if(dataType.indexOf("json") != -1){
+                    xhr.send(JSON.stringify(data))
+                }else{
+                    xhr.send(params)
+                }
+            }else{
+                xhr.send();
+            }
+            xhr.onload = function(){
+                var responseText = xhr.responseText;
+                // 获取响应头中的数据
+                var contentType = xhr.getResponseHeader('Content-Type')
+                if(contentType.includes("json")){
+                    responseText = JSON.parse(responseText)
+                }
+                if(xhr.status == 200 && xhr.readyState == 4){
+                    success(responseText,xhr)
+                }else{
+                    error(responseText,xhr)
+                }
+            }
+        }
+        ajax({
+            type: "get",
+            url: "http://localhost:3003/first",
+            dataType: "application/x-www-form-urlencoded",
+            data: {
+                name: "张三",
+                age: 21
+            },
+            success: function(res){
+                console.log(res)
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
     </script>
 </body>
 </html>
