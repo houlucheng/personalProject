@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* 
+        // :not() 选择所有不含有 class1 的元素 
+        // :empty 选择为空的元素
+        p:not(.class1) {
+        border: 1px solid #000;
+        }
+        p:empty {
+            border: 1px solid red;
+        }
+    */
+
+    p:not(:empty){
+        border: 1px solid #000;
+    }
+</style>
+<body>
+    <div id="wrap">
+
+    </div>
+
+    <script src="./js/template-web.js"></script>
+    <script id="tp1" type="text/html">
+        <div class="box">{{username}}</div>
+        <p>{{age}}</p>
+        <p class="class1"></p>
+        {{each data}}
+            <em>{{$value}}</em>
+        {{/each}}
+    </script>
+    <script>
+        var html = template('tp1',{username: "zhangsan", age: 20, data: ["小明","小张",'小李']})
+        console.log(html)
+        wrap.innerHTML = html
+    </script>
+    
+</body>
+</html>
