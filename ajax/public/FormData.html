@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        <input type="text" name="username" />
+        <input type="password" name="password" />
+        <input type="button" id="btn" value="提交" />
+    </form>
+
+    <input type="file" id="file" />
+
+    <script>
+        var form = document.getElementById('form')
+        var btn = document.getElementById('btn')
+        var file = document.getElementById('file')
+
+        btn.onclick = function() {
+            var formData = new FormData(form);
+            let xhr = new XMLHttpRequest();
+            console.log(formData.get('username'))
+            formData.set('msg','你好')
+            formData.delete('username')
+            formData.append("address", '中国')
+            formData.append('msg', "666")
+            // append 与 set 区别 如果设置的值已存在 set会覆盖已有值 但 append会添加相同的值
+            xhr.open('post', 'http://localhost:3003/formdata')
+            xhr.send(formData);
+            xhr.onload = function () {
+                if(xhr.status == 200){
+                    console.log(xhr.responseText)
+                }
+            }
+
+        }
+
+        file.onchange = function() {
+            var formData = new FormData()
+            formData.append('attr', this.files[0])
+            let xhr = new XMLHttpRequest();
+            xhr.open('post', 'http://localhost:3003/upload')
+            xhr.send(formData);
+            xhr.onload = function () {
+                if(xhr.status == 200){
+                    console.log(xhr.responseText)
+                }
+            }
+        }
+    </script>
+</body>
+</html>
