@@ -30,15 +30,22 @@
     <script id="tp1" type="text/html">
         <div class="box">{{username}}</div>
         <p>{{age}}</p>
+        <em>{{dateFormat(age)}}</em>
         <p class="class1"></p>
         {{each data}}
             <em>{{$value}}</em>
         {{/each}}
     </script>
     <script>
+        function dateFormat (data) {
+            console.log(data)
+            return data + "岁" 
+        }
+        template.defaults.imports.dateFormat = dateFormat;
         var html = template('tp1',{username: "zhangsan", age: 20, data: ["小明","小张",'小李']})
         console.log(html)
         wrap.innerHTML = html
+        
     </script>
     
 </body>
