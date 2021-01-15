@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+
+    #box{
+        width: 0%;
+        height: 20px;
+        background-color: blueviolet;
+    }
+</style>
 <body>
     <form id="form">
         <input type="text" name="username" />
@@ -13,6 +21,8 @@
     </form>
 
     <input type="file" id="file" />
+    <img src="" id="img" />
+    <p id="box"></p>
 
     <script>
         var form = document.getElementById('form')
@@ -42,11 +52,19 @@
             var formData = new FormData()
             formData.append('attr', this.files[0])
             let xhr = new XMLHttpRequest();
+            // 进度条
+            xhr.upload.onprogress = function (ev) {
+                // ev.loaded 已上传文件的大小
+                // ev.total 文件的总大小
+                box.style.width = (ev.loaded/ev.total) * 100 + "%"
+                box.innerHTML = parseInt((ev.loaded/ev.total) * 100) + "%"
+            }
             xhr.open('post', 'http://localhost:3003/upload')
             xhr.send(formData);
             xhr.onload = function () {
                 if(xhr.status == 200){
-                    console.log(xhr.responseText)
+                    console.log(JSON.parse(xhr.responseText))
+                    img.src = "http://localhost:3003/" + JSON.parse(xhr.responseText).path
                 }
             }
         }

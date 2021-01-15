@@ -6,12 +6,24 @@ const path = require('path');
 const bodyParset = require("body-parser")
 // post方式解析formdata参数格式的模块
 const formidable = require("formidable")
+// 向其他服务器端请求数据的模块
+const request = require('request')
 // 操作文件模块
 const fs = require('fs')
 const app = express();
 app.use(bodyParset.urlencoded()) //post方式请求参数类型为 "application/x-www-form-urlencoded" 时调用
 app.use(bodyParset.json()) //post方式请求参数类型为 "application/json 时调用
 app.use(express.static(path.join(__dirname,'public')));
+// app.use代表拦截所有请求
+app.use((req, res, next) => {
+    // 允许哪些客户端访问我 '*' 代表允许所有客户端访问我
+    res.header('Access-Control-Allow-Origin', "*");
+    // 允许客户端通过哪种方式访问我
+    res.header('Access-Control-Allow-Methods', 'get,post');
+    // 允许客户端发送跨域请求时携带cookie
+    res.header('Access-Control-Allow-Credentials', true)
+    next();
+})
 
 app.get('/first', (req,res) => {
     res.send({name:"Hello word!"});
@@ -53,8 +65,38 @@ app.post('/upload', (req, res) => {
     form.parse(req, (error, fields, files) => {
         // fields: 表单当中普通的请求参数
         // files: 和文件上传相关的一些信息 (上传文件时文件会在这个参数里面)
-        res.send('ok')
+        res.send(
+            {
+                path: files.attr.path.split('public')[1]
+            }
+        )
     })
+})
+
+app.get("/jsonp", (req, res) => {
+    // var fnName = req.query.callback
+    // res.send(fnName + "({name: 'zhangsan'})")
+    // 以上代码是jsonp的底层原理 必须返回 执行函数字符串 ：'fn({})'
+    // 下面是res自带的jsonp方法 这个方法底层干的就是上面的逻辑
+    res.jsonp({name: 'zhangsan'})
+})
+
+app.get('/server', (req, res) => {
+    // 跨域请求 （服务器端没有通源策略）
+    request("http://localhost:3001/cross", (err, response, body) => {
+        // response 服务器端的一些响应信息
+        // body 请求 /cross 接口返回来的数据
+        res.send();
+    })
+})
+
+app.get('/corss', (req, res) => {
+    // 允许哪些客户端访问我 '*' 代表允许所有客户端访问我
+    res.header('Access-Control-Allow-Origin', "*");
+    // 允许客户端通过哪种方式访问我
+    res.header('Access-Control-Allow-Methods', 'get,post')
+    // 以上两个设置复用率高所以需要一个中间介来拦截所有请求然后去设置 请看17行
+    res.send("ok")
 })
 
 app.listen(3003);

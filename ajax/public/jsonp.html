@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function jsonp ({url,data,success}){
+            var script = document.createElement("script")
+            var params = "";
+            for (var attr in data){
+                params += '&' + attr + '=' + data[attr]
+            }
+            params = params.substr(0,params.length-1)
+            var fnName = 'myJsonp' + Math.random().toString().replace('.','')
+            window[fnName] = success
+            script.src = url + "?callback=" + fnName + params
+            document.body.appendChild(script)
+            script.onload = function () {
+                document.body.removeChild(script)
+            }
+        }
+
+        jsonp({
+            url: 'http://localhost:3003/jsonp',
+            data: {
+                name: 'lisi',
+                age: 20
+            },
+            success: function(res) {
+                console.log(res)
+            }
+        })
+    </script>
+    <!-- <script src="http://localhost:3003/jsonp?callback=fn1"></script> -->
+</body>
+</html>
