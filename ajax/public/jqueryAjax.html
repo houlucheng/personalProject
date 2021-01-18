@@ -4,17 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
 </head>
 <body>
-    
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
     <script>
+        /* jquery提供的全局函数 (必须绑定在document上)
+            1. ajaxStart 当页面中有ajax请求发送时触发
+            2. ajaxComplete  当页面有ajax请求完成时触发
+        */
+       // 当页面中有ajax请求发送时触发
+       $(document).on('ajaxStart', function(){
+            console.log('ajaxStart')
+            NProgress.start(); // 纳米级进度条
+       })
+       // 当页面有ajax请求完成时触发
+       $(document).on('ajaxComplete', function(){
+            console.log('ajaxComplete')
+            NProgress.done(); // 纳米级的进度条
+       })
+
         $.ajax({
             url: "http://localhost:3003/jsonp",
             // 向服务器端传递函数名称的参数名称 (服务器端就不能用res.jsonp方法了)
             // jsonp: 'cb',
             // 定义回调函数的名称 (全局下定义这个函数来接收服务器返回数据)
-            jsonpCallback: "fn",
+            // jsonpCallback: "fn",
+            // beforeSend: function(){
+            //     //发送请求之前调用 一般用来验证传入的参数
+            //     return false
+            // },
             dataType: "jsonp",
             success(res){
                 console.log(res)

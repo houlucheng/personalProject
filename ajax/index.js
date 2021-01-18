@@ -99,4 +99,9 @@ app.get('/corss', (req, res) => {
     res.send("ok")
 })
 
+app.delete("/user/:id", (req, res) => {
+    var id = req.params.id;
+    res.send("已删除")
+})
+
 app.listen(3003);
