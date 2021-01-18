@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			    var box=document.getElementById("box");
+    var maxL=utils.win("clientWidth")-box.offsetWidth;
+    var maxR=0;
+    setInterval(function () {
+        var curLeft= utils.css(box, "left");
+        if (curLeft<=0) {
+            clearInterval(box.times);
+            box.times = setInterval(function () {
+                //clearInterval(box.times);
+                var curLeft = utils.css(box, "left");
+                curLeft += 10;
+                if (curLeft >= maxL) {
+                    clearInterval(box.times);
+                    utils.css(box, "left", maxL);
+                    return;
+                }
+                utils.css(box, "left", curLeft)
+            }, 20)
+        }else if(curLeft>=maxL){
+            clearInterval(box.times);
+            box.times = setInterval(function () {
+                //clearInterval(box.times);
+                var curLeft = utils.css(box, "left");
+                curLeft -= 10;
+                if (curLeft <= maxR) {
+                    clearInterval(box.times);
+                    utils.css(box, "left", maxR);
+                    return
+                }
+                utils.css(box, "left", curLeft)
+            }, 20)
+
+
+        }
+    },50)
+		</script>
+	</body>
+</html>

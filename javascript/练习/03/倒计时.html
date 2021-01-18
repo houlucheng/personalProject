@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box{
+            width: 900px;
+            height: 50px;
+            margin: 50px auto 0;
+            background-color: blueviolet;
+            font-size: 30px;
+            text-align: left;
+            line-height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript">
+    var oDiv= document.getElementById("box");
+    function Show(year,month,day){
+        var now = new Date();
+        var endDate = new Date(year,month-1,day);
+        var leftTime=endDate-now;
+        var leftsecond = parseInt(leftTime/1000);
+        var day1=parseInt(leftsecond/(60*60*24));
+        var hour=parseInt((leftsecond-day1*24*60*60)/3600);
+        var minute=parseInt((leftsecond-day1*24*60*60-hour*60*60)/60);
+        var second=parseInt(leftsecond-day1*24*60*60-hour*60*60-minute*60);
+        oDiv.innerHTML = "距离"+year+"年"+month+"月"+day+
+        "日还有："+day1+"天"+hour+"小时"+minute+"分"+second+"秒";
+    }
+    Show(2017,12,5);
+    window.setInterval(function(){Show(2018,1,1);},1000);
+</script>
+
+</body>

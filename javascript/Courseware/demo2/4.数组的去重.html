@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 数组的去重：把数组中重复项只留下一项；
+    var ary = [12,8,88,12,99,88,66,77,66];
+    //var a = [12,8,88,99,66,77];
+    //var newAry = [];
+    // forEach  map ;
+    // 1.indexOf: 判断当前项在数组中是否存在，不存在返回-1；
+    /*for(var i=0;i<ary.length;i++){
+        var  cur = ary[i];
+        // 判断当前项在新数组中是否存在，不存在返回-1；
+        if(newAry.indexOf(cur)===-1){
+            newAry.push(cur);
+        }
+    }
+    console.log(newAry);*///[12, 8, 88, 99, 66, 77]
+
+    // 2.对象的属性名不能重复；
+    /*var obj = {1:10,1:16};
+    console.log(obj);*/
+    var ary = [12,8,88,99,88,66,77,66];
+    var obj = {};// {12:12,8:8,88:88}
+    for(var i=0;i<ary.length;i++){
+        var cur = ary[i];// 12
+        if(obj[cur]===cur){
+            ary.splice(i,1);
+            i--;
+            continue;
+        }
+        obj[cur] = cur;
+    }
+    console.log(obj);//
+    console.log(ary);
+
+
+</script>
+</body>
+</html>

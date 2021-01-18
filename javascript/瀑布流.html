@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<style type="text/css">
+		select{width: 50px;}
+	</style>
+	<body>
+		<select name="">
+			<option value="">+86   中国</option>
+			<option value="">+86   中国</option>
+			<option value="">+86   中国</option>
+			<option value="">+86   中国</option>
+			<option value="">+86   中国</option>
+			<option value="">+86   </option>
+			<option value="">+86   中国</option>
+			<option value="">+86   中国</option>
+			<option value="">+86   中国</option>
+			<option value="">+86   中国</option>
+			<option value="">+86   中国</option>
+		</select>
+		
+		<script type="text/javascript">
+			function C1(name){
+        if(name) this.name = name;
+    }
+    function C2(name){
+        this.name =name;
+    }
+    function C3(name){
+        this.name = name ||'join';
+    }
+    C1.prototype.name='Tom';
+    //alert(new C1().name);
+    C2.prototype.name='Tom';
+    //alert(new C2().name);
+    C3.prototype.name='Tom';
+    //alert(new C3().name);
+    alert(new C1().name)+(new C2().name)+(new C3().name);
+		</script>
+	</body>
+</html>

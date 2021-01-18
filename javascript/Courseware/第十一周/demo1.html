@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="./node_modules/axios/dist/axios.js"></script>
+		
+		<script type="text/javascript" src="./node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			{{age}}
+		</div>
+		
+		
+		
+		
+		<script type="text/javascript">
+			
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					age:3
+				}
+			})
+			
+			var obj = {name:"珠峰"};
+			Object.defineProperty(obj,"name",{
+				get(){
+					console.log(100)
+					return 1
+				},
+				set(aa){
+					console.log(aa)
+				}
+			})
+			
+			
+		</script>
+	</body>
+</html>

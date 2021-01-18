@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin: 0;padding: 0;list-style: none;}
+
+        .select{
+            width: 200px;
+            height: 38px;
+            border: solid 1px #AEBAC8;
+            box-shadow: 0 1px 2px #DDE2E8;
+            background-color: #EFF5F9;
+            margin: 100px auto;
+            border-radius: 3px;
+            position: relative;
+        }
+        .select span{
+            display: inline-block;
+            height: 100%;
+            display: block;
+            line-height: 38px;
+            padding: 0 15px;
+        }
+
+        .sj{
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            border: solid 6px;
+            border-color: #B5C2D0 transparent transparent;
+            margin-top: -3px;
+            width: 0;height: 0;
+        }
+        .select_down{
+            position: absolute;
+            left: -1px; top: 54px;
+            width: 100%;
+            border: solid 1px #AEBAC8;
+            box-shadow: 0 1px 2px #DDE2E8;
+            border-radius: 3px;
+            color: #96A4B0;
+            display: none;
+        }
+        .select_down li{
+            height: 30px;
+            line-height: 30px;
+            padding: 0 15px;
+        }
+        .select_down li:hover{
+            background-color: #E9F3FB;
+            color: #519AEB;
+        }
+
+        .i1{
+            border:solid 6px;
+            border-color: transparent transparent #AEBAC8;
+            position: absolute;
+            right: 15px;
+            top: -12px;
+        }
+        .i2{
+            border:solid 6px;
+            border-color: transparent transparent #fff;
+            position: absolute;
+            right: 15px;
+            top: -11px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="select">
+    <span>Select App</span><i class="sj"></i>
+    <div class="select_down">
+        <i class="i1"></i>
+        <i class="i2"></i>
+        <ul>
+            <li>Instagram</li>
+            <li>Marvel App</li>
+            <li>Facebook</li>
+            <li>Evernote</li>
+            <li>Skype</li>
+        </ul>
+    </div>
+</div>
+<script>
+    var oSpan = document.querySelector('.select span');
+    var oSelDown = document.querySelector('.select_down');
+    var aLi = document.querySelectorAll('.select_down li');
+    var isclick = false;
+
+    oSpan.onclick = function(){
+        if(isclick){
+            oSelDown.style.display = 'none';
+            isclick = false;
+        }
+        else{
+            oSelDown.style.display = 'block';
+            isclick = true;
+        }
+    }
+
+    for(var i=0;i<aLi.length;i++){
+        aLi[i].onclick = function(){
+            oSpan.innerHTML = this.innerHTML;
+            oSelDown.style.display = 'none';
+            isclick = false;
+        }
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

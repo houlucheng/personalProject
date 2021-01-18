@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 1.快速排序
+    var ary = [12,8,89,78,66,76,56,25,35];
+    //快速排序的原理： 首先取原有数组中的中间项；接下来循环原有的数组每一项，和中间项进行比较，如果比中间项的小的放在左边的数组中，比中间项大的放在右边的数组中；然后再对左边和右边数组进行刚才的操作；最后把所有的小数组和中间项串在一起就是排好的数组；
+
+    function quickSort(ary) {
+        // 当数组的长度小于等于1；直接return当前的数组；
+        if(ary.length<=1){
+            return ary;
+        }
+        var  middleIndex = Math.floor(ary.length/2);
+        var  middleVal = ary.splice(middleIndex,1)[0];
+        console.log(middleVal)
+        var left = [];
+        var right = [];
+        for(var i=0;i<ary.length;i++){
+            var cur = ary[i];
+            if(cur<middleVal){
+                left.push(cur);
+            }else{
+                right.push(cur);
+            }
+        }
+        
+        return quickSort(left).concat(middleVal,quickSort(right))
+    }
+    var  newAry = quickSort(ary);
+//  console.log(newAry);
+
+
+</script>
+</body>
+</html>

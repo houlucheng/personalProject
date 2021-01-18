@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			div{
+				width: 100%;
+				height: 30px;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+				var oDiv=document.getElementsByTagName('div');
+				var c=undefined;
+				var is=false;
+				for(var i=0;i<oDiv.length;i++){
+					oDiv[i].index=i
+					if(i%2){
+					oDiv[i].style.background='#e1e8fa';
+				}else{
+					oDiv[i].style.background='#edf2fe';
+				}
+				oDiv[i].onmouseover=function(){
+					c=this.style.background;
+					this.style.background='green'
+				};
+					var k=false;
+				oDiv[i].onclick=function(){
+
+					this.style.background="green";
+					this.onmouseout=function(){
+						this.style.background="c";
+					}
+
+					};
+					oDiv[i].onmouseout=function(){
+						this.style.background=c;
+					}
+				};
+
+//						if(this.is){
+//							this.style.backgroundColor = 'yellow';
+//							this.is=false;
+//						}else {
+//							this.style.backgroundColor = 'yellow';
+//							this.is = true;
+//						}
+
+
+				}
+
+			</script>
+	</head>
+	<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	</body>
+</html>

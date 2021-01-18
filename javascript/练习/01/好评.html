@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        window.onload = function() {
+            var a = document.getElementById('a');
+            var b = a.getElementsByTagName('img');
+
+            for(i = 0; i < b.length; i++) {
+                b[i].index = i;
+                b[i].onmouseover = function() {
+                    for(i = 0; i < b.length; i++) {
+                        b[i].src = 'img/xing.jpg';
+                    }
+                    for(i = 0; i <= this.index; i++) {
+                        b[i].src = 'img/hongxing.png';
+                    }
+                    document.getElementById('d').
+                            innerHTML = (this.index + 1) + '分'
+                }
+            }
+        }
+    </script>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            margin-top: 100px;
+        }
+        #a span {
+            float: left;
+            margin-top: 20px;
+        }
+
+        #a img {
+            width: 20px;
+            height: 20px;
+            float: left;
+            margin: 20px;
+        }
+        #d{ width: 100px; height: 40px; line-height: 40px; text-align: center; }
+        .url {
+        url("img/hongxing.png");
+        }
+        #d{
+            color: red;
+            line-height: 55px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="box">
+    <div id="a">
+        <span>送货速度：</span>
+        <img src="img/xing.jpg">
+        <img src="img/xing.jpg">
+        <img src="img/xing.jpg">
+        <img src="img/xing.jpg">
+        <img src="img/xing.jpg">
+    </div>
+    <span id="d">0分</span>
+</div>
+</body>
+
+</html>

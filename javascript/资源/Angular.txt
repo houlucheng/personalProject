@@ -1,0 +1,137 @@
+Angular 是Google提供的一套基于MV*(MVC或MVVM)结构的JavaScript开发工具，它也是一套开源的项目框架。
+MVC：Model（模型）－View（视图）－Controller（控制器）
+主要特性：   指令系统 . 模块系统 . MVC模式 . 依赖注入 . 数据双向绑定 
+核心功能： 对现有HTML编码以指令方式进行扩展，并使扩展后的HTML编码可以通过使用元素声明的方式来构建动态内容。
+适用场景：（增加Create、查询Retrieve、更新Update、删除Delete）
+不适用： 酷炫的动画效果  繁琐的Dom操作
+
+ng-app  angularjs它的控制范围。
+ng-controller=""  控制器
+
+var app=angular.module("app",[]);
+app.controller("ctrl",function($scope){
+	$scope.name="阅读考察表";
+})
+app.controller("ctrl2",["$scope",function($scope){
+	$scope.name="H5学院";
+}])
+
+$scope   局部作用域 
+$rootScope   全局作用域 
+数据绑定三种格式： 表达式形式
+ ng-bind:"";
+ ng-model:""   用于表单数据绑定 
+ {{}}
+闪屏问题： ng-cloak  class="ng-cloak"
+<div ng-init="name='货币'"></div> 初始化
+ng-selected 	指定元素的 selected 属性	
+select下拉  ng-options="i.name as i.name group by i.type for i in jop"  固定语法
+			把选的值赋值给value   用name循环  用类型分组
+
+ng-checked="true"
+ng-click="plus()"
+ng-value="price*num"
+ng-show=""   display:block方式
+ng-hide=""
+ng-if=""  删除创建节点方式
+ng-repeat="i in people" 遍历
+
+ng-csp  提高了 30% 的性能
+ng-src="{{baidu.img}}"
+ng-href="{{baidu.url}}"
+两种方式
+ng-style="{background:'red','color':'#fff','font-size':'50px'}"
+ng-style="json"
+ng-class="{true:'red',false:'lime'}[isRed]"
+ng-keydown="down()" ng-keypress="press()"  ng-keyup="up()"
+ng-dblclick="dblclick()"双击   ng-mouseover="over()" ng-mouseout="out()"
+
+$http({
+	url:"2.php"
+     }).success(function(d){
+	$scope.data=d;
+     })
+
+表单
+ng-focus 	规定得到焦点事件的行为
+ng-blur 	规定失去焦点事件的行为ng-change 	规定在内容改变时要执行的表达式
+ng-checked 	规定元素是否被选中事件
+ng-submit 	规定表单提交事件发生时执行的表达式
+action="temp.html"  表单跳转  写在form 表单中
+cellpadding="10"  表单padding值
+ng-model-options="{updateOn:'blur'}"  表单输入完才显示
+ng-model-options="{debounce:1000}"  输入完延迟1秒显示
+ng-readonly="true"  表单禁用
+表单验证
+$invalid 没通过 不能用 必须输入正确 通过验证  ng-invalid
+$valid  通过  ng-valid
+$pristine  没有使用过则为true   ng-pristine 
+$dirty     使用过则为true   ng-dirty  
+$error  错误
+ng-disabled 	规定一个元素是否被禁用
+ng-submit="fn()" 写在form表单上 提交跳转时触发
+ng-minlength="3" 最小输入几位    ng-maxlength="5" 最多输入几位
+
+过滤器 （|管道符）
+ |uppercase 过滤器将字符串格式化为大写 
+ 
+ |lowercase 过滤器将字符串格式化为小写 
+ 
+ |json 格式化后就转换成了json数据  
+
+ |currency 过滤器将数字格式化为货币格式
+
+ |filter 过滤器从数组中选择一个子集(参数：string/object，fn)
+
+ |limitTo  限制数组长度或字符串长度(+-)
+
+orderBy 过滤器根据表达式排列数组(参数：属性)
+number 过滤器为数字加上千位分割123,456,789同时有一个参数，可以指定小float类型保留几位小数
+date ：[medium/short/fullDate/longDate/mediumDate/shortDate/shortTime/yy-MM-dd/yyyy-MM-dd HH:mm:ss/yyyy/MM/dd HH:mm:ss/yyyy年MM月dd日 HH时mm分ss秒]
+
+自定义过滤器
+app.filter("abc",function(){
+	return function(d,f){
+}
+})
+
+$watch
+$watch第二个参数为函数时，它接收2个参数：newValue(新值)      oldValue(旧值)
+
+自定义指令
+directive
+restrict：“ECMA”
+template  templateUrl 字符串或者函数，可选，(一段HTML文本)replace:布尔值，默认值为false，设置为true的时候，模板插入的位置不会出现原来的标签；transclude: true,//自定义指令复制原始标记中的内容到<p ng-transclude></p>中
+priority(数字)，可选参数，指明指令的优先级，若在单个DOM上有多个指令，则优先级高的先执行
+
+内置服务
+$location 服务它可以返回当前页面的 URL 地址
+$timeout  服务对应了 JS window.setTimeout 函数
+$interval 服务对应了 JS window.setInterval 函数
+$http 	  服务是用来创建AJAX调用，以获得服务器的数据
+
+自定义服务
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

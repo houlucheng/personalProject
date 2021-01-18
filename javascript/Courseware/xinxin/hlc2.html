@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .footer{
+            margin-left: 30px;
+        }
+        .box{
+            width: 500px;
+            height: 60px;
+            background: plum;
+            margin: 30px;
+            overflow: hidden;
+        }
+        .box h3{
+            float: left;
+            font-weight: normal;
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .box button {
+            float: left;
+            margin-right: 10px;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        .box i{
+            float: left;
+            display: inline-block;
+            margin-top: 20px;
+            margin-left: 5px;
+        }
+        .box p{
+            float: left;
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h3>苹果 :   单价<span id="unit">8</span></h3>
+    <button id="jian">-</button>
+    <i id="i">0</i>
+    <button id="jia">+</button>
+    <p>总价 : <span id="total">0</span></p>
+</div>
+<div class="box">
+    <h3>香蕉 :   单价<span id="dan">5</span></h3>
+    <button id="reduce">-</button>
+    <i id="zero">0</i>
+    <button id="add">+</button>
+    <p>总价 : <span id="zong">0</span></p>
+</div>
+<div class="box">
+    <h3>葡萄 :   单价<span id="one">3</span></h3>
+    <button id="minus">-</button>
+    <i id="ice">0</i>
+    <button id="hot">+</button>
+    <p>总价 : <span id="always">0</span></p>
+</div>
+<div class="footer">结算 :<span id="zj">0</span></div>
+<script>
+   /* let box = document.getElementById("box");
+    console.log(box.innerHTML);*/
+
+    let jian = document.getElementById("jian");
+    let jia  = document.getElementById("jia");
+    let i = document.getElementById("i");
+    let unit = document.getElementById("unit");
+    let total = document.getElementById("total");
+    /*let dan = document.getElementById("dan");
+    let minus = document.getElementById("minus");
+    let ice = document.getElementById("ice");
+    let hot = document.getElementById("hot");
+    let always = document.getElementById("always");*/
+
+    jia.onclick = function () {
+        i.innerText++;
+        a = total1();
+       jiesuan(a);
+    };
+    jian.onclick = function () {
+        i.innerText --;
+        if(i.innerText <= 0){
+           i.innerText = 0;
+        }
+        total1();
+        jiesuan(a);
+    };
+   add.onclick = function () {
+       zero.innerText++;
+       b = total2();
+
+   };
+   reduce.onclick = function () {
+       zero.innerText --;
+       if(zero.innerText <= 0){
+           zero.innerText = 0;
+       }
+       total2();
+
+   };
+   hot.onclick = function () {
+       ice.innerText ++;
+       c = total3();
+
+   };
+   minus.onclick = function () {
+       ice.innerText --;
+       if(ice.innerText <= 0){
+           ice.innerText = 0;
+       }
+       total3();
+
+   };
+   function total1() {
+       total.innerText = i.innerText * unit.innerText;
+   }
+   function total2() {
+       zong.innerText = zero.innerText * dan.innerText;
+   }
+   function total3() {
+       always.innerText = ice.innerText * one.innerText;
+   }
+   function jiesuan(a,b,c) {
+       zj.innerText = a + b + c;
+   }
+
+
+
+
+
+</script>
+</body>
+</html>

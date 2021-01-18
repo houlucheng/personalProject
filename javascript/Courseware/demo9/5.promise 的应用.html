@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="jquery-1.11.3.js"></script>
+<script>
+    // promise ： 解决的异步的回调地狱；
+    //如果有两个请求，第二个请求需要在第一个请求成功之后，再进行发送；
+    // 请求完aside.json之后，再发送第二个请求，请求banner.json
+
+    let  p = new Promise(function (resolve,reject) {
+        $.ajax({
+            url:"aside.json",
+            dataType:"json",
+            success:function () {
+                resolve();
+            }
+        })
+    });
+    p.then(function () {
+        $.ajax({
+            url:"banner.json",
+            dataType:"json",
+            success:function () {
+
+            }
+        })
+    });
+    function queryFn(url) {
+        return new Promise(function (resolve,reject) {
+            $.ajax({
+                url:url,
+                dataType:"json",
+                success:function () {
+                    resolve();
+                }
+            });
+        });
+    }
+    queryFn("aside.json").then(function () {
+        return queryFn("banner.json");
+    }).then(function () {
+        queryFn("111.json")
+    });
+    // then : 可以只传一个参数；那么这个参数是成功的回调；
+    function f() {
+        function a(){
+            return 10;
+        }
+        a()
+    }
+    console.log(f());
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #whf-xl-left-sub {
+            border: 1px solid #F7F7F0;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            min-height: 19px;
+            margin-top: 20px;
+            background-color: #f7f7f7;
+            width: 80%;
+            margin-left: 20px;
+            overflow: hidden;
+            position: relative;
+
+        }
+        #whf-xl-left-sub div{
+            width: 0;
+            height: 100%;
+            background-color: orange;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 20px;
+        }
+        #whf-xl-left-sub span{
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            z-index: 100;
+            cursor: pointer;
+
+        }
+        #whf-xl-left-sub span:first-child{
+            position: absolute;
+            left: 0;
+            z-index: 999;
+        }
+        #whf-xl-left-sub span:nth-child(2){
+            position: absolute;
+            right: 0;
+            z-index: 999;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div id="whf-xl-left-sub">
+    <span></span><span></span>
+    <div></div>
+
+</div>
+</body>
+</html>
+<script>
+    var sub = document.getElementById("whf-xl-left-sub");
+    var ddd = sub.getElementsByTagName("div")[0];
+    var sp = sub.getElementsByTagName("span");
+    sp[0].onmousedown = function () {
+        document.onmousemove = function (ev) {
+            ev = ev || event;
+            if (ev.clientX < sub.offsetLeft || sp[0].offsetLeft > sub.offsetWidth) {
+                sp[0].style.left = 0;
+            } else {
+                sp[0].style.left = ev.clientX - sub.offsetLeft + "px";
+                ddd.style.left = sp[0].offsetLeft + "px";
+                if(sp[1].offsetLeft>sp[0].offsetLeft){
+                    ddd.style.width = sp[1].offsetLeft - sp[0].offsetLeft + 19 + "px";
+                    ddd.style.left=sp[0].offsetLeft+"px";
+                }else{
+                    ddd.style.width = sp[0].offsetLeft - sp[1].offsetLeft + 19 + "px";
+                    ddd.style.left=sp[1].offsetLeft+"px";
+                }
+
+
+            }
+        };
+    }
+
+    sp[1].onmousedown = function () {
+        document.onmousemove = function (ev) {
+            ev = ev || event;
+            if (ev.clientX < sub.offsetLeft || sp[1].offsetLeft >256+"px") {
+                sp[1].style.right = 0;
+            } else {
+                sp[1].style.left = ev.clientX - sub.offsetLeft + "px";
+                ddd.style.left = sp[0].offsetLeft + "px";
+                if(sp[0].offsetLeft>sp[1].offsetLeft){
+                    ddd.style.width = sp[0].offsetLeft - sp[1].offsetLeft + 19 + "px";
+                    ddd.style.left=sp[1].offsetLeft+"px";
+                }else{
+                    ddd.style.width = sp[1].offsetLeft - sp[0].offsetLeft + 19 + "px";
+                    ddd.style.left=sp[0].offsetLeft+"px";
+                }
+            }
+        }
+    };
+    document.onmouseup = function () {
+        document.onmousemove = null;
+        return false
+    };
+
+
+</script>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#app div {
+    width:150px;
+    height: 50px;
+    border: 1px solid #000;
+    display: none;
+}
+#app div.show{
+    display: block;
+}
+.active{
+    background: yellow;
+}
+</style>
+</head>
+<body>
+    <section id="app">
+        <!-- <button class="active">你好</button>
+        <div class="show">1232132</div> -->
+    </section>
+<script src="./jquery-3.1.1.js"></script>
+<script src="./tabs.js"></script>
+<script>
+    $('#app').tabs({
+        btns:['国际','国内','山间']
+    });
+</script>
+</body>
+</html>

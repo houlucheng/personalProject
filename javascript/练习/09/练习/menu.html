@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .cont{
+            width: 400px;
+            background-color: #FFFFFF;
+            box-shadow: 2px 1px 2px rgba(0,0,0,.5);
+            margin: 100px auto;
+        }
+        .cont h2{
+            text-align: center;
+            line-height: 40px;
+            background-color: #71c9e2;
+        }
+        ul li{
+            height: 50px;
+            line-height: 50px;
+            border-bottom: solid 1px red;
+        }
+        ul>li:last-child{
+            border: none;
+        }
+        ul>li span{
+            float: left;
+            width: 10px;
+            height: 100%;
+
+        }
+        ul>li img{
+            width: 50px;
+        float: left;
+        }
+    </style>
+</head>
+<body>
+<div class="cont">
+    <h2>Menu Box</h2>
+    <ul>
+        <li><span></span><img src="" alt="">Message</li>
+        <li><span></span><img src="" alt="">Location</li>
+        <li><span></span><img src="" alt="">Invitation</li>
+        <li><span></span><img src="" alt="">Account Settings</li>
+        <li><span></span><img src="" alt="">Favourite</li>
+    </ul>
+</div>
+<script>
+    var li=document.querySelectorAll("li")
+    var oSpan=document.querySelectorAll("span")
+
+    for (var i=0;i<li.length;i++){
+        li[i].index=i;
+        li[i].onmouseover= function () {
+            for (var i=0;i<li.length;i++){
+                oSpan[i].style.backgroundColor=""
+                li[i].style.backgroundColor="#fff"
+            }
+            oSpan[this.index].style.backgroundColor="blue"
+            li[this.index].style.backgroundColor="red"
+
+        }
+    }
+</script>
+</body>
+</html>

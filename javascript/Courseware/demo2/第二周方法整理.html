@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 数组的方法
+    //1.push  向数组的末尾新增一项；
+    //2.pop    删除数组的最后一项
+    //3.unshift   向数组的开头新增一项
+    //4.shift     删除数组的第一项
+    //5.slice(m,n)从索引m开始，截取到索引n,但不包含索引n那一项
+    //6.splice 删除 修改 新增   splice(m,n) 从索引m开始，截取n项，并以数组的形式返回；对于原数组是删除n项；
+    // 7.sort    对数组进行排序
+    // 8. reverse   数组倒过来排
+    // 9. join  把数组每一项按照特定的字符连接，并以字符串的形式返回；
+    // 10. concat   数组的克隆
+    //11. indexOf  返回当前项在数第一次出现的索引
+    // 12. lastIndexOf返回当前项在数组中最后一次出现的索引位置
+    //13.forEach/map  遍历数组
+
+    // node  : 节点
+    //           nodeType     nodeName       nodeValue
+    // 元素节点：    1           大写的标签名      null
+    // 文本节点 ：   3           #text         文本内容
+    // 注释节点：    8           #comment      注释内容
+    // document    9            #document      null
+    //（空格换行都是文本节点）
+
+    // DOM 节点的关系属性
+    // 1. childNodes :获取元素的所有子节点；
+    // 2. children :获取元素所有子元素节点
+    // 3.parentNode : 获取当前元素的父亲节点
+    // 4.previousSibling : 上一个哥哥节点；
+    // previousElementSibling : 获取上一个哥哥元素节点  // 在IE8 及以下是不兼容的
+    // 5.nextSibling  : 获取下一个弟弟节点；
+    // nextElementSibling : 获取下一个弟弟元素节点  在IE8 及以下是不兼容的
+    // 6.firstChild : 第一个子节点
+    //  firstElementChild : 获取第一个子元素节点
+    // 在IE8 及以下是不兼容的
+    // 7.lastChild  : 获取最后一个子节点
+    // lastElementChild : 获取最后一个子元素节点  在IE8 及以下是不兼容的
+
+    // 动态操作DOM
+    // 1.document.createElement;创建元素对象
+    // 2. appendChild : 向容器的末尾添加一个元素；
+    // 3.insertBefore : 向容器中某一个元素的前面添加元素
+    //  outer.insertBefore(a,center)
+    // 4.removeChild : 删除子节点
+    //  outer.removeChild(center)
+    // 5. replaceChild : 替换子节点
+    //  outer.replaceChild(a,center)
+    // 6.cloneNode  克隆
+    // true : 深克隆
+    // false : 浅克隆，默认是浅克隆；
+    // 7.get/set/ remove Attribute : 获取、设置、删除自定义属性
+
+    // DOM获取元素
+    // 1. id获取  id是唯一的； 如果id重复，那么获取第一个元素；
+    // document.getElementById("a")
+    // 2.document.getElementsByClassName(""):通过class来获取
+    // 在IE8 及以下不兼容，没有这个方法
+    //    var  a = document.getElementsByClassName("box")[0];
+    // 3. document.getElementsByTagName() : 通过标签名来获取元素
+    // 4.getElementsByName(): 一般用于表单元素；
+    // 5: document.documentElement : 获取html;
+    // console.log(document.documentElement.clientWidth);
+    // console.log(document.documentElement.clientHeight);
+    // 6.document.body : 获取页面的body；
+    // 7.querySelector： 获取第一个  id用#修饰  class用；
+    // console.log(document.querySelector(".b"));
+    // 8.querySelectorAll : 获取所有的
+
+    // Math  :
+    // 1. Math.abs() 取绝对值
+    // 2.Math.ceil()  : 向上取整
+    //Math.ceil(0.1)// 1
+    // 3. Math.floor() : 向下取整
+    // 4. Math.round() : 四舍五入  得到一个整数，结果值需要看小数点后面的第一位
+    // 5.Math.random()  产生一个[0-1) 随机小数；
+    // 6. 80-100之间的一个随机整数
+    //  Math.round(Math.random()*(100-80)+80)
+    //  Math.round(Math.random()*(n-m)+m)
+    /// 7.Math.max : 获取一组数中的最大值
+    //  Math.max(20,99,10,8,10,66)
+    // 8.Math.min  : 获取一组数中的最小值
+    // 9.Math.sqrt() : 开平方
+    // 10.Math.pow(2,3) : 获取幂次方
+
+
+    // 1. charAt： 通过索引获取字符
+    // 2.charCodeAt : 通过索引获取当前字符的Unicode编码值
+    // 3.substr(n,m):  从索引n开始，截取m个字符；
+    // 4.substring(n,m) : 从索引n开始,截取到索引m，不包含m;
+    // 5.slice(n,m) : 和substring一样；支持负数作为索引进行截取的；
+    // 6.toUpperCase :把小写转大写；
+    // 7.toLowerCase : 大写转小写
+    // 8.indexOf : 检测当前字符在字符串第一次出现的索引位置； 检测当前字符在字符串是否存在，如果不存在，返回-1；
+    // 9. lastIndexOf : 检测当前字符最后一次出现的索引位置;检测当前字符在字符串是否存在，如果不存在，返回-1；
+    //    console.log(str.lastIndexOf("l"));// 8
+    // 10.split: 把按照特定字符分隔数组中的每一项；
+    //    console.log(str.split(""));
+    // 11.replace:替换字符串，每次只能替换一个；原有字符串不变；
+    //    console.log(str.replace("l", "a").replace("l", "a"));
+    // 12. trim /trimLeft /trimRight: 去除首尾空格
+    // trimLeft : 去除开头空格
+    // trimRight : 去除末尾空格；
+
+    // 获取当前电脑的系统时间；
+    //var time= new Date();
+    // 1. getFullYear : 获取时间年
+    //console.log(time.getFullYear());// 2018
+    // 2. getMonth : 获取时间月
+    //console.log(time.getMonth());// [0-11]
+    // 3. getDate(): 时间日
+    //console.log(time.getDate());
+    // 4. getDay() : 获取星期几
+    //console.log(time.getDay());//[0-6]  星期日是0；
+    // 5.getHours: 获取当前小时数
+    //console.log(time.getHours());
+    // 6.getMinutes() : 获取分钟数
+    //console.log(time.getMinutes());
+    // 7.getSeconds() : 获取秒
+    //console.log(time.getSeconds());
+    //8.getMilliseconds : 获取毫秒 ； 一秒等于1000毫秒
+    //console.log(time.getMilliseconds());
+    // 9.getTime() : 获取当前时间距离1970-1-1时间的毫秒差；
+    //console.log(time.getTime());
+</script>
+</body>
+</html>

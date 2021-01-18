@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" class="in1">
+<input type="text" class="in2">
+<input type="button" class="button" value="比较">
+<script>
+    var in1=document.querySelector(".in1");
+    var in2=document.querySelector(".in2");
+    var button=document.querySelector(".button");
+    button.onclick=function(){
+        if (in1.value>in2.value){
+            in1.style.border="solid 1px red";
+            in2.style.border="solid 1px #fff";
+console.log("1")
+
+        }else{
+            in2.style.border="solid 1px red";
+            in1.style.border="solid 1px #fff";
+            console.log("2")
+        }
+    }
+
+</script>
+</body>
+</html>

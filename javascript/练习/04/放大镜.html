@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title></title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .div {
+            width: 200px;
+            height: 300px;
+            float: left;
+        }
+
+        #div1 {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #999999;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #div1 img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #div2 {
+            width: 300px;
+            height: 300px;
+            float: left;
+            border: 1px solid black;
+            display: none;
+            overflow: hidden;
+            position: relative;
+        }
+
+        span {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, .5);
+            z-index: 4;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: move;
+        }
+
+        #div2 img {
+            width: 1200px;
+            height: 1200px;
+            position: absolute;
+        }
+
+        #div4 {
+            width: 200px;
+            height: 100px;
+            margin-top: 10px;
+        }
+
+        #div4 img {
+            width: 21.5%;
+            height: 55%;
+            float: left;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<script>
+    window.onload = function () {
+        var oSallpic = document.getElementById('div1');
+        var oBig = document.getElementById('div2');
+        var oSpan = document.getElementById('div3');
+        var center = document.getElementById('div4');
+        for (var i = 0; i < center.children.length; i++) {
+            center.children[i].onclick = function () {
+                oSallpic.children[0].src = this.getAttribute('src');
+                oBig.children[0].src = this.getAttribute('src')
+            }
+        }
+        oSallpic.onmouseover = function () {
+            oSpan.style.display = oBig.style.display = 'block'
+        };
+        oSpan.onmousemove = oSallpic.onmousemove = function (ev) {
+            var ev = ev || event;
+            oSpan.style.left = ev.clientX - oSallpic.offsetLeft - oSpan.offsetWidth / 2 + 'px';
+            oSpan.style.top = ev.clientY - oSallpic.offsetLeft - oSpan.offsetHeight / 2 + 'px';
+            if (oSpan.offsetLeft <= 0) {
+                oSpan.style.left = 0;
+            }
+            if (oSpan.offsetLeft >= 150) {
+                oSpan.style.left = 150 + 'px';
+            }
+            if (oSpan.offsetTop >= 150) {
+                oSpan.style.top = 150 + 'px';
+            }
+            if (oSpan.offsetTop <= 0) {
+                oSpan.style.top = 0;
+            }
+            var l = oSpan.offsetLeft / (oSallpic.offsetWidth - oSpan.offsetWidth);
+            oBig.children[0].style.left = -(oBig.children[0].offsetWidth - oBig.offsetWidth) * l + 'px';
+            var t = oSpan.offsetTop / (oSallpic.offsetHeight - oSpan.offsetHeight);
+            oBig.children[0].style.top = -(oBig.children[0].offsetHeight - oBig.offsetHeight) * t + 'px'
+        };
+        oSallpic.onmouseout = function () {
+            oSpan.style.display = oBig.style.display = 'none'
+        };
+    };
+</script>
+<body>
+<div class="div">
+    <div id="div1">
+        <img src="img/a.jpg" alt=""/>
+        <span id="div3"></span>
+    </div>
+    <div id="div4">
+        <img src="img/a.jpg" alt=""/>
+        <img src="img/b.jpg" alt=""/>
+        <img src="img/c.jpg" alt=""/>
+        <img src="img/d.jpg" alt=""/>
+    </div>
+</div>
+<div id="div2">
+    <img src="img/a.jpg" alt=""/>
+</div>
+</body>
+</html>

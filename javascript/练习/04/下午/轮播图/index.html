@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{margin: 0;padding: 0;}
+			ul,
+			li {
+				list-style: none;
+			}
+			a,a:hover,a:active,a:target,a:visited{
+				text-decoration: none;
+				color: #424242;
+			}
+			img{
+				border: none;
+				display: inline-block;
+			}
+			#bannerFir {
+				position: relative;
+				width: 1000px;
+				height: 400px;
+				margin: 20px auto 0;
+			}
+			.bannerInner{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				background-color: black;
+			}
+			.bannerInner img{
+				display: none;
+				height: 100%;
+			}
+			.bannerInner img.select{
+				display: inline-block;
+			}
+			.bannerTip{
+				position: absolute;
+				width: 1000px;
+				z-index: 10;
+				bottom:-120px;
+				overflow: hidden;
+			}
+			.bannerTip li{
+				width: 155px;
+				height: 100px;
+				margin-left: 10px;
+				float: left;
+				cursor: pointer;
+			}
+		.bannerTip>li>img{
+			width: 100%;
+			height:100%;
+		}
+			.bannerTip li.bg{
+				border: 5px solid #FFA500;
+			}
+			.banner  a{
+				position: absolute;
+				width: 35px;
+				height: 45px;
+				z-index: 10;
+				top:50%;
+				opacity: 0.5;
+				filter: alpha(opacity=50);
+				background: url(img/pre.png);
+			}
+			.banner a.bannerLeft{
+				left: 20px;
+				background-position: 0 0;
+			}
+			.banner a.bannerRight{
+				right: 20px;
+				background-position: -50px 0;
+			}
+			a:hover{
+				opacity: 1;
+				filter:alpha(opacity=100) ;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="banner" id="bannerFir">
+			<div class="bannerInner">
+				<img src="img/1.jpg" class="select" />
+				<img src="img/2.jpg" />
+				<img src="img/3.jpg" />
+				<img src="img/4.jpg" />
+				<img src="img/5.jpg"/>
+				<img src="img/6.jpg"/>
+			</div>
+			<ul class="bannerTip">
+				<li class="bg"><img src="img/1.jpg"></li>
+				<li><img src="img/2.jpg" /></li>
+				<li><img src="img/3.jpg" /></li>
+				<li><img src="img/4.jpg" /></li>
+				<li><img src="img/5.jpg" /></li>
+				<li><img src="img/6.jpg" /></li>
+			</ul>
+			<a href="javascript:;" class="bannerLeft"></a>
+			<a href="javascript:;" class="bannerRight"></a>
+		</div>
+		<script type="text/javascript">
+		    var oLunbo=document.querySelector('#bannerFir')
+			var oLis = document.querySelectorAll(".bannerTip li");
+			var oImgs = document.querySelectorAll(".bannerInner img");
+			var oAs = document.querySelectorAll(".banner a");
+
+			function change(n) {
+				for (var i = 0; i < oLis.length; i++) {
+					oLis[i].className = "";
+					oImgs[i].className = "";
+				}
+				oLis[n].className = "bg";
+				oImgs[n].className = "select";
+			}
+			var step = 0;
+			for (var i = 0; i < oLis.length; i++) {
+				oLis[i].i = i;
+				oLis[i].onclick = function() {
+					change(this.i);
+					step = this.i;
+				}
+			}
+			oAs[0].onclick = function() {
+				step--;
+				step < 0 ? step = 5 : null;
+				change(step);
+			}
+			oAs[1].onclick = function() {
+				step++;
+				step >5 ? step = 0 : null;
+				change(step);
+			}
+			function autoPlay(){
+				oLunbo.aaaa=setInterval(function(){
+					oAs[0].onclick();
+				},1000)
+			};
+			autoPlay();
+			oLunbo.onmouseover=function(){
+				clearInterval(oLunbo.aaaa)
+			}
+			oLunbo.onmouseout=function(){
+				autoPlay();
+			}
+		</script>
+	</body>
+
+</html>

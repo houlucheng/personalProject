@@ -1,0 +1,229 @@
+npm 包管理器
+npm i mysql --save连接mysql
+脚手架npm i  express-generator -g
+忽略 touch .gitignore
+express new(自定义文件名)
+require('fs') //管理文件和文本
+fs.readFile('public/hlc.txt','utf-8',function(err,data){
+	console.log(data)
+})//同步	读取文件
+var a=fs.readFileSync('public/hlc.txt','utf-8')//异步
+ console.log(a)
+writeFile  写入
+throw err  弹出错误
+通常在异步操作的时候执行回调函数
+res.header('Access-Control-Allow-Origin',"*") 让所有域都可以访问
+express把 node常用方法封装了
+send直接发送，发送的是对象，一般都用send
+render渲染，只是读页面
+fs.unlink("....txt",function(e){})
+http://www.bootcdn.cn/jquery/  JQ库
+orqcle   mySql数据库
+链接  数据库  数据表
+DELETE FROM baobao WHERE id=1
+INSERT INTO JGR (title,time) VALUES ('news4',now())
+SELECT * FROM baobao WHERE id<10 AND id>5
+SELECT * FROM baobao WHERE id<10 OR id>5
+SELECT * FROM baobao ORDER BY id ASC    正序
+SELECT * FROM baobao ORDER BY id DESC  倒叙
+SELECT * FROM baobao WHERE title LIKE "%new%" （title里面中间是new的）
+SELECT * FROM baobao WHERE title LIKE "new_"  (new后面只能有一个)
+SELECT * FROM baobao LIMIT 0,2 (前两条)
+SELECT * FROM baobao LIMIT 1,2 (选择2,3条) 第一个从哪开始第二个选择几条
+SELECT * FROM baobao ORDER BY id DESC LIMIT 0,1 (最后一条)
+SELECT COUNT(*) AS num(随便写) FROM baobao (获取里面一共有多少条数据)
+UPDATE baobao SET name='jgr',title=now() WHERE id=1   修改
+
+git init  初始化管理
+git add . 所有文件都管理
+git commit -m '1234'  
+git push http://.....
+git clone http://...克隆
+git pull 合并同步
+
+save 安装
+edit 编辑
+option 选项
+creat 创建
+repository 仓库
+stage 舞台
+commit 提示
+Browse 浏览
+
+
+https://github.com/sunxiaolin0903/sunxiaolin0903.git
+
+
+directory 目录 sourse 资源
+location 本地
+
+怎么合作 完成一个项目：
+
+在github里找要做的项目，点settiing---左边第二个Collaborators,然后把你要合作的人的仓库名称写上面，再点右面的确定，等对方接受，然后把对方路径克隆到自己电脑上，然后等他修改完在传到github里，然后我再克隆他的地址， 克隆完 右键 Rwmode（更新）Fetch from --origin ，然后点Merge （合并）里的第一个  然后点Merge  ，以后每次修改的时候就直接更新合并就行了
+
+
+
+
+谁调用this this就指向谁
+
+改变this指向：call apply bind
+call里面的this是改变函数的作用域
+call apply参数不同
+call(this,1,2,3)
+apply(this,[1,2,3])
+
+
+
+npm install jquery --save  安装前端框架 写--save 往package.json加了个字段
+npm install bootstrap --save 安装css插件
+install 安装
+uninstall 卸载
+
+npm -v查看版本号
+
+touch .gitignore
+gitignore忽略
+
+安装脚手架：npm install express-generator -g  全局下的   所有-g的东西装一遍就行
+新建个文件夹，在文件夹里面按shift和右键，在此处
+express demo 创建新文件夹
+npm i jquery
+npm i 读取package.json东西  建个node_modules文件夹
+npm start  打开服务器
+
+SPA sinple page application单页面
+缺点：第一次加载慢，要全部加载完
+好处：局部刷新，速度快
+
+i=i+2 
+i+=2  速度快
+
+只有$和_可以当作变量名，其他符号不可以
+
+定时器异步加载，可以同时执行
+
+iframe 标签 异步加载
+ajax也是异步的 
+
+
+
+get为什么不安全
+因为传数据的话get url地址
+render 渲染
+js模块化好处是输出的是一个变量 如果两个模块有相同的变量，两个模块之间不冲突
+
+require（‘fs’）引用node_modules里面的fs文件夹
+
+require（‘./fs’）引用同级下的fs
+readFile也是异步的
+redFileSync同步的
+fs模块（脚手架里自带的，如果不安装脚手架，就需要自己下一个fs ）
+const fs = require('fs')
+
+
+fs.existsSync(path)//return true or false
+//判断是否存在
+
+fs.mkdir(path[,mode],callback)
+
+fs.mkdirSync(path[,mode])
+//创建目录
+
+fs.readFile(file[,options],callback)
+
+fs.readFileSync(file[,options])
+//读取文件
+
+fs.writeFile(file,data[,options],callback)
+
+fs.writeFileSync(file,data[,options])
+//写文件  读和写是异步的，不是同步的
+fs.rename(oldPath,newPath,callback)
+
+fs.renameSync(oldPath,newPath)
+//重命名
+
+fs.rmdir(path,callback)
+fs.rmdirSync(path)
+//删除目录
+fs.unlink(path,callback)
+fs.unlinkSync(path)
+//删除文件
+
+
+fs.rmdir("abc",function(err){ console.log(err) });//删空文件夹
+cd sxl
+cd ..回到上级
+
+$(function(){})先执行后加载
+window.onload(){}先加载完在执行 
+audio,video,link,script,iframe,img标签是异步的
+
+
+代码性能优化：压缩 合并
+jQuery 获取document.getElelmentByclassName,$(".div")很费劲，比较麻烦，要把所有className循环一遍，操作DOM耗时
+
+前台是ajax获取数据，接收后台
+后台是node或者jade,把数据发送给前台
+
+//前后台分离，互不影响 ----解耦
+用jade模版，耦合了
+
+
+耗时，不影响后面加载就用异步操作，比如for循环，定时器
+
+cdn--加速，访问过的，就可以直接加速访问，跳转远程
+
+
+服务端语言：node 
+客户端语言：
+
+协议名：
+http
+https不安全
+ftp
+:8080 :3000 端口号
+默认端口号:80,可以不写的
+通过域名访问服务器
+
+全栈
+
+http://www.swiper.com.cn/   
+https://ant.design/index-cn   全屏插件
+http://v3.bootcss.com/
+https://summernote.org/ 文本编辑
+作业：http://559a447c732ee.t73.qifeiye.com/
+
+后台判断是否登录，不登录不能展示页面
+"express-session": "latest"   （package.json）npm i
+
+app.use(session({
+  
+	// secret: 'wilson'
+  
+	secret: '12345',
+ 
+ 	name: 'testapp',   
+	//这里的name值得是cookie的name，默认cookie的name是：connect.sid
+
+	//  cookie: {maxAge: 80000 }, 
+ 	//设置maxAge是80000ms，即80s后session和相应的cookie失效过期
+  resave: false,
+  saveUninitialized: true,
+
+}));   ---------------- (app.js)
+
+var session = require('express-session');  ---------(app.js)
+
+req.session.uname = "admin";//设置session （登录成功之后设置）
+
+if(req.session.uname =="admin"){     --------------（要展示数据的接口里判断）
+
+
+
+
+
+
+
+
+

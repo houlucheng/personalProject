@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+<script src="./jquery-3.1.1.js"></script>
+<script>
+    /*
+        $.extend()
+
+        $('#box').hide()
+    */
+
+   let arr = [1,2,3,4,5,['j','Q']];
+//    let arr2 = arr;
+
+   let arr2 = $.extend(true,[],arr); //深度拷贝
+
+//    arr2.push(6);
+
+    arr2[5].push('K');
+
+//    console.log(arr);
+
+    // $.extend({
+    //     fn:function(){
+    //         alert(1);
+    //     }
+    // });
+
+    $.fn.extend({
+        fn:function(){
+            alert(2);
+        }
+    })
+
+    // $.fn();
+
+    $('#box').fn();
+
+</script>
+</body>
+</html>

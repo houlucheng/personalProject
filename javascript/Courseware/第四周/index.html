@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript" src="封装call方法.js"></script>
+		<script type="text/javascript">
+//			caller		 函数上面的属性 指向调用的上层
+//			callee	     arguments 上的一个属性  指向它所在的函数
+//			call      改变this指向  让前面的函数执行  将第二个开始的参数传给前面的函数
+//			apply		与call的差别就是传参的方式  
+//			bind			会返回一个改变this后的新函数  函数不执行  也可用来拷贝函数
+			
+//			throw new Error("我不想。。。") //手动抛出错误
+/*
+  console.log(new Function());
+    console.log(new Function("return a+b"));
+    //如果参数只有 一个的情况下，new出来的就是当前函数类实例化的函数体
+    console.log(new Function("a","b","return a+b"));
+    //如果参数是两个或者两个以上，最后一个参数是函数体中的内容，除了最后一个参数，其他的都是形参
+*/
+//			var ary = [1,2,4,5,7]
+//			Math.max.apply(null,ary);
+// 			let f = fn.bind(null)  //会返回一个改变this后的新函数  函数不执行  也可用来拷贝函数
+   				
+// 			低耦合 高内聚  减少代码冗余 提高代码重复使用的利用率
+//			深拷贝:  对象的深拷贝 先JSON.stringify()再JSON.parse()
+//			var newobj = {name:"小明",age:20}
+//		1.	var a = JSON.parse(JSON.stringify(newobj))
+//			a.reg="qwe"; 
+//			console.log(a)
+// 		2.	let {...obj4} = newobj
+// 			console.log(obj4)
+
+//		3.递归
+//			function num (n){
+//				if(n<=0){return 0} 
+//				return n+num(n-1)
+//			}
+//			num(100);
+//       4. 正则
+// 			13 到 78之间的数
+// 			var reg = /^(1[3-9])|([2-6]\9)|(7[0-8])$/
+
+/*
+//		ajax--------------------
+		var data = "";
+//     1.创建一个ajax对象
+		  var xhr = new XMLHttpRequest();
+//	   2.打开一个地址,进行配置请求
+//	   		1)请求方式[method]: get  post  put delete  head  option...
+//	   		2)请求地址[url]:api地址 url地址
+//	   		3)是否异步async: true 异步 false 同步
+	   	   xhr.open("get","hhh.txt",false);
+//	   3.监听状态请求
+		   xhr.onreadystatechange = function () {
+		   	if(xhr.readyState == 4 && xhr.status == 200){
+		   		data = xhr.response;
+		   	}		   	
+		   }
+//		4.发送请求
+		   xhr.send();
+		   console.log(data)
+*/		   
+		   
+		   
+		</script>
+	</body>
+</html>

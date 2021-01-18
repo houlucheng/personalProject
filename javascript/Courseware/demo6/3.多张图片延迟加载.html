@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #list{
+            width: 100%;
+            list-style: none;
+        }
+        #list li{
+            height: 80px;
+            border-bottom: 1px dashed lightblue;
+            padding-top: 10px;
+            padding-left: 10px;
+        }
+        #list img{
+            height: 60px;
+            width: 75px;
+            float: left;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <ul id="list">
+        <li>
+            <img src="img/1.jpg" alt="">
+            <div>
+                <h3>网络强国战略习近平与“十三五”十四大战略</h3>
+                <p>互联网是二十世纪人类最大的发明互联网是二十世纪</p>
+            </div>
+        </li>
+    </ul>
+    <script src="1/utils.js"></script>
+<script>
+    //获取ajax数据
+    var ul = document.getElementById("list");
+    var imgs = document.getElementsByTagName("img");
+    var data ;
+    var xhr = new XMLHttpRequest();
+    xhr.open("get","newList.json",false);
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState ===4 && /^2\d{2}$/.test(xhr.status)){
+            data = JSON.parse(xhr.responseText);
+        }
+    };
+    xhr.send();
+    console.log(data);
+
+
+   //2.绑定数据
+   function bingHTML() {
+       var str = '';
+       data.forEach(function (item) {
+           str +=`<li>
+            <img src="../" trueImg="${item.img}" alt="">
+            <div>
+                <h3>${item.title}</h3>
+                <p>${item.desc}</p>
+            </div>
+        </li>`
+
+       });
+       ul.innerHTML = str;
+   }
+   bingHTML();
+
+    //循环所有的图片执行delayImgCode；
+   function delayImg() {
+       for (var i = 0; i < imgs.length; i++) {
+           var cur = imgs[i];
+           delayImgCode(cur)
+       }
+   }
+   var winH = utils.win("clientHeight");
+
+
+   //判断当前图片是否延迟
+   function delayImgCode(img) {
+       if(img.load){
+           return;
+       }
+       // 获取当前图片的总高度和当前图片距离body的距离；
+       var curH = img.offsetHeight;
+       var curT = utils.offset(img).top;
+       //获取滚动 条卷起的高度
+       var winT = utils.win("scrollTop");
+
+       // 获取当前img的真实路径地址
+       var trueAddress = img.getAttribute("trueImg");
+       if(winH + winT > curH + curT){
+           var mg = document.createElement("img");
+           //var img = new Image;
+           mg.src = trueAddress;
+           //图片加载成功，执行onload
+           mg.onload = function () {
+               console.log(1);
+               img.src = trueAddress;
+               mg = null;
+               fadeIn(img);
+               img.load = true;
+           }
+       }
+   }
+     //opacity透明度
+    function fadeIn(curEle) {
+        // 初始化透明度；
+        utils.css(curEle,"opacity",0.3);
+        var timer = setInterval(function () {
+            var curOpa = utils.css(curEle,"opacity");
+            curOpa+=0.01;
+            if(curOpa>=1){
+                utils.setCss(curEle,"opacity",1);
+                clearInterval(timer);
+                return;
+            }
+            utils.setCss(curEle,"opacity",curOpa);
+        },10)
+    }
+
+    delayImg();
+    //当页面滚动条滚动，触发delayImg;判断每一张图片是否应该加载；
+   window.onscroll=delayImg;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

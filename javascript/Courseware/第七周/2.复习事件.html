@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(-45deg,lightcyan,lightpink,lightskyblue,lightcoral,lightgreen);
+            background: -webkit-linear-gradient(-45deg,lightcyan,lightpink,lightskyblue,lightcoral,lightgreen);
+            border-radius: 50%;
+            box-shadow: 3px 3px 3px #cccccc;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<div id="box1"></div>
+<script>
+    let box = document.getElementById("box");
+    //let box1 = document.getElementById("box1");
+    // 事件：
+
+    box.onmousedown = function (e) {
+        e = e || window.event;
+        this.l = box.offsetLeft;
+        this.t = box.offsetTop;
+        let changeL1 = e.clientX - this.l;
+        let changeT1 = e.clientY - this.t;
+        window.onmousemove = function move(e) {
+            e = e || window.event;
+            let changeL = e.clientX - changeL1;
+            let changeT = e.clientY - changeT1;
+
+            box.style.left =changeL + "px";
+            box.style.top = changeT + "px";
+        }
+         box.onmouseup = function(){
+            window.onmousemove = null
+        }
+
+    }
+
+    
+</script>
+</body>
+</html>

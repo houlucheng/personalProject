@@ -1,0 +1,42 @@
+html {
+	font-size: 0.12rem;
+	font-family: "微软雅黑";
+}
+
+body,
+dd,
+dl,
+dt,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+img,
+input,
+li,
+p,
+ul,
+ol{
+	margin: 0;
+	padding: 0;
+	border: 0
+}
+
+body {
+	background: #fff
+}
+
+dd,
+dl,
+dt,
+li,
+ul, 
+a{
+	list-style-position: outside;
+	text-decoration: none;
+}
+ul{
+	list-style-type: none;
+}

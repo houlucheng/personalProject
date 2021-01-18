@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 定义发布类；
+    function EventFire() {}
+    EventFire.prototype.on = function(type,fn){
+        //this--->实例
+        if(!this[type]){
+            this[type] = [];
+        }
+        let ary = this[type];
+        for(let i=0;i<ary.length;i++){
+            if(ary[i] === fn){
+                return;
+            }
+        }
+        ary.push(fn);
+    }
+    // 发布
+    EventFire.prototype.run = function (type) {
+        // this
+        // 得到这个类型下的数组，数组中的方法；
+        let ary = this[type];
+        if(ary){
+            for(let i=0;i<ary.length;i++){
+                if(typeof ary[i]==="function"){
+                    ary[i].call(this)
+                }
+            }
+        }
+    }
+    // 取消订阅
+    EventFire.prototype.off = function (type,fn) {
+        let ary = this[type];
+        for(let i=0;i<ary.length;i++){
+            if(fn === ary[i]){
+                ary[i] = null;
+            }
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

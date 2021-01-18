@@ -1,0 +1,133 @@
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />  
+<script type="text/javascript">
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					docEl.style.fontSize = 16 * (clientWidth / 320) + 'px';
+
+				};
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	设计图宽320  量出来的实际px值除以16
+
+ 
+ <script>  
+ window.onload = function() {  
+ document.documentElement.style.fontSize = document.documentElement.clientWidth / 16 + 'px';  
+ window.onresize = function() {  
+ document.documentElement.style.fontSize = document.documentElement.clientWidth / 16 + 'px';  
+ };  
+ };  
+ </script>
+
+
+
+
+
+
+
+　2、克隆之前首先要选择克隆文件的位置（cd）
+　　clone已有仓库
+　　git clone git@github.com:XXX/yyyy.git //XXX为github的用户名，yyy为仓库名
+　　3、在对应的文件夹中添加新有项
+　　git status
+　　4、提交
+　　git add mmm.sss //mmm为文件名称，sss为文件拓展名（常用git add .）
+　　git commit -m "hhh" //hhh为git commit 提交信息，是对这个提交的概述
+
+　　git log//用于查看提交日志
+　　git push //更新GitHub上的仓库
+
+　　5、用git创建仓库
+
+　　mkdir nnn //仓库名
+
+　　cd hhh
+
+　　git init //初始化仓库
+
+　　git status //查看仓库状态
+
+　　touch README.md //创建READEME.md文件
+
+　　git add ERADME.md //添加ERADME.md至暂存区
+
+　　git commit -m "hhh" //如果想要提交信息记录的更详细，请不要加 -m
+
+　　git log --pretty=short //加--pretty=short 只显示提交信息的第一行
+
+　　git log ggg //ggg是指指定的文件或目录，用于查看指定的目录、文件的日志
+
+　　git log -p //查看提交所带来的改动
+
+　　git log -p ggg //查看指定文件的改动
+
+　　git diff //可以查看工作树，暂存区，最新提交之间的差别
+
+　　git diff HEAD //查看工作树与最新提交的差别
+
+　　6、分支操作
+
+　　git branch //显示分支一览表，同时确认当前所在的分支
+
+　　git checkout -b aaa //创建名为aaa的分支，并且切换到aaa分支
+　　（git branch aaa //创建名为aaa的分支
+　　git checkout aaa // 切换到aaa分支
+　　）能和git branch -b aaa 得到同样的效果
+
+　　git checkout - //切换到上一分支
+
+　　7、合并分支
+
+　　git checkout master //切换到master分支
+
+　　git marge --no--ff aaa // 加--no--ff 参数可以在历史记录中明确地记录本次分支的合并
+
+　　git log --graph //以图表形式查看分支
+
+　　8、更改提交的操作
+
+　　git reset //回溯历史版本
+
+　　git reset --hrad //回溯到指定状态，只要提供目标时间点的哈希值
+
+　　9、推进历史
+
+　　git reflog //查看仓库的操作日志，找到要推历史的哈希值
+
+　　git checkout master
+
+　　git reset --hrad ddd //ddd为要推进历史的哈希值
+
+　　10、修改提交信息 git commit --amend
+
+　　压缩历史 git rebase -i 错字漏字等失误称作typo
+
+　　根据以前的步骤在GitHub上创建仓库，应于本地的仓库名相同 GitHub上面创建的仓库的路径为git@github.com: 用户名/仓库名.git
+
+　　git remote add eee git@github.com: 用户名/仓库名.git //添加远程仓库，并将git@github.com: 用户名/仓库名.git远程仓库的名称改为eee
+
+　　git push -u eee master //推送至远程仓库 master分支下 -u 参数可以在推送的同时，将eee仓库的master分支设置为本地仓库的当前分
+　　支的的upstream（上游）。添加这个参数，将来运行git pull命令从远程仓库获取内容时，本地仓库的这个分支就可以直接从eee的master
+分支中获取内容
+
+　　git checkout -b feature d eee/feature d //获取远程的feature d分支到本地仓库，-b参数后面是本地仓库中新建的仓库的名称
+
+　　git pull eee feature d //将本地的feature d分支更新为最新状态
+
+
+　　在GitHub上面查看两个分支之间的差别，只需要在地址栏中输入http://github.com/用户名/仓库名/分支1...分支2
+
+　　11、查看master分支在最近七天内的差别
+　　http://github.com/用户名/仓库名/master@{7.day.ago}...master （同样，day，week，month，year都是可以哒）
+
+　　12、查看与指定日期之间的差别
+　　http://github.com/用户名/仓库名/master@{xxxx-xx-xx}...master （xxxx-xx-xx代表年月日）
+
+　　到这里，git相关的命令已经全部介绍完成，剩下的就靠大家自己学习了。

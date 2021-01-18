@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!--<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />-->	
+	<title></title>
+</head>
+<style type="text/css">
+	.box{
+		width: 500px; 
+		height: 500px; 
+		background-color: #000000; 
+		display: flex;/*开启弹性*/
+		flex-direction:row;/*横着排还是竖着排*/
+		justify-content:space-between;/*定义子元素朝哪边对齐*/
+		align-items :center;/*垂直居中*/
+
+	}
+	.item{
+		width: 25%;
+		height: 50px;
+		background-color: cyan;
+		/*margin: 5px;*/
+	}
+	/*.item:nth-last-child(2){
+		align-self:center;
+	}
+	.item:nth-last-child(1){
+		align-self:flex-end;
+	}*/
+</style>
+<body>
+<div class="box">
+  <span class="item">1</span>
+  <span class="item">2</span>
+  <span class="item">3</span>
+  <span class="item">4</span>
+</div>
+	
+<script type="text/javascript">
+//	display: flex;开启弹性布局
+//	主轴是横着  交叉轴是竖着  （http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html 下面不懂的可以进这个网址）
+//		1.flex-direction  (决定主轴方向---竖着排或者横着排 从左到右还是从右到左)
+//			flex-direction: row | row-reverse | column | column-reverse;
+//			row（默认值）：主轴为水平方向，起点在左端。
+//			row-reverse：主轴为水平方向，起点在右端。
+//			column：主轴为垂直方向，起点在上沿。
+//			column-reverse：主轴为垂直方向，起点在下沿。
+			
+//		2.flex-wrap  (如果一行排不下如何换行)
+//			flex-wrap: nowrap | wrap | wrap-reverse;
+//			nowrap（默认）：不换行。
+//			wrap：换行，第一行在上方.
+//			wrap-reverse：换行，第一行在下方。
+
+//		3.flex-flow
+//			flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
+//			flex-flow: <flex-direction> || <flex-wrap>;
+
+//		4.justify-content  (定义了项目在主轴上的对齐方式。)
+//			justify-content: flex-start | flex-end | center | space-between | space-around;
+//			假设从左到右
+//			flex-start（默认值）：左对齐
+//			flex-end：右对齐
+//			center： 居中
+//			space-between：两端对齐，项目之间的间隔都相等。
+//			space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
+
+//		5.align-items（移动主轴或交叉轴起点）
+//			align-items: flex-start | flex-end | center | baseline | stretch;
+//			flex-start：交叉轴的起点对齐。
+//			flex-end：交叉轴的终点对齐。
+//			center：交叉轴的中点对齐。
+//			baseline: 项目的第一行文字的基线对齐。
+//			stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。
+		
+//		6.align-content  (定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用)
+//			align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+//			flex-start：与交叉轴的起点对齐。
+//			flex-end：与交叉轴的终点对齐。
+//			center：与交叉轴的中点对齐。
+//			space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。
+//			space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
+//			stretch（默认值）：轴线占满整个交叉轴。
+
+//		子集属性
+//			1.order (定义项目的排列顺序。数值越小，排列越靠前，默认为0。)
+//				order: <integer>;
+//			
+//			2.flex-grow  (定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。)
+//				flex-grow: <number>; /* default 0 */
+//				如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。
+//			
+//			3.flex-shrink  (定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。)
+//				flex-shrink: <number>; /* default 1 */
+//				如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。
+//			
+//			4.flex-basis  (定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。)
+//				 flex-basis: <length> | auto; /* default auto */
+//				它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。
+//			
+//			5.flex  (是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。)
+//				flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+//				该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。
+//			
+//			6.align-self (该属性可能取6个值，除了auto，其他都与align-items属性完全一致。)
+//				允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
+//				lign-self: auto | flex-start | flex-end | center | baseline | stretch;
+				
+
+</script>
+</body>
+</html>

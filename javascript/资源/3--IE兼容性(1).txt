@@ -1,0 +1,454 @@
+一、CSS
+1.根据不同浏览器默认设置不同，页面可初始化样式，调整成一致
+
+2.IE8及以下不支持CSS3
+
+3.IE6不支持png格式图片
+
+4.IE盒模型跟标准盒模型不同，IE下content部分包含padding+border，即设置width后，再设置padding等属性，宽度会增加
+
+5.a标签中如果有button, 在IE下不能跳转到herf链接，而现代浏览器可以，解决：IE下button设置onclick="window.location.href('#')，现代浏览器设置a中href属性即可。<a href='#'><button onclick="window.location.href('#') ></button></a>
+
+6.IE hasLayout引发的IE6显示不正常BUG
+解决办法：设置height,width等属性可激活该属性，推荐设置zoom:1;
+
+7.IE6双边距BUG
+元素设置浮动且又设置相同方向的外边距时，会产生双倍的margin边距
+解决办法：1.设置 display:inline; 2.利用IE6 hack _margin-left: 实际距离/2px;
+
+8.IE6 hasLayout 布局问题
+     (1)拥有布局的元素不会收缩
+     (2)布局元素对浮动进行自动清理
+     (3)相对定位的元素没有布局
+     (4)在拥有布局的元素之间外边距不叠加
+     (5)在没有布局的块级连接上，单击区域只覆盖文本
+     (6)在滚动时，列表项上的背景图片间歇性的显示和消失
+
+9.IE条件注释
+<!--[if lt(小)/gt(大) IE 6]>    <![endif]-->
+
+10.IE6奇数问题
+1）字体大小为奇数之边框高度少1px
+解决方法：字体大小设置为偶数或line-height为偶数
+2）line-height，文本垂直居中差1px
+解决方法：padding-top代替line-height居中，或line-height加1或减1
+3）与父标签的宽度的奇偶不同的居中造成1px的偏离
+解决方法：如果父标签是奇数宽度，则子标签也用奇数宽度;如果是父标签偶数宽度，则子标签也用偶数宽度
+
+11.内部盒模型超出父级时，父级被撑大
+解决方法：父标签使用overflow:hidden
+
+12.line-height默认行高bug
+解决方法：line-height设值
+
+13.行标签之间会有一小段空白
+解决方法：float或结构并排(可读性差，不建议)
+
+14.标签高度无法小于19px
+解决方法：overflow: hidden;
+
+15.左浮元素margin-bottom失效
+解决方法：显示设置高度 or 父标签设置_padding-bottom代替子标签的margin-bottom or 再放个标签让父标签浮动，子标签
+margin- bottom，即(margin-bottom与float不同时作用于一个标签)
+
+16.img于块元素中，底边多出空白
+解决方法：父级设置overflow: hidden; 或 img { display: block; } 或 _margin: -5px;
+
+17.li之间会有间距
+解决方法：float: left;
+
+18.块元素中有文字及右浮动的行元素，行元素换行
+解决方法：将行元素置于块元素内的文字前
+
+19.position下的left，bottom错位
+解决方法：为父级(relative层)设置宽高或添加*zoom:1
+
+20.子级中有设置position，则父级overflow失效
+解决方法：为父级设置position:relative
+
+21.CSS选择器区分
+IE6不支持子选择器；先针对IE6使用常规申明CSS选择器，然后再用子选择器针对IE7+及其他浏览器。
+/* IE6 专用 */
+.content {color:red;}
+/* 其他浏览器 */
+div>p .content {color:blue;} -->
+
+22.IE6背景闪烁
+如果你给链接、按钮用CSS sprites作为背景，你可能会发现在IE6下会有背景图闪烁的现象。造成这个的原因是由于IE6没有将背景图缓存，每次触发hover的时候都会重新加载，可以用JavaScript设置IE6缓存这些图片：
+document.execCommand("BackgroundImageCache",false,true);
+
+23.最小高度
+IE6 不支持min-height属性，但它却认为height就是最小高度。解决方法：使用ie6不支持但其余浏览器支持的属性：
+#container {min-height:200px; height:auto !important; height:200px;}
+
+24.最大高度
+//直接使用ID来改变元素的最大高度
+var container = document.getElementById('container');
+container.style.height = (container.scrollHeight > 199) ? "200px" : "auto";
+//写成函数来运行
+function setMaxHeight(elementId, height){
+var container = document.getElementById(elementId);
+container.style.height = (container.scrollHeight > (height - 1)) ? height + "px" : "auto";
+}
+//函数示例
+setMaxHeight('container1', 200);
+setMaxHeight('container2', 500);
+
+25.100% 高度
+在IE6下，如果要给元素定义100%高度，必须要明确定义它的父级元素的高度，如果你需要给元素定义满屏的高度，就得先给html和body定义height:100%;
+
+26.最小宽度
+同max-height和max-width一样，IE6也不支持min-width。
+//直接使用ID来改变元素的最小宽度
+var container = document.getElementById('container');
+container.style.width = (container.clientWidth < width) ? "500px" : "auto";
+//写成函数来运行
+function setMinWidth(elementId, width){
+var container = document.getElementById(elementId);
+container.style.width = (container.clientWidth < width) ? width + "px" : "auto";
+}
+//函数示例
+setMinWidth('container1', 200);
+setMinWidth('container2', 500);
+
+27.最大宽度
+//直接使用ID来改变元素的最大宽度
+var container = document.getElementById(elementId);
+container.style.width = (container.clientWidth > (width - 1)) ? width + "px" : "auto";
+//写成函数来运行
+function setMaxWidth(elementId, width){
+var container = document.getElementById(elementId);
+container.style.width = (container.clientWidth > (width - 1)) ? width + "px" : "auto";
+}
+//函数示例
+setMaxWidth('container1', 200);
+setMaxWidth('container2', 500);
+
+28.浮动层错位
+当内容超出外包容器定义的宽度时，在IE6中容器会忽视定义的width值，宽度会错误地随内容宽度增长而增长。
+浮动层错位问题在IE6下没有真正让人满意的解决方法，虽然可以使用overflow:hidden;或overflow:scroll;来修正， 但hidden容易导致其他一些问题，scroll会破坏设计；JavaScript也没法很好地解决这个问题。所以建议是一定要在布局上避免这个问题发 生，使用一个固定的布局或者控制好内容的宽度（给内层加width）。
+
+29.躲猫猫bug
+在IE6和IE7下，躲猫猫bug是一个非常恼人的问题。一个撑破了容器的浮动元素，如果在他之后有不浮动的内容，并且有一些定义了:hover的链接，当鼠标移到那些链接上时，在IE6下就会触发躲猫猫。
+解决方法很简单：
+1.在（那个未浮动的）内容之后添加一个<span style="clear: both;"> </span>
+2.触发包含了这些链接的容器的hasLayout，一个简单的方法就是给其定义height:1%;
+
+30.绝对定位元素的1像素间距bug
+IE6下的这个错误是由于进位处理误差造成（IE7已修复），当绝对定位元素的父元素高或宽为奇数时，bottom和right会产生错误。唯一的解决办法就是给父元素定义明确的高宽值，但对于液态布局没有完美的解决方法。
+
+31.3像素间距bug
+在IE6中，当文本(或无浮动元素)跟在一个浮动的元素之后，文本和这个浮动元素之间会多出3像素的间隔。
+给浮动层添加 display:inline 和 -3px 负值margin
+给中间的内容层定义 margin-right 以纠正-3px
+
+32.IE下z-index的bug
+在IE浏览器中，定位元素的z-index层级是相对于各自的父级容器，所以会导致z-index出现错误的表现。解决方法是给其父级元素定义z-index，有些情况下还需要定义position:relative。
+
+33.Overflow Bug
+在IE6/7中，overflow无法正确的隐藏有相对定位position:relative;的子元素。解决方法就是给外包容器.wrap加上position:relative;。
+
+34.横向列表宽度bug
+如果你使用float:left;把<li>横向摆列，并且<li>内包含的<a>（或其他）触发了 hasLayout，在IE6下就会有错误的表现。解决方法很简单，只需要给<a>定义同样的float:left;即可。
+
+35.列表阶梯bug
+列表阶梯bug通常会在给<li>的子元素<a>使用float:left;时触发，我们本意是要做一个横向的列表(通常 是导航栏)，但IE却可能呈现出垂直的或者阶梯状。解决办法就是给<li>定义float:left;而非子元素<a>，或者 给<li>定义display:inline;也可以解决。
+
+36.垂直列表间隙bug
+当我们使用<li> 包含一个块级子元素时，IE6(IE7也有可能)会错误地给每条列表元素（<li>）之间添加空隙。
+解决方法：把<a>float并且清除float来解决这个问题；另外一个办法就是触发<a>的hasLayout（如定 义高宽、使用zoom:1;）；也可以给<li> 定义display:inline;来解决此问题；另外还有一个极有趣的方法，给包含的文本末尾添加一个空格。
+
+37.IE6中的:hover
+在IE6中，除了(需要有href属性)才能触发:hover行为，这妨碍了我们实现许多鼠标触碰效果，但还是有一些法子是可以解决它的。最好是不要用:hover来实现重要的功能，仅仅只用它来强化效果。
+
+38.IE6调整窗口大小的 Bug
+当把body居中放置，改变IE浏览器大小的时候，任何在body里面的相对定位元素都会固定不动了。解决办法：给body定义position:relative;就行了。
+
+39.文本重复Bug
+在IE6中，一些隐藏的元素（如注释、display:none;的元素）被包含在一个浮动元素里，就有可能引发文本重复bug。解决办法：给浮动元素添加display:inline;。
+
+40.CSS选择器
+在IE6中多类选择器只会匹配最后一个元素而忽略前面的元素
+不支持 + 兄弟选择器
+
+41.IE8不支持透明背景色
+设置滤镜
+filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr=#44000000,endColorstr=#44000000);
+
+二、JS
+1、innerText 和 innerContent
+     1）innerText 和 innerContent 的作用相同
+     2）innerText IE8之前的浏览器支持
+     3）innerContent 老版本的Firefox支持
+     4）新版本的浏览器两种方式都支持
+
+// 老版本浏览器兼容  innerText 和 innerContent
+  if (element.textContent) {
+        return element.textContent ;
+   } else {
+       return element.innerText;
+   }
+
+2、获取兄弟节点/元素的兼容性问题
+ 1）兄弟节点，所有浏览器都支持
+①nextSibling 下一个兄弟节点，可能是非元素节点；会获取到文本节点②previousSibling  上一个兄弟节点，可能是非元素节点；会获取到文本节点
+ 2）兄弟元素，IE8以前不支持
+①previousElementSibling 获取上一个紧邻的兄弟元素，会忽略空白
+②nextElementSibling  获取下一个紧邻的兄弟元素，会忽略空白
+
+//兼容浏览器
+// 获取下一个紧邻的兄弟元素
+function getNextElement(element) {
+   // 能力检测
+  if(element.nextElementSibling) {
+      return element.nextElementSibling;
+   } else {
+         var node = element.nextSibling;
+         while(node && node.nodeType !== 1) {
+                 node = node.nextibling;
+         }
+         return node;
+    }
+ }
+
+/**
+* 返回上一个元素
+* @param element
+* @returns {*}
+*/
+function getPreviousElement(element) {
+    if(element.previousElementSibling) {
+        return element.previousElementSibling;
+    }else {
+        var el = element.previousSibling;
+        while(el && el.nodeType !== 1) {
+            el = el.previousSibling;
+            }
+        return el;
+    }
+}
+
+/**
+* 返回第一个元素firstElementChild的浏览器兼容
+* @param  parent
+* @returns {*}
+*/
+function getFirstElement(parent) {
+    if(parent.firstElementChild) {
+        return parent.firstElementChild;
+    }else {
+        var el = parent.firstChild;
+        while(el && el.nodeType !== 1) {
+            el = el.nextSibling;
+            }
+        return el;
+    }
+}
+
+/**
+* 返回最后一个元素
+* @param  parent
+* @returns {*}
+*/
+function getLastElement(parent) {
+    if(parent.lastElementChild) {
+        return parent.lastElementChild;
+    }else {
+        var el = parent.lastChild;
+        while(el && el.nodeType !== 1) {
+            el = el.previousSibling;
+            }
+        return el;
+    }
+}
+
+/**
+*获取当前元素的所有兄弟元素
+* @param  element
+* @returns {Array}
+*/
+function sibling(element) {
+    if(!element) return ;
+
+    var elements = [ ];
+    var el = element.previousSibling;
+    while(el) {
+        if(el.nodeType === 1) {
+            elements.push(el);
+        }
+        el = el.previousSibling;
+    }
+     el = element.previousSibling;
+     while(el ) {
+        if(el.nodeType === 1) {
+            elements.push(el);
+        }
+        el = el.nextSibling;
+    }
+        return elements;
+}
+
+3、array.filter();
+ // 使用指定的函数测试所有元素，并创建一个包含所有通过测试的元素的新数组
+// 兼容旧环境
+if (!Array.prototype.filter)
+{
+  Array.prototype.filter = function(fun /*, thisArg */)
+  {
+    "use strict";
+    if (this === void 0 || this === null)
+      throw new TypeError();
+    var t = Object(this);
+    var len = t.length >>> 0;
+    if (typeof fun !== "function")
+      throw new TypeError();
+    var res = [];
+    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+    for (var i = 0; i < len; i++)
+    {
+      if (i in t)
+      {
+        var val = t[i];
+        // NOTE: Technically this should Object.defineProperty at
+        //       the next index, as push can be affected by
+        //       properties on Object.prototype and Array.prototype.
+        //       But that method's new, and collisions should be
+        //       rare, so use the more-compatible alternative.
+        if (fun.call(thisArg, val, i, t))
+          res.push(val);
+      }
+    }
+    return res;
+  };
+}
+
+4、array.forEach();
+// 遍历数组
+
+//兼容旧环境
+// Production steps of ECMA-262, Edition 5, 15.4.4.18
+// Reference: http://es5.github.io/#x15.4.4.18
+if (!Array.prototype.forEach) {
+  Array.prototype.forEach = function(callback, thisArg) {
+    var T, k;
+    if (this == null) {
+      throw new TypeError(' this is null or not defined');
+    }
+    // 1. Let O be the result of calling toObject() passing the
+    // |this| value as the argument.
+    var O = Object(this);
+    // 2. Let lenValue be the result of calling the Get() internal
+    // method of O with the argument "length".
+    // 3. Let len be toUint32(lenValue).
+    var len = O.length >>> 0;
+    // 4. If isCallable(callback) is false, throw a TypeError
+    exception. // See: http://es5.github.com/#x9.11
+    if (typeof callback !== "function") {
+      throw new TypeError(callback + ' is not a function');
+    }
+    // 5. If thisArg was supplied, let T be thisArg; else let
+    // T be undefined.
+    if (arguments.length > 1) {
+      T = thisArg;
+    }
+    // 6. Let k be 0
+    k = 0;
+    // 7. Repeat, while k < len
+    while (k < len) {
+      var kValue;
+      // a. Let Pk be ToString(k).
+      //    This is implicit for LHS operands of the in operator
+      // b. Let kPresent be the result of calling the HasProperty
+      //    internal method of O with argument Pk.
+      //    This step can be combined with c
+      // c. If kPresent is true, then
+      if (k in O) {
+        // i. Let kValue be the result of calling the Get internal
+        // method of O with argument Pk.
+        kValue = O[k];
+        // ii. Call the Call internal method of callback with T as
+        // the this value and argument list containing kValue, k, and O.
+        callback.call(T, kValue, k, O);
+      }
+      // d. Increase k by 1.
+      k++;
+    }
+    // 8. return undefined
+  };
+}
+
+5、注册事件
+addEventListener = function (type,listener,useCapture ) { };
+//第一个参数 事件名称
+//第二个参数 事件处理函数（监听者）
+//第三个参数 true捕获 false冒泡
+//IE9以后才支持
+
+// 兼容旧环境
+
+var EventTools = {
+        addEventListener: function (element, eventName, listener) {
+            //能力检测
+            if(element.addEventListener) {
+                element.addEventListener(eventName, listener,false);
+            }else if(element.attachEvent) {
+                element.attachEvent("on" + eventName, listener);
+            }else{
+                element["on" + eventName] = listener;
+            }
+        },
+
+//    想要移除事件，不能使用匿名函数
+        removeEventListener: function (element, eventName, listener) {
+            if(element.removeEventListener) {
+                element.removeEventListener(eventName,listener,false);
+            }else if(element.detachEvent) {  //IE8以前注册.attachEvent和移除事件.detachEvent
+                element.detachEvent("on"+eventName,listener);
+            }else{
+                element["on" + eventName] = null;
+            }
+        }
+    };
+
+6、事件对象
+     1)事件参数e，就是事件对象，标准的获取方式  btn.onclick = function(e) { }
+     2)e.eventPhase 事件阶段，IE8以前不支持
+     3)e.target 始终是触发事件的对象（点击的按钮）
+
+     i）IE8以前 srcElement
+     ii）浏览器兼容
+
+var target = e.target || window.event.srcElement;
+// 获取事件对象 兼容浏览器
+ getEvent: function(e) {
+    return e || window.event;  // e事件对象 标准的获取方式； window.event IE8以前获取事件对象的方式
+ }
+// 兼容target
+ getTarget: function(e) {
+    return e.target || e.srcElement;
+ }
+
+7、获取鼠标在页面上的位置
+
+①在可视区域中的位置：  e.clientX   e.clientY
+②在文档中的位置：
+
+i） e.pageX      e.pageY
+ii）浏览器兼容
+
+var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+var pageY = e.clientY + scrollTop;
+
+8、获取页面滚动的距离
+// 兼容浏览器
+ var scrollTop = document.documentElement.scrollTop || document.body.scrolltop;
+
+9、取消文本的选择
+// 兼容浏览器
+window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+
+三、Hack
+1.IE9以下：'\9'
+     eg.color: red\9;/*只有IE9以下浏览器才能识别*/
+
+2.

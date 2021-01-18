@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body>
+		<div id="time">
+			    1234567   
+		</div>
+		<script type="text/javascript">
+//			f = function () {return true;}; 
+//			g = function () {return false;};
+//			(function () {
+//			if (g() && [] == ![]) {
+//			f = function () {
+//			  return false;
+//			};
+//			return  console.log(f())
+//			}
+//			function g() {
+//			  return true;
+//			};
+//			})();
+//			console.log(f());
+//			console.log(g());
+//
+//			console.log(getA); 
+//			console.log(a)
+//			if("a" in window){ 
+//			    var a="1";
+//			    function getA(a) { 
+//			        a=a||this.a;
+//			        console.log(a);
+//			    }
+//			    getA(a);
+//			}
+//		~function(){
+//			var n=1;
+//			function fn(){
+//				n++;
+//				console.log(n)
+//			}
+//		 	window.fn=fn
+//		}()
+//		fn();
+
+
+//		function fn(){
+//			var n = 1;
+//			return function fn1(){
+//				n++;
+//				console.log(n)
+//			}
+//		}
+//		var f=fn();
+//		f();
+
+//============构造函数
+// 	function Fn(b){
+// 		var a = 666;
+// 		this.name=b;
+// 		this.age=a;
+// 	}
+// 	var a=new Fn("欣欣");
+// 	var g=new Fn("小明");
+// 	console.log(a)
+// 	console.log(g)
+
+
+//高级单例模式-----------------
+var obj = (function(){
+	var fn = function(){
+		console.log("666")
+	}
+	return {
+		init:function(){
+			console.log("555")
+		},
+		fn:fn
+	}	
+})()
+obj.fn();
+obj.init();
+
+		</script>
+	</body>
+</html>

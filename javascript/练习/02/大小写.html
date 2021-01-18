@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<p></p>
+<input type="button" value="大写" />
+<input type="button" value="小写" />
+<input type="button" value="首字母大写" />
+<script type="text/javascript">
+    var p=document.getElementsByTagName('p')[0];
+    var inp=document.getElementsByTagName('input');
+    var str="welcome to BeiJing！"
+    p.innerHTML=str;
+    inp[0].onclick=function(){
+        p.innerHTML=str.toUpperCase();
+
+    }
+    inp[1].onclick=function(){
+        p.innerHTML=str.toLowerCase();
+
+    }
+    inp[2].onclick=function(){
+
+        var  ss = str.toLowerCase().split(/\s+/);
+        for (i = 0; i < ss.length; i++) {
+            ss[i] = ss[i].slice(0, 1).toUpperCase() + ss[i].slice(1);
+        }
+        p.innerHTML=ss.join(' ');
+
+    }
+</script>
+</body>
+<ml>

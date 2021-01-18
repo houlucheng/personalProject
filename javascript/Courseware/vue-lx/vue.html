@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<body>
+<div id="app">
+	{{msg}}
+	<p v-text="msg"></p>
+	<p v-html="demo"></p>
+	<p v-once>{{msg}}</p>
+	<button v-on:click="fn">点我</button>
+	<input type="text" v-model="msg">
+	<hr/>
+	<item-hlc></item-hlc>
+	<li v-for="item in demo2">{{item.name}}</li>
+	<item-hlc1 v-for="item in demo2" v-bind:prop="item" v-bind:key="item.id"> </item-hlc1>
+
+</div>
+
+<script type="text/javascript">
+	Vue.component("item-hlc",{
+		template:"<i>Hello Word!</i>"
+	})
+
+	Vue.component("item-hlc1",{
+		props:["prop"],
+		template:"<h3>{{prop.name}}</h3>"
+	})
+
+	var app = new Vue({
+		el:"#app",
+		data:{
+			msg:"你好",
+			demo:"<span>我不好</span>",
+			demo1:"呵呵哒",
+			demo2:[{name:"西瓜"},{name:"苹果"},{name:"香蕉"}]
+		},
+		methods:{
+			fn:function(){
+				alert(this.demo1);
+			}
+		}
+	})
+</script>
+
+</body>
+</html>

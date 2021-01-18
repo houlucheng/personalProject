@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head id="h">
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="txt">
+<script>
+    // function fn(data){
+    //     console.log(data);
+    // }
+    function fn2(data){
+        console.log(data);
+    }
+    txt.onblur = function(){
+        let oS = document.createElement('script');
+        oS.src = 'http://localhost:8082/jsonp?callback=fn2';
+        h.appendChild(oS);
+
+        //上面的代码等同于下面这句
+        // fn2([1,2,3,4]);
+    }
+</script>
+</body>
+</html>

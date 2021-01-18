@@ -1,0 +1,173 @@
+数组中的方法：
+ arguments()获取函数实参个数
+ push()向数组后面添加项
+ pop()数组后面删除一项
+ unshift()数组前面添加项
+ shift()数组前面删除一项
+ sort() 给数组排序  里面写函数
+ reduce------------
+ reduceRight------从右往左加
+ var arr=['a','b','c'];
+ var arr1=arr.reduce(function(a,b){return a+b}，‘n’)//abc
+ 如果是数组就相加  如果是字符串就拼接 第二个参数在前面添加
+ concat() 将两个数组拼接到一块  返回拼接后的新数组  不改变原始数组
+ slice()  数组截取  返回截取的数组 不改变原始数组 两个参数都是下标
+ substring 截取 第一参从索引几开始截取  第二参 截取到索引几 返回截取的
+ substr 截取  第一参数从哪开始 第二参截取几个  返回截取的
+ var b=a.slice(-3,-1)//rl a.length+(-3)  a.length+(-1)
+ var b1=a.substring(-3,-1)//只要有负数就会变成0(0,0)
+ var b2=a.substr(-3,-2)  //(a.length+(-3),0)
+ toUpperCase	toLowerCase	 不改变原始数组
+ 
+ a.localeCompare(b) 字符串排序 a<b返回-1  a>b返回1 相等返回0
+ replace("A","S") 替换  不改变原始  返回修改后的新字符串
+ var t = s.replace(/are/g,'sdfdsf') 替换字符串里面所有的are
+
+ splice()增，删，改，复制 splice(0,2)从0开始删除两位 改变原始数组 返回截取的数组  
+ splice(2,0,'a','p') 下标2开始删除0项 添加“a”"b "
+ join  toString  数组转换成字符串  
+ split 字符串转数组  第二个参数是数组长度
+ reverse() 倒叙数组
+ trim 去掉前后空格
+JSON.parse(jsonstr); //可以将json字符串转换成json对象 
+JSON.stringify(jsonobj); //可以将json对象转换成json对符串 
+
+ forEach  循环
+ filter 遍历 筛选  调用一个函数后过滤得的元素
+ map 都执行（例：都乘2） 该数组中每个元素都调用一个提供的函数后返回的结果
+ every 遍历 每一个 返回true或false 必须每一项都符合
+ some 遍历 一些 只要有一个满足就返回true
+
+ $("#demoform").serialize()//获取表单里面所有参数
+ isNaN() 函数用于检查其参数是否是非数字值。
+ parseFloat() 函数可解析一个字符串，并返回一个浮点数。
+  该函数指定字符串中的首个字符是否是数字。如果是，则对字符串进行解   析，直到到达数字的末端为止，然后以数字返回该数字，而不是作为字符   串。
+
+ 
+ 0. accesskey="j" a标签跳转快捷键
+ 1. contenteditable="true" 可编辑的元素
+ 2. contenteditable  和  textarea（文本域）  的区别
+    一个可以解析出来 一个直接把标签显示出来
+ 3. hidden="hidden"  style="display: none;" 两种隐藏的区别
+    一个是直接控制标签隐藏   一个是通过修改样式 然后样式控制标签
+ 4. contextmenu 给右键菜单添加选项   火狐兼容 
+ 5. contenteditable="true" spellcheck="true"
+    是否对元素进行拼写和语法检查(对于可编辑的文本)
+ 6. onresize="demo()" 
+    window事件  窗口大小发生改变时触发
+ 7.onkeyup  onkeydown 用在表单验证上
+ 8.onmousedown 鼠标左右中键都会触发 onclick只有左中键会触发
+ 9.Fetch  新一代数据请求方式
+ 10.get 获取  post把本地数据发送到服务器
+ 11.frameset框架集：cols(列布局) rows(行布局)
+    <frameset cols="25%,50%,25%">
+	<frame src=''></frame>
+	<frame src=''></frame>
+    </frameset>
+ 
+ JS:
+ 0.全局函数
+   Number() Boolean() parseInt() parseFloat()转换浮点数 isNaN() string()   
+ 1.typeof返回字符串（6种返回值）
+   "undefined"  "Number" "Object" "function" "string" "Boolean"   symbol
+ 2.Number("asd") NaN
+   Number("")    0
+   Number(null)  0
+   Number(undefined) NaN
+   parseInt("") NaN
+   parseInt("dsf") NaN
+
+   isNaN(1) //false
+   isNaN("") //false
+   isNaN("456") //false
+   isNaN("SSDF") //true
+   Boolean() 非空字符串都为true
+ 3.String() 如果内部有tostring方法就用tostring转换成字符串，
+	    如果没有直接转换。
+ 4.Array.isArray(a)
+
+ 基本数据类型保存的是数据   var a='123' var b='123'  a==b//true
+ 引用数据类型保存的是引用   var a=[1,2,3]  var b=[1,2,3]  a==b//false
+
+
+ 为什么用严格模式
+ - 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为;
+ - 消除代码运行的一些不安全之处，保证代码运行的安全；
+ - 提高编译器效率，增加运行速度；
+ - 为未来新版本的Javascript做好铺垫。
+ "严格模式"体现了Javascript更合理、更安全、更严谨的发展方向，包括IE 10在内 的主流浏览器，都已经支持它，许多大项目已经开始全面拥抱它。
+   另一方面，同样的代码，在"严格模式"中，可能会有不一样的运行结果；一些在" 正常模式"下可以运行的语句，在"严格模式"下将不能运行。掌握这些内容，有助于 更细致深入地理解Javascript，让你变成一个更好的程序员。
+
+面向对象
+//配置对象属性的方法         第三个参数 ：配置对象
+//configurable作用
+//1.控制属性能否被删除
+//2.控制配置对象是否能被修改
+//可以通过调用多次obj.defineProperty（对象，属性，函数）函数来修改对象的属性特性，
+//defineProperties（对象，函数） 描述多个
+//但是如果把configurable设置为false，那么就会被限制
+//writable:false,//可不可以修改
+//configurable:false//可否删除
+
+
+工厂模式
+ 缺点：不能够返回对象类型
+ 用a  instanceof  b检测   判断一个变量是否是某个对象的实力
+ a是不是b类型
+
+构造函数
+ 构造函数缺点 ：每次实例化都会重复创建相同的函数
+new 改变this指向    返回一个对象
+没有显式的创建对象
+直接将属性和方法赋予了this对象
+没有return
+
+原型模式
+ 原型对象是独立的共享的看不到的。每一个实例都共享这个原型对象  
+原型模式：prototype对象的用途是包含可以有特定类型的所有实例共享的属性和方法
+ 原型模式：把函数定义在原型里面      为了避免去重复实例化这个函数
+
+混合模式
+ 混合模式：基本的数据放在实力属性里面，函数放在原型属性里面
+__proto__   是从原型对象映射过来的原型属性
+ cat.prototype:原型对象
+实力属性是每一个实力独有的属性，原型属性才是共享的
+
+冒泡   默认行为   事件委托   原型链及缺点
+
+
+
+//阻止浏览器默认行为
+//window.event?window.event.returnValue=false:e.preventDefault();
+//兼容型的阻止事件冒泡
+//window.event?winodw.event.cancelBubble=true : e.stopPropagation;
+
+
+import React from 'react';
+import ReactDom from 'react-dom';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import Po from './components/Pro/Pro';
+import Dad from './components/Dad/Dad';
+//渲染组件
+ReactDom.render(<div><Header/><Footer/><Po name="david"/><Dad/></div>,document.getElementById('root'))
+
+
+try{
+		alert(aaaa)
+	}
+	catch(error){
+		console.log(error)
+	}
+	finally{
+		console.log("aaaa")
+	}
+
+
+分享成插件网址
+http://www.jiathis.com/
+
+
+
+
+

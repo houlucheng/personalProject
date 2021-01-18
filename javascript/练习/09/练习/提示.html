@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0 ;
+            list-style: none;
+        }
+        .cont{
+            width: 1000px;
+            margin:  100px  auto;
+        }
+        ul li{
+            float: left;
+            margin: 10px 20px;;
+            padding: 10px;
+            background-color: #f0f5e2;
+            position: relative;
+            border-radius: 5px;;
+            border:solid 1px #c8d8a6;
+        }
+
+        ul>li:before{
+            content: "";
+            border: solid 5px ;
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            border-color:  transparent transparent #f0f5e2  transparent  ;
+        }
+        ul>li:after{
+            content: "";
+            border: solid 5px ;
+            position: absolute;
+            top: -9px;
+            left: 50%;
+            border-color:  transparent transparent #f0f5e2  transparent  ;
+        }
+        ul>li:nth-of-type(2){
+             background-color: #fef4e2;
+             border: solid 1px #f1d4a4;
+         }
+        ul>li:nth-of-type(2):before{
+            border: solid 5px ;
+            border-color:  transparent transparent #f1d4a4  transparent  ;
+        }
+        ul>li:nth-of-type(2):after{
+            border: solid 5px ;
+            border-color:  transparent transparent #fef4e2  transparent  ;
+        }
+        ul>li:nth-of-type(3){
+            background-color: #f5e5eb;
+            border: solid 1px #d8a5c0;
+        }
+        ul>li:nth-of-type(3):before{
+            border: solid 5px ;
+            border-color:  transparent transparent #f5e5eb  transparent  ;
+        }
+        ul>li:nth-of-type(3):after{
+            border: solid 5px ;
+            border-color:  transparent transparent #f5e5eb  transparent  ;
+        }
+        ul>li:nth-of-type(4){
+            background-color: #ede9f7;
+            border: solid 1px #bfb1e6;
+        }
+        ul>li:nth-of-type(4):before{
+            border: solid 5px ;
+            border-color:  transparent transparent #ede9f7  transparent  ;
+        }
+        ul>li:nth-of-type(4):after{
+            border: solid 5px ;
+            border-color:  transparent transparent #ede9f7  transparent  ;
+        }
+    </style>
+</head>
+<body>
+<div class="cont">
+    <ul>
+        <li>Curiouser and curiouser</li>
+        <li>Curiouser and curiouser</li>
+        <li>Curiouser and curiouser</li>
+        <li>Curiouser and curiouser</li>
+    </ul>
+</div>
+</body>
+</html>

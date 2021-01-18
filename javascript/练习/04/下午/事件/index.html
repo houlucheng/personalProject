@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 50px;
+            height: 500px;
+            position: relative;
+            float: left;
+        }
+        #div{
+            width: 50px;
+            height: 20px;
+            background:url("img/1.png");
+            position: absolute;
+            background-size: 100% 100%;
+        }
+        #nei{
+            width: 500px;
+            float: left;
+        }
+        #nei img{
+            width: 500px;
+            height: 500px;
+        }
+        #box2{
+            width: 20px;
+            height: 500px;
+            float: left;}
+        #box2 input{
+            width: 20px;
+            height: 20px;
+        }
+        #box2 input:nth-child(2){
+            margin-top: 220px;
+        }
+        #box2 input:nth-child(3){
+            margin-top: 220px;
+        }
+        .nei2{
+            width: 200px;
+            height: 500px;
+            float: left;
+        }
+        .nei2 p{
+            width: 200px;
+            height: 20px;
+            font-size: 20px;
+        }
+        .nei2 p:nth-child(2){
+            margin-top: 220px;
+        }
+        .nei2 p:nth-child(3){
+            margin-top: 220px;
+        }
+        #mo{
+            position: fixed;
+            top: 50px;
+            left: 150px;
+        }
+    </style>
+</head>
+<body>
+<div id="mo">
+    <h1>安全提醒设置</h1>
+    <h5>当帐号发生异常情况时，系统自动发送的通知提醒</h5>
+    <div id="nei">
+        <img src="img/b.png">
+    </div>
+    <div id="box">
+        <div id="div">
+
+        </div>
+    </div>
+    <div id="box2">
+        <input type="radio" name="a">
+        <input type="radio" name="a">
+        <input type="radio" name="a">
+    </div>
+    <div class="nei2">
+        <p name="b">短信提醒：安全级别<span>高</span></p>
+        <p name="b">邮件提醒：安全级别<span>中</span></p>
+        <p name="b">私信提醒：安全级别<span>低</span></p>
+    </div>
+    </div>
+<script type="text/javascript">
+    div.onmousemove=function(e){
+        divY=e.clientY-div.offsetTop;
+        box.onmousemove=function(e){
+            var e=window.event||e;
+            var b=e.clientY-divY;
+            var oN=document.getElementById('nei');
+            if(b<0){
+                b=0;
+            }else if(b>box.offsetHeight-div.offsetHeight){
+                b=box.offsetHeight-div.offsetHeight;
+            }else{
+                div.style.top= b+'px';
+            }
+            var btn=document.getElementsByName("a");
+            var t=div.offsetTop;
+            if(t<150){
+                btn[0].checked=true;
+            }else if(t>150&&t<400){
+                btn[1].checked=true;
+            }else{
+                btn[2].checked=true;
+            }
+        }
+        return false;
+    }
+    div.onmouseup=function(){
+        box.onmousemove=null;
+    }
+    var oDiv=document.getElementById("div");
+    var btn=document.getElementsByName("a");
+    var bool=false;
+    for(var i=0;i<btn.length;i++){
+        btn[i].index=i;
+        btn[i].onclick=function(){
+            var n=this.index;
+            bool=true;
+            oDiv.style.top=n*245+"px";
+        }
+    }
+    var btn2=document.getElementsByName("b");
+    for(var j=0;j<btn2.length;j++){
+        btn2[j].index=j;
+        btn2[j].onclick=function(){
+            var x=this.index;
+            bool=true;
+            oDiv.style.top=x*245+"px";
+        }
+    }
+</script>
+</body>
+</html>

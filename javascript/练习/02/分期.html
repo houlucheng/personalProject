@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        input{
+            width: 40px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            font-size: 12px;
+        }
+        input:nth-child(1){
+            width: 200px;
+        }
+        input:nth-child(5){
+            width: 200px;
+        }
+        input:nth-child(6){
+            width: 200px;
+        }
+        input:nth-child(7){
+            width: 200px;
+        }
+        input:nth-child(8){
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+单价：<input type="text" id="d" value="120000" />元
+个数：<input type="button" id="jian" value="-" />
+<input type="text" id="z" value="0" />
+<input type="button" id="jia" value="+" />
+白条分期：<input type="text" id="hj" value="0" />×3期
+<input type="text" id="hj1" value="0" />×6期
+<input type="text" id="hj2" value="0" />×9期
+<input type="text" id="hj3" value="0" />×12期
+</body>
+<script>
+    jia.onclick=function(){
+        var num=Number(z.value);
+        var h=Number(d.value);
+        num++;
+        z.value=num;
+        hj.value=h*num/3;
+        hj1.value=h*num/6;
+        hj2.value=h*num/9;
+        hj3.value=h*num/12;
+    };
+
+    jian.onclick=function(){
+        var num=Number(z.value);
+        var h=Number(d.value);
+        if(num<=0){
+            num=1;
+        }
+        num--;
+        z.value=num;
+        hj.value=h*num/3;
+        hj1.value=h*num/6;
+        hj2.value=h*num/9;
+        hj3.value=h*num/12;
+
+    }
+</script>
+</html>

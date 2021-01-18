@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			
+            fetch("//gateway.caixin.com/api/ucenter/complete/complete").then(function(response){
+                response.json().then(function(data){
+                    console.log(data)
+                })
+            })
+
+
+
+
+			// function runAsync(){
+			//     var p = new Promise(function(resolve, reject){
+			//         //做一些异步操作
+			//         setTimeout(function(){
+			//         	var num = Math.random()*10;
+			//         	if(num<=5){
+			//         		resolve(num)
+			//         	}else{
+			//         		reject(num)
+			//         	}
+			//         }, 2000);
+			        
+			//     });
+			//     return p;            
+			// }
+			// runAsync().then(function(data){
+			//     console.log(data);
+			//     console.log("刚刚好")
+			// },function(data){
+			// 	console.log(data)
+			// 	console.log("有点大")
+			// });
+			
+			
+			//请求某个图片资源
+// function requestImg(){
+//     var p = new Promise(function(resolve, reject){
+//         var img = new Image();
+//         img.onload = function(){
+//             resolve(img);
+//         }
+//         img.src = 'xxxxxx';
+//     });
+//     return p;
+// }
+
+// //延时函数，用于给请求计时
+// function timeout(){
+//     var p = new Promise(function(resolve, reject){
+//         setTimeout(function(){
+//             reject('图片请求超时');
+//         }, 5000);
+//     });
+//     return p;
+// }
+
+// Promise
+// .race([requestImg(), timeout()])
+// .then(function(results){
+//     console.log(results);
+// })
+// .catch(function(reason){
+//     console.log(reason);
+// });
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding:0;
+           margin: 0;
+
+        }
+        .cont{
+            width: 200px;;
+            background-color: red;
+            margin: 100px auto;
+        }
+        .kai{
+            width: 60px;
+            height: 30px;
+            background-color: #fff;
+            box-shadow: 1px 1px 1px #efefef;
+            border-radius: 23px;;
+
+        }
+        .kai a{
+            float: left;
+            display: inline-block;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: #00be5f;
+            transition: .35s;
+
+        }
+        .a{
+            transform: translateX(30px);
+        }
+    </style>
+</head>
+<body>
+<div class="cont">
+    <div class="kai">
+        <a href="#"></a>
+    </div>
+    <div class="kai">
+        <a href="#"></a>
+    </div>
+    <div class="kai">
+        <a href="#"></a>
+    </div>
+</div>
+<script>
+    var oKai=document.querySelectorAll(".cont div")
+    var kai=document.querySelectorAll(".kai a")
+    console.log(kai)
+    var k=false;
+    var a=0
+    for (var i=0;i<oKai.length;i++) {
+        oKai[i].index = i;
+        oKai[i].onclick = function () {
+            for (var i=0;i<oKai.length;i++){
+                kai[i].className=""
+            }
+            if (k == false) {
+                kai[this.index].style.transform = "translateX(30px)";
+                kai[this.index].style.backgroundColor = "red";
+                k = true;
+                console.log(k)
+            } else {
+                kai[this.index].style.transform = "translateX(0px)";
+                kai[this.index].style.backgroundColor = "#00be5f";
+                k = false;
+                console.log(k)
+            }
+            return false
+        }
+    }
+
+
+</script>
+</body>
+</html>

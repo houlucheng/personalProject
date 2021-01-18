@@ -1,0 +1,191 @@
+1.面向对象 对于 面向过程
+  可维护性;可扩展性;可重用性.
+工厂模式（工厂函数） 构造函数（new  函数名第一个字母大写）
+
+
+ 01.$(document).ready(function(){})
+ 02.该段代码类似于传统的JavaScript代码：window.onload=function(){}
+	虽然上述两段代码在功能上可以互换，但它们之间又有许多区别：
+ 1.执行时间不同 ： 
+    $(document).ready在页面框架下载完毕后就执行；
+    而window.onload必须在页面全部加载完毕（包含图片下载）后才能执行。很明显，前者的执行效率       高于后者。
+ 2.执行数量不同 ：
+    $(document).ready可以重复写多个，并且每次执行结果不同；而window.onload尽管可以执行多个		，但仅输出最后一个执行结果，无法完成多个结果的输出。		
+ 3.$(document).ready(function(){})  ==    $(function(){})
+ 4.“jQuery是一个快速、小巧、功能丰富的JavaScript库。
+
+ 5.call方法
+ A.call(this,btnId,Id,color) 复制上一个函数里面的所有属性和方法
+ A.apply(this,[btnId,Id,color])
+
+ .toggle() 转换
+ .slideToggle() 带动画转换
+ .show() 显示
+ .hide() 隐藏
+ .slideDown() 动画往下
+ .slideUp() 动画网上
+ .addClass() 给元素加class 追加
+ .toggleClass 切换class
+
+ $('li:first') ==  .first() 第一个
+ $('li:last')  ==  .last()  最后一个
+ $('li:eq(0)') ==  .eq(0)   第一个
+ $('li:eq(-1)') ==  .eq(-1) 最后一个
+ $('li:even') 奇数
+ $('li:odd')  偶数
+ $('li:gt（4）')   大于它的
+ $('li:lt（4）')   小于它的
+ $('li').eq(1).siblings()  除了它之外的（同父元素下）
+ .fadeOut() 淡出(隐藏)
+ .fadeIn() 淡入（出现）
+ .end()回到this 原始指向
+ .is(':visible')  if判断显示的时候
+ .add() 添加一个要选择的元素
+ .val()  input的值
+ $(':header')  标题
+ :contains('618')  包含618内容的元素
+ :has('span')  包含span的元素
+ .has()    包含
+ :empty()  里面什么都没有的元素
+ :parent   里面有子元素或者文本的元素
+ .parent() 父级
+ :hidden   选中所有隐藏元素
+ :visible  选中所有显示的元素
+ .find()  寻找后代
+ :enabled  选择可用的表单
+ .slice(3,6)  一个参数从那个索引开始  两个参数从三到6不包括尾   
+ .not()  除了这个元素之外
+ .next()  下一个同辈
+ .nextAll() 下面所有同辈
+ .prev()  上一个同辈
+ .prevAll() 上面所有同辈
+ .addBack() 原有和当前合起来
+ .each(function(i,item){   })
+ i 索引    item 本身
+ 
+ $('img').parentsUntil('html',':not(.one)')
+ :not()  不选择哪个
+ .attr() 原有属性
+ .prop() 自定义属性
+
+ 动画
+ swing 从慢到快
+ linear 匀速
+ .stop() 停止当前动画，继续下一个动画
+ .stop(true) 动画全部停止
+ .stop(false,true)立即结束当前动画进行下一个动画
+ .stop(true,true)立即执行完当次动画，然后暂停所有动画
+ .stop()第一个参数代表是否要清空未执行完的动画队列
+        第二个参数代表是否直接将正在执行的动画跳转到末状态
+
+获取数值
+ .width() .height()  只有width没有padding  border
+ .innerWidth() .innerHeight()  带padding
+ .outerWidth() .outerHeight() padding和border都带
+
+Dom
+ 增
+ 追加到谁里面的下面
+ $('body').append(div) 
+ div.appendTo('body')
+ 追加到谁里面的上面
+ $('body').prepend(div)
+ div.prependTo('body')
+ 
+ 放在谁的后面
+ $('div').after('<p></p>')  只能放创建的元素
+ $('div').after(function（index，html）{})
+
+ 放在谁的前面
+ $('div').before('<p></p>') 只能放创建的元素
+ $('div').before(function（index，html）{
+     return  '<p> '+ (index+1) + '呵呵哒</p>'
+ })
+ 把谁放到谁的后面				
+ $('p').insertAfter('div') 可以是原有元素也可以是创建元素
+ $("<div class='box'> 123</div>").insertAfter("p")
+ $('p').insertAfter($('div'))
+
+ 把谁放到谁的前面
+ $('p').insertBefore('div')  可以是原有元素也可以是创建元素
+ $('p').insertBefore($('div'))
+
+ 复制
+ $(‘div’).clone().appendTo('#box') 复制并添加到哪儿
+ 
+ 替换
+ $('p').replaceWith('<span>呵呵哒</span>')  with用 用后面的替换前面
+ $('<span>呵呵哒</span>').replaceAll('div') 用前面的替换后面的所有
+
+ 包裹
+          wrap碰到文本就执行
+ $('.one').wrap('<div class="box"></div>') 用后面创建的包裹前面的
+
+ $('.one').wrap($('p'))  原有的还在
+ $('.one').wrap($('p:eq(1)')) 用页面上有的元素包裹元素
+ $('.one').wrap(document.createElement('strong'))
+ $('div').wrap(function(index){
+       	return '<strong>'+index+'</strong>'
+   })
+ $('span').unwrap()  去除span的包裹
+ $('div').wrapAll('<strong></strong>')    把所有div集合起来用<strong></strong>包起来
+ $('div').wrapInner('<strong></strong>')   把div里面的内容用<strong></strong>包起来 
+
+ 冒泡
+ e.stopPropagation() //阻止冒泡
+ e.preventDefault()  //阻止默认行为
+ return false; //阻止冒泡以及默认行为
+
+ bind绑定事件
+ $('img').bind('mouseenter',testEnter).bind('mouseout',testOut)
+       第一个值是事件 第二个值是函数 执行的事
+ $('img').bind('mouseenter mouseout',textFun)  多个事件绑定一个方法
+
+ 映色对象
+ $('img').bind({
+	mouseenter:function(){
+		$(this).css('border','3px solid yellow')
+	},
+	mouseout:function(){
+		$(this).css('border','3px solid blue')
+	}
+ })
+ 
+ on绑定事件  第一个参数是方法  第二个是选择器 
+  $(document).on({
+       mouseenter: function(){
+               $(this).css('border','3px solid yellow')
+       },
+       mouseout:function(){
+               $(this).css('border','')
+       }
+
+ },"div" );
+  $('#fanwei').off('mouseout',".three") 用off撤销on绑定事件
+
+
+ delegate绑定事件
+ $('.one').delegate('div',{
+	mouseenter:function(){
+		$(this).css('border','3px solid yellow')
+	},
+	mouseout:function(){
+		$(this).css('border','')
+	}
+ })
+ 解绑
+ $('.one').undelegate()
+
+ 模拟人工操作
+ $('button').trigger('click')
+ $('button').click();
+
+ AJAX
+ 1.获取对象
+ 2.创建请求
+ 3.设置回调函数
+ 4.发送
+$.get
+$.getJSON
+$.post
+$.ajax

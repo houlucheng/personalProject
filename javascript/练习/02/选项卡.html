@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		ul,
+		li {
+			list-style: none;
+		}
+		a,a:hover,a:active,a:target,a:visited{
+			text-decoration: none;
+			color: #424242;
+		}
+		img{
+			border: none;
+			display: inline-block;
+		}
+		#bannerFir {
+			position: relative;
+			width: 1000px;
+			height: 500px;
+			margin: 20px auto 0;
+		}
+		.bannerInner{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+		.bannerInner img{
+			display: none;
+			width: 100%;
+			height: 100%;
+		}
+		.bannerInner img.select{
+			display: inline-block;
+		}
+		.bannerTip{
+			position: absolute;
+			z-index: 10;
+			bottom:10px;
+			right: 30px;
+			overflow: hidden;
+		}
+		.bannerTip li{
+			width: 220px;
+			height: 34px;
+			margin-top: 10px;
+			background-color: #FFFFFF;
+			cursor: pointer;
+			text-align: center;
+			line-height: 34px;
+			font-size: 11px;
+		}
+		.bannerTip li.bg{
+			background-color: #3083d7;
+			color: #FFFFFF;
+			text-align: center;
+			line-height: 34px;
+			font-size: 11px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="banner" id="bannerFir">
+	<div class="bannerInner">
+		<img src="img/1.png" class="select" />
+		<img src="img/2.png" />
+		<img src="img/3.png" />
+		<img src="img/4.png" />
+		<img src="img/5.png" />
+	</div>
+	<ul class="bannerTip">
+		<li class="bg">在“商家服务”能做什么？</li>
+		<li>商家服务主要提供什么？</li>
+		<li>支付宝还能为您做什么？</li>
+		<li>接入支付宝第一步做什么？</li>
+		<li>接口遇到技术问题怎么办？</li>
+	</ul>
+</div>
+<script type="text/javascript">
+	var oLunbo=document.getElementById('bannerFir');
+	var oLis = document.querySelectorAll(".bannerTip li");
+	var oImgs = document.querySelectorAll(".bannerInner img");
+
+	function change(n) {
+		for (var i = 0; i < oLis.length; i++) {
+			oLis[i].className = "";
+			oImgs[i].className = "";
+		}
+		oLis[n].className = "bg";
+		oImgs[n].className = "select";
+	}
+	var step = 0;
+	for (var i = 0; i < oLis.length; i++) {
+		oLis[i].i = i;
+		oLis[i].onclick = function() {
+			change(this.i);
+			step = this.i;
+		}
+	}
+
+</script>
+</body>
+
+</html>

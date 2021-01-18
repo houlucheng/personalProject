@@ -1,0 +1,59 @@
+@charset "utf-8";
+/* Copyright：QQ：462180076/1060755575(好友已满) / 微信：zengdao / 手机：13488751574 */
+*{margin: 0;padding: 0;}
+ul,ol{list-style: none;}
+a{text-decoration: none;}
+input,textarea{outline: none; border: none; background-color: transparent; resize: none; font-family: punctuation, PingFangSC-Regular, "Microsoft YaHei", "微软雅黑";}
+img{vertical-align: top;}
+.clearfix:after{content: ""; display: block; clear: both; }
+.clearfix{zoom:1;}
+.fl{float: left;}
+.fr{float: right;}
+
+body{ font-family: punctuation, PingFangSC-Regular, "Microsoft YaHei", "微软雅黑"; font-size: 14px;}
+.wrap{width: 600px; margin: 30px auto;}
+
+.editor_cont{ border:solid 1px #ccc; box-shadow: 0 0 5px rgba(0,0,0,.1); border-radius: 4px; margin-bottom: 14px;}
+.editor_bd{padding: .7em; box-shadow: inset 0 1px 3px rgba(0,0,0,.1);}
+.editor_bd textarea{height: 70px; width: 100%;}
+.editor_hd{border-top: solid 1px #ccc; padding: .4em .7em; text-align: right; display: none;}
+.editor_hd:before{content: "by Busy"; float: left; line-height: 32px; height: 32px; font-size: 12px;}
+.send_link{display: inline-block; height: 30px; line-height: 30px; padding: 0 1.6em;border: 1px solid #4798d6; background-color: #5caae6;color: #fff; border-radius: 3px;}
+
+.feed_friend{border-radius: 3px; border:solid 1px #ccc;}
+.feed{ padding: .7em; }
+.f_user_pto,.f_user_pto img{width: 50px; height: 50px;}
+.f_user_info{margin-left: 60px; line-height: 25px;}
+.f_user_info p{font-size: 12px; color: #666;}
+.feed_item{padding: .7em;}
+.feed_item .f_user_pto, .feed_item{ border-top: solid 1px #ccc; margin-top: -1px;}
+.feed_item .f_user_pto, .feed_item .f_user_pto img{width: 30px; height: 30px;}
+.feed_item .f_user_info{margin-left: 40px; line-height: 15px; font-size: 12px; }
+.feed_item .f_user_info div{margin-bottom: 6px;}
+.feed_item .f_send_text{display: inline;}
+.feed_item .del_link{color: #666; margin-left: 1em; display: none;}
+
+.feed_bar{background-color: #f5f5f5;}
+.feed_var_inner{padding: .5em;  border-top: solid 1px #ccc;border-bottom: solid 1px #ccc; font-size: 12px;}
+.feed_var_inner a{color: #000; display: inline-block; height: 24px; line-height: 24px; padding: 0 10px; border:solid 1px #f5f5f5; margin-right: .2em;}
+.feed_var_inner a:hover{background-color: #fff; border-color: #ccc; }
+
+.feed_input{padding: .5em; background-color: #f5f5f5;}
+.f_input{height: 28px;background-color: #fff; border: solid 1px #ccc; padding: 0 10px; margin-right: 61px;}
+.f_input input{width: 100%; height: 28px; line-height: 28px; vertical-align: top; }
+.f_send_text{margin: .4em 0; line-height: 1.5;}
+.f_btn{height: 30px; width: 62px; float: right; margin-top: -30px; border: 1px solid #4798d6; background-color: #5caae6; color: #FFF;}
+.f_btn:active{background-color: #4798d6;}
+
+.gtip{border: solid 1px #666; padding: .4em .8em; position: absolute; left: 0; top: 0; border-radius: 2px; display: none;}
+
+
+
+
+
+
+
+
+
+
+

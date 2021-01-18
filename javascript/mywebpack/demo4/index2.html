@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script type="text/javascript" src="./node_modules/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	
+</div>
+<script type="text/javascript"  type="module" >
+	Vue.filter('aa',function(val){
+		return val.split('').reverse().join('')
+	})
+
+	Vue.component('childer',{
+		template:`
+			<div class="a">
+				<slot name='a'></slot>
+				<button @click='fn(name)'>按钮</button>
+				<slot name='b'></slot>
+				<input type="text" v-model='age'>
+				<p>{{age | myfilter}}</p>
+				<p>{{name | aa}}</p>
+				<button @click='arr[0].name = "wwl"'>按钮</button>
+				<p>{{arr[0].name}}</p>
+			</div>
+		`,
+		data(){
+			return {
+				name:'小明',
+				age:0,
+				arr:[{name:'hlc'}]
+			}
+		},
+		watch:{
+			age:function(a,b){
+				console.log(a,b)
+				if(a=='666'){
+					alert('')
+				}
+			},
+			arr:{
+				deep:true,
+				handler:function(newdata){
+					console.log(newdata[0].name)
+				}
+			}
+		},
+		filters:{
+			myfilter(val){
+				var a = Number(val)
+				return Boolean(a)
+			}
+		},
+		created(){
+			console.log(this.name)
+		},
+		methods:{
+			fn(val){
+				this.$emit('fn2',val)
+			}
+		}
+	})
+
+	
+
+
+	let app = new Vue({
+		el:'#app',
+		data(){
+			return {
+
+			}
+		},
+		methods:{
+			fn1(data){
+				console.log(data)
+			}
+		},
+		template:`
+			<childer @fn2='fn1'>
+				<h2 slot='a'>hello</h2>
+				<h6 slot='b'>不好</h6>
+			</childer>
+		`
+	})
+</script>
+</body>
+</html>

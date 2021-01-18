@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            background: palegreen;
+            border-radius: 50%;
+            cursor: pointer;
+            position: absolute;
+            left: 0;
+        }
+        input{
+            position: absolute;
+            top: 300px;
+            width: 200px;
+            height: 40px;
+            display: inline-block;
+            background: plum;
+            border: none;
+        }
+        #left{
+            left: 100px;
+        }
+        #right{
+            left: 500px;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<input type="button" id="left" value="向左走">
+<input type="button" id="right" value="向右走">
+</body>
+<script src="1/utils.js"></script>
+<script>
+	 var box=document.getElementById("box");
+    var maxL=utils.win("clientWidth")-box.offsetWidth;
+    var maxR=0;
+    setInterval(function () {
+        var curLeft= utils.css(box, "left");
+        if (curLeft<=0) {
+            clearInterval(box.times);
+            box.times = setInterval(function () {
+                //clearInterval(box.times);
+                var curLeft = utils.css(box, "left");
+                curLeft += 10;
+                if (curLeft >= maxL) {
+                    clearInterval(box.times);
+                    utils.css(box, "left", maxL);
+                    return;
+                }
+                utils.css(box, "left", curLeft)
+            }, 20)
+        }else if(curLeft>=maxL){
+            clearInterval(box.times);
+            box.times = setInterval(function () {
+                //clearInterval(box.times);
+                var curLeft = utils.css(box, "left");
+                curLeft -= 10;
+                if (curLeft <= maxR) {
+                    clearInterval(box.times);
+                    utils.css(box, "left", maxR);
+                    return
+                }
+                utils.css(box, "left", curLeft)
+            }, 20)
+
+
+        }
+    },50)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//  var box = document.getElementById("box");
+//  var left  = document.getElementById("left");
+//  var right  = document.getElementById("right");
+//
+//  var targetLeft = 0;           //左边目标位置
+//  var targetRight = utils.win('clientWidth')-box.offsetWidth;////右边目标位置
+//  function move(target) {
+//      var newLeft = utils.css(box,'left');
+//      if(newLeft > target){
+//          clearInterval(box.timer);
+//          box.timer = setInterval(function () {
+//              var curLeft  = utils.css(box,'left');
+//              curLeft -= 10;
+//              if(curLeft <= 0){ //
+//                  clearInterval(box.timer);
+//                  utils.css(box,'left',0);
+//                  return;
+//              }
+//              utils.css(box,'left',curLeft);
+//
+//          },10)
+//      }
+//      if(newLeft < target){
+//          clearInterval(box.timer);
+//          box.timer = setInterval(function () {
+//              var curLeft  = utils.css(box,'left');
+//              curLeft += 10;
+//              if(curLeft >= target){ //
+//                  clearInterval(box.timer);
+//                  utils.css(box,'left',target);
+//                  return;
+//              }
+//              utils.css(box,'left',curLeft);
+//
+//          },10)
+//      }
+//
+//  }
+//  left.onclick = function () {
+//      move(targetLeft)
+//
+//  };
+//  right.onclick = function () {
+//      move(targetRight)
+//  }
+
+
+</script>
+</html>

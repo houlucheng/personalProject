@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            background: plum;
+            border: 2px solid lightcoral;
+            position: absolute;
+			box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+</body>
+<script src="utils.js"></script>
+<script>
+    var box = document.getElementById("box");
+    var  winH = utils.win('clientHeight');
+    var winW = utils.win('clientWidth');
+    var boxW = box.offsetWidth;
+    var boxH = box.offsetHeight;
+    box.onclick = function f() {
+        utils.css(box,'left',0);
+        utils.css(box,'top',0);
+        var timer = setInterval(function () {
+			var top = utils.css(box,"top")
+			var left = utils.css(box,"left")
+			left += (winW - boxW)/100;
+			top += (winH - boxH)/100;
+			utils.css(box,"top",top)
+			utils.css(box,"left",left)
+             if(left+100>=winW||top+100>=winH){
+                  clearInterval(timer);
+            }
+        },10)
+    }
+
+
+</script>
+</html>

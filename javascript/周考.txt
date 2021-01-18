@@ -1,0 +1,213 @@
+1.如何判断节点的名称，判断节点的类型
+  答：nodeName     nodeType  
+
+2.如何获得元素中的内容，和批量删除父元素下所有子节点
+  答:innerHTML    
+     elem.innerHTML="";
+
+3.创建节点 ，删除节点
+  答：var divEle=document.createElement("div");
+          div.removeChild(p1);
+
+4.将新节点挂到指定父元素下的3中方式
+  答：追加: appendChild();
+      插入: insertBefore();
+      替换: replaceChild();
+
+5.如何获得元素的属性，删除元素的属性，设置属性，判断元素的属性是否存在，获得元素属性集合
+  答：获取元素的属性: getAttribute()
+      删除元素的属性: removeAttribute()
+      设置元素的属性: setAttribute()
+      获得元素属性集合: Attributes()
+      判断元素的属性是否存在: hasAttribute()
+
+6.获得元素的样式有几种方式，区别是什么？
+  答：var w=p.style.width;//只能获得行内样式
+      var w=getComputedStyle(p).width;//获得最终样式 (包括样式表和行内样式)
+
+7.创建一个a元素，并设置他的href为www.baidu.com，给这个a元素添加鼠标悬停事件，在事件中设置a    元素，改变颜色并设置id为a_id，最后添加到body中。
+  答：var a=document.carentElement("a");
+      a.href="http://www.baidu.com";
+      a.onmouseover=function(){
+      a.style.backgroundColor="";
+     }
+     body.appendChild(a);      （答案不全）
+
+8.元素之间的6种关系
+  答：父元素关系：     parentElement  
+      第一个子元素：   firstElementChild  
+      最后一个子元素： lastElementChild
+      上一个兄弟元素： previousElementSibling
+      下一个兄弟元素： nextElementSibling
+      子元素关系：     children
+
+9.解释一下什么是变量声明提前
+  答：就是在js中所有var 声明的变量，变量名字会被提到作用域的最前边
+      例如：alert(a);
+            
+var a = 5;
+        这时候虽然变量在弹出的下方，但是变量名其实早就有了，只是没有值而已，因此弹出undefind
+
+10.写一个生成福利彩票的程序
+  答：
+     产生一个福利彩票号 1-32  1-16  [3,10,15,19,20,27,5]
+	var n=parseInt(Math.random()*32)+1;
+	var arr=[];
+	while(arr.length<6){
+			var n=parseInt(Math.random()*32)+1;
+			if(arr.indexOf(n)==-1){
+			arr.push(n)
+			}
+		}
+			arr.sort(function(a,b){return a-b});
+			arr.push(parseInt(Math.random()*16)+1);
+			document.write(arr);
+			for(var i=0;i<6;i++){
+			var n=parseInt(Math.random()*32)+1;
+			arr.push(n);
+		}
+
+11.取消冒泡  
+       DOM：e.stopPropagation();
+       IE: e.cancelBubble=true;
+12.兼容代码：if(e.stopPropagation){
+		   e.stopPropagation();
+                 }else{
+ 	            e.cancelBubble=true;
+                 }
+
+13.取消默认事件 
+return false; 
+
+if(e.preventDefault){
+        e.preventDefault();
+    }else{
+        e.returnValue=false;//ie=.
+    }
+
+14.获得事件对象   
+  var event=window.event||arguments[0];
+
+15.bom常用对象   
+  window navigator history location document screen event
+   
+16.常用的10个事件
+【onclick】	鼠标点击某个对象	
+【ondblclick	】鼠标双击某个对象
+
+【onkeydown】	键盘的某个键被按下
+【onkeypress】	键盘的某个键被按下或按住	
+【onkeyup】	某个键盘的键被松开
+	
+【onmousedown】	某个鼠标按键被按下
+【onmousemove】	鼠标被移动
+【onmouseout】	鼠标从某元素移开
+【onmouseover】	鼠标被移到某元素之上
+【onmouseup】	鼠标某个按键被松开	
+
+CSS:
+	text-transform: uppercase;变大写
+	text-transform: lowercase;变小写
+	text-transform: capitalize;每个单词以大写字母开头	
+
+JS:
+	toUpperCase(); 转换成大写
+	toLowerCase(); 转换成小写
+
+        remeber.checked  检测有没有记住密码
+
+prompt() 信息输入
+alert() 警告
+confirm() 确认    
+  
+var arr = ();
+var arr = [];
+var arr = new Array();
+
+
+两种方式：
+第一种：
+<script type="text/javascript" src="js文件的路径></script>
+第二种：
+<script language="javascript" type="text/javascript">
+<!--
+这里写你的js代码
+//-->
+</script>    
+
+css
+   <i></i>:font-style: normal;(正常字体)
+    box-shadow: inset 0 0 20px 10px red;(内阴影)
+    cursor: pointer; （变小手）
+
+    user-select: none;  /*禁止选中文本*/
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+
+     border-collapse: collapse;单元格合并边框
+    文本域禁拉 resize:none;
+    
+    超出省略号代替
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    a标签href不跳转：javascript:void(0)
+    
+    toLocaleDateString()  把标准时间转化为年月日
+
+    var aa=jquery.onConflict() 如果jq$与其他冲突
+    继承  封装  多态
+    Trident内核 IE	-ms-
+    Gecko内核  火狐	-moz-
+    WebKit内核  谷歌   -webkit-
+    Presto内核  欧朋	-o-
+
+移动端js插件
+   http://www.swiper.com.cn/          swiper
+   移动端触摸滑动js插件：TouchSlide
+   移动端触摸滑动js插件：iSlider
+
+   获取滚动条到顶部的垂直高度 ：   
+   jq方法
+      $(document).scrollTop(); 
+   js方法
+       var yheight1=window.pageYOffset; //滚动条距顶端的距离  
+        var yheight=getScrollTop(); //滚动条距顶端的距离  
+
+深拷贝
+  deepclone
+
+区分数组和对象（instanceof）
+	console.log(arr instanceof Array)
+	console.log(arr.constructor === Array); //true
+	 console.log(Object.prototype.toString.call(arr) === '[object Array]'); //true （toString方法）
+
+
+实现表现与数据分离的优点和缺点：
+
+       优点是： 模块化 --> 容易测试 --> 降低bug频率
+
+       缺点是：程序结构复杂，比较耗时，上手有学习曲线
+
+内存泄漏   没有被回收的变量   全局变量   闭包内用的变量
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

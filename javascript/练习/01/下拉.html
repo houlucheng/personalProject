@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+            color: #000000;
+        }
+        .wrap{
+            width: 100px;
+            height: 30px;
+            background-color: #A3A3A3;
+            margin: 100px auto;
+            text-align: center;
+            line-height: 30px;
+        }
+        .paused{
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border: 10px solid #000;
+            border-top-color: #535353;
+            border-left-color: transparent;
+            border-right-color: rgba(0,0,0,0);
+            border-bottom-color: rgba(0,0,0,0);
+            cursor: pointer;
+            float: right;
+            margin-left: 15px;
+            margin-top: 10px;
+        }
+        .play{
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border: 10px solid #000;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            border-right-color: rgba(0,0,0,0);
+            border-bottom-color: #535353;
+            cursor: pointer;
+            float: right;
+            margin-left: 15px;
+        }
+        .list{
+            border: solid 1px red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap" id="wap"><a href="#">网页</a><span class="paused" id="span"></span>
+    <ul class="list" id="list">
+        <li>网页</li>
+        <li>图片</li>
+        <li>视频</li>
+        <li>惠惠</li>
+        <li>热闻</li>
+        <li>词典</li>
+        <li>翻译</li>
+        <li>笔记</li>
+    </ul>
+</div>
+<script>
+    var oWap = document.getElementById('wap');
+    var oList = document.getElementById('list');
+    var span=document.getElementById('span');
+    var isClick = false;
+    oWap.onclick = function(){
+        if(isClick){
+            oList.style.display = 'none';
+            span.className='paused';
+            isClick = false;
+        }
+        else{
+            oList.style.display = 'block';
+            isClick = true;
+            span.className='play'
+        }
+
+    }
+</script>
+</body>
+</html>

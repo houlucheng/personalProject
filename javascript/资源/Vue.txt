@@ -1,0 +1,127 @@
+el:'#app'  作用范围
+data：{}  数据
+methods:{}  方法
+computed:{}  计算属性
+v-bind:class="{"active":true}"
+v-bind:tode  组件和数据的链接
+--------------------------
+{{name | fn }}
+filters:{ 
+     fn(val){
+	return val+1;
+     } 
+}
+--------------------------
+Data:{
+   name:'你好'
+   arr:[{age:10}]
+}
+Watch:{
+   name:function(new,old){
+   	console.log(new)//新值
+	console.log(old)//旧值
+   },
+   arr:{
+       deep:true,//深度监听
+       handler:function(val){
+          Console.log(val)//新值
+       }
+   }
+}
+-----------------------------
+父传子
+    1.父级在子组件上定义 自定义属性并赋值
+    2.子组件通过定义props来活去父级传过来的值
+子传父
+    1.子组件定义一个事件然后执行一个方法 用this.$emit('父级在子组件上定义的事件(aa)',想传的值)
+    2.父组件在子组件的标签上自定义一个事件 比如 @aa="fn1" 定义一个fn1函数 参数就是子组件传过来的值
+-------------------------------
+computed:{
+	Fn:function(aa){
+	   return aa + 'nihau'
+	}
+}
+
+
+组件开发：
+全局组件
+Vue.component('todo',{ 
+    props:['tode'],
+    template:'<li>{{tode.name}}</li>'  模板
+})
+局部组件
+el:"#app3",
+components:{
+       "my-component2":Child
+}
+
+
+
+beforeCreate   创建之前
+created        创建之后
+beforeMount    有el
+mounted        之后      （比较有用的相当于window.onload）
+beforeUpdate   改变之前
+updated        改变之后
+beforeDestroy  销毁之前
+destroyed      销毁之后
+
+指令
+v-once  一次性
+v-html
+v-text
+v-if
+v-show
+v-else
+v-for
+v-bind  主要用于属性绑定，Vue官方提供了一个简写方式 如 :src
+v-on    绑定事件  简写@click
+<!-- 阻止单击事件冒泡 -->
+<a v-on:click.stop="doThis"></a>
+
+<!-- 提交事件不再重载页面 -->
+<form v-on:submit.prevent="onSubmit"></form>
+
+<!-- 修饰符可以串联 -->
+<a v-on:click.stop.prevent="doThat">
+
+<!-- 只有修饰符 -->
+<form v-on:submit.prevent></form>
+
+<!-- 只有在 keyCode 是 13 时调用 vm.submit() -->
+<input v-on:keyup.13="submit">
+<!-- 同上 -->
+<input v-on:keyup.enter="submit">
+<!-- 缩写语法 -->
+<input @keyup.enter="submit">
+全部的按键别名：enter，tab，delete，esc，space，up，down，left，right
+v-model  在默认情况下，v-model在input事件中同步输入框的值与数据,我们可以添加一个lazy特性，从而将数据改到在change事件中发生
+	 如果想要用户的输入自动转换为Number类型（如果原值的转换结果为NAN，则返回原值），则可以添加一个number特性。
+	 debounce 设置一个最小的延时，在每次敲击之后延时同步输入框的值与数据。如果每次更新都要进行高耗操作（例如，在input中输入内容时要随时	 	 发送ajax请求），那么它较为有用。 <input v-model="msg" debounce="5000"/>
+
+离开
+ .fade-leave
+ .fade-leave-active
+ .fade-leave-to
+
+进入
+  .fade-enter
+  .fade-enter-active
+  .fade-enter-to
+
+
+npm install webpack -g
+npm i vue-cli -g
+vue init webpack-simple myvue
+cd myvue
+npm install
+npm run dev
+
+
+
+
+
+
+
+
+

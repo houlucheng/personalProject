@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" class="inp">
+<input type="button" value="判断" class="button">
+<script>
+    var inp=document.querySelector(".inp");
+    var button=document.querySelector(".button");
+    button.onclick=function(){
+        var a=inp.value;
+        if ((a>0&&a<10)||(a<0&&a>-10)){
+            alert("一位数")
+        }if((a>=10&&a<100)||(a<=-10&&a>-99)){
+            alert("两位数")
+        }
+    }
+</script>
+</body>
+</html>

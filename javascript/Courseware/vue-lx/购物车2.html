@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+	<!-- <script type="text/javascript" src="./promise.js"> -->
+		
+	</script>
+	<body>
+		<!-- vue的ui框架 iview  mintui elementui -->
+		<div id="app">
+			<div class="container">
+				<div class="row">
+					<table class="table table-hover table-bordered">
+						<caption class="h2 text-warning text-center">京东购物车</caption>
+						<tr>
+							<th>全选 <input type="checkbox" v-model="checkAll"/></th>
+							<td>商品</td>
+							<td>单价</td>
+							<td>数量</td>
+							<td>小计</td>
+							<td>操作</td>
+						</tr>
+						<tr v-for="(product,index) in products">
+							<td><input type="checkbox" v-model="product.isSelected" @change="checkOne"/></td>
+							<td><img :src="product.productCover" :title="product.productName"/>{{product.productInfo}}</td>
+							<td>{{product.productPrice}}</td>
+							<!-- .layz输入框失去焦点时更新数据 -->
+							<td><input type="number" v-model.number="product.productCount"  min="1"/></td>
+							<!-- 过滤器 原数据不变的情况 只是改变显示的效果  管道符 -->
+							<td>{{product.productPrice*product.productCount | toFixed(2)}}</td>
+							<td><button class="btn btn-danger" @click="remove(product)">删除</button></td>
+						</tr>
+						<tr>
+							<td colspan="6">总价格:{{sum() | toFixed(2)}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+			
+		</div>
+	</body>
+	
+	
+	<script type="text/javascript">
+		
+		var vm = new Vue({
+			el:"#app",
+			created(){
+				this.getData();
+			},
+			computed:{
+				checkAll:{
+					get(){//get和set this指向实例 默认会获取checkAll的值 所以会调用get方法
+						return this.products.every(p=>p.isSelected);
+					},
+					set(val){//当我们给checkbox赋值的时候
+						this.products.forEach(p=>p.isSelected = val)
+					}
+				}
+			},
+			filters:{
+				toFixed(input,param1){//这里的this是window
+					return '¥'+input.toFixed(param1)//input是管道符前面的内容
+				}
+			},
+			methods:{
+				sum(){
+					return this.products.reduce((prev,next)=>{
+						if(!next.isSelected)return prev;//如果没被选中就不加当前项
+						return prev+next.productPrice*next.productCount;
+					},0)
+				},
+				checkOne(){
+					this.checkAll = this.products.every(item=>item.isSelected)
+				},
+				change(){
+					this.products.forEach(item=>item.isSelected=this.checkAll)
+				},
+				remove(p){//p代表是当前点击一项
+					this.products = this.products.filter(item=>item!==p)
+				},
+				getData(){
+					axios.get('./carts.json').then(res=>{
+						this.products = res.data;
+						this.checkOne()//数据加载完成后给全选按钮赋值
+					},err=>{
+						console.log(err)
+					})
+				},
+				
+			},
+			data:{
+				products:[]
+				
+			}
+		})
+		
+		
+		
+	</script>
+
+
+
+
+
+
+
+
+
+	<!-- <script type="text/javascript">
+		
+		var vm = new Vue({
+			el:"#app",
+			created(){
+				ajax({url:'./carts.json'}).then((res)=>{
+					console.log(res)
+					this.products = res
+				},(err)=>{
+					console.log(err)
+				})
+			},
+			data:{
+				products:[]
+			}
+		})
+	
+		
+	</script> -->
+</html>

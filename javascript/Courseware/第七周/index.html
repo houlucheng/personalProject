@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<style type="text/css">
+	#box{
+		width: 100px;height: 100px;background-color: red;
+	}
+	li{width: 100px;height: 100px;background-color: red;}
+</style>
+<body>
+	<div class="aa" id="box"></div>
+	
+	
+	<ul id="ul1">
+    <li>111</li>
+    <li>222</li>
+    <li>333</li>
+    <li>444</li>
+</ul>
+	
+<script type="text/javascript">
+/*
+	function getDate(url){
+		let promise = new promise(function(res,rej){
+			let xhr = new XMLHttpRequest();
+			xhr.open("get",url,false);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState === 4&&xhr.status === 200){
+					res(xhr.responseText);
+				}else{
+					rej(xhr.statusText);
+				}
+			}
+			xhr.send();
+		})
+		return promise;
+	}
+	getDate("data.json").then(function(data){
+		console.log(data)
+	})
+*/
+document.getElementsByClassName('aa')[0].addEventListener("click",function(){
+	alert(11);
+},false)
+box.addEventListener("click",function(){
+	alert(22);
+},false)
+
+//  document.getElementById("box").attachEvent("onclick",function(){alert(1)}); //(IE)
+
+// window.onload = function(){
+// 　　var oUl = document.getElementById("ul1");
+// 　　oUl.onclick = function(ev){
+// 　　　　var ev = ev || window.event;
+// 　　　　var target = ev.target || ev.srcElement;
+// 　　　　if(target.nodeName.toLowerCase() == 'li'){
+// //　 　　　　　　	alert(123);
+// 　　　　　　　  alert(target.innerHTML);
+// 　　　　}
+// 　　}
+// }
+</script>
+</body>
+</html>

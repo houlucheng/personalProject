@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<div id="box1">
+		<div id="con1">123</div>
+		<div id="con2">456</div>
+		<div class="con3">789</div>
+	</div>
+	<div id="box2">
+		<div class="con1">111</div>
+		<div class="con2">222</div>
+		<div class="con3">333</div>
+	</div>
+	<div class="box3">
+		<div class="con1">444</div>
+		<div class="con2">555</div>
+		<div class="con3">666</div>
+	</div>
+	<body>
+		<script type="text/javascript" src="js/setPwd.js">
+			
+		</script>
+		<script type="text/javascript">
+//			var a=[1,2,3];
+//			var b=[6,5,4];
+//			var h=[...a,...b];//展开数组
+//			console.log(h);//[1, 2, 3, 6, 5, 4]
+
+//push pop unshift shift  slice splice indexof lastIndexof sort reverse join map forEach tostring concat
+			// var ary = [12,66,66,12,33,44,33,88,99,77];
+//1.数组去重
+			// var newAry = [];
+			// for(var i=0; i<ary.length; i++){
+			// 	if(newAry.indexOf(ary[i]) == -1){
+			// 		newAry.push(ary[i])					
+			// 	}
+			// }
+			// console.log(newAry)
+			var ary = [{a:1,b:2},{a:3,b:4},{a:1,b:2},{a:3,b:4},{a:1,b:1}];
+
+//2. 数组去重			
+//			ary.sort(function(a,b){
+//				return a-b
+//			})
+//			
+//			for(var i=0;i<ary.length;i++){
+//				if(ary[i] !== ary[i+1]){
+//					newAry.push(ary[i])
+//				}
+//			}
+//			console.log(newAry)
+//3.	数组去重
+//		var obj = {};
+//		for(var i=0; i<ary.length; i++){
+//			var cue=ary[i];
+//			if(obj[cue] === cue){
+//				ary[i] = ary[ary.length-1]
+//				ary.length--;
+//				i--;
+//				continue;
+//			};
+//			obj[cue] = cue;
+//		}
+//		console.log(ary);
+
+//4.	冒泡排序	
+//		var ary = [12,66,33,44,88,99,77];
+//		for(var j=0; j<ary.length; j++){
+//		for(var i=0; i<ary.length-1-j; i++){
+//			if(ary[i]>ary[i+1]){
+//				var num = ary[i];
+//				ary[i] = ary[i+1];
+//				ary[i+1] = num;
+//			}
+////			console.log(1)
+//		}
+//		}
+//		console.log(ary)
+
+//==========================================
+//去重方法
+//1. indexof;
+//2. 先用sort排序 然后利用相同的项都在一起的规律 然后进行两两比较;
+//3. 利用对象属性名不能重复的机制进行去重
+
+//排序方法
+//1.	 冒泡排序： 两两比较 如果大就交换位置 如果小就不动;
+//2. 插入排序： 先拿数组里的一项去和新数组中比较  如果大则用splice(i+1,0,mun)添加 
+//			   如果小得一直往前比 如果下标为0则用unshift添加；
+//3. 快速排序:  把数组分成两部分 然后把中间的值用splice截取出来 然后用这个数与现在数组里的所有比较  
+//			   小的存一个数组 大的存一个数组 return的时候再执行一边函数并且拼接起来
+
+//获取dom
+// var a = document.getElementById('box1')
+// var b = document.getElementById('con2')
+// //var c = document.getElementById('box3')
+// console.log(a)
+//console.log(a.childNodes)
+// var d = document.getElementsByClassName('box3')[0]
+// console.log(d)
+// console.log(d.childNodes)
+
+//1.childNodes：获取元素的所有子节点；
+//3.parentNode : 获取当前元素的父亲节点;
+//4. previousSibling  ： 获取上一个哥哥节点
+//	previousElementSibling
+//5.nextSibling : 获取下一个弟弟节点
+//	nextElementSibling
+//6.firstChild : 获取第一个子节点
+//7.lastChild : 获取最后一个子节点
+//
+//2.children : 获取当前元素所有的子元素节点;
+
+
+
+// var a={a:2,1:4}
+// console.log(a)
+
+		</script>
+	</body>
+</html>

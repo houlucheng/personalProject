@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{padding: 0;margin: 0;}
+		body{background:#000;}
+		#wrap{margin:50px auto; width: 400px;height:300px;border:2px solid blue;border-radius: 10px;color:#FFF;}
+		#wrap .title{text-align: center;height:80px;line-height: 80px;font-size: 30px;}
+		#wrap .end_wrap{width: 280px;margin: 10px auto;}
+		#wrap ul{list-style: none;padding-left: 40px;}
+		#wrap ul li.time{height: 50px; line-height: 50px; float: left; width:50px; text-align: center;font-size: 40px;color:red;}
+		#wrap ul li.info{height: 50px; line-height: 50px;float: left; width:20px; text-align: center;}
+		#wrap button {margin: 20px auto; display: block;padding: 5px 15px;font-size: 20px;border-radius: 10px; background: yellow;color:red;}
+		#wrap .t_info{height: 50px;line-height: 50px;padding-left: 50px;}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div class="title">开始倒计时</div>
+		<div class="end_wrap">
+			<span>结束时间：</span>
+			<input id="edtime" onclick="laydate({istime:true,format:'YYYY/MM/DD hh:mm:ss'})" type="text">
+		</div>
+
+		<div><button onclick="test()">开始计时</button></div>
+		<div class="t_info">距离当前时间还有：</div>
+		<ul>
+			<li id="d" class="time"></li>
+			<li class="info">天</li>
+			<li id="h" class="time"></li>
+			<li class="info">时</li>
+			<li id="i" class="time"></li>
+			<li class="info">分</li>
+			<li id="s" class="time"></li>
+			<li class="info">秒</li>
+		</ul>
+	</div>
+	<script>
+		function test(){
+
+			var nowTime = new Date().getTime();
+			var endTime = new Date(document.getElementById('edtime').value);
+			var t = endTime.getTime() - nowTime;
+			if(t<=0){
+				alert('请重新输入');
+				 return false;
+			}
+			var d = Math.floor(t/1000/60/60/24);
+			
+			var h = Math.floor(t/1000/60/60%24);
+			var i = Math.floor(t/1000/60%60);
+			var s = Math.floor(t/1000%60);
+
+			document.getElementById('d').innerHTML = d;
+			document.getElementById('h').innerHTML = h;
+			document.getElementById('i').innerHTML = i;
+			document.getElementById('s').innerHTML = s;
+
+			setTimeout(test, 1000);
+		}
+
+
+	</script>
+</body>
+</html>

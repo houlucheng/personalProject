@@ -1,0 +1,24 @@
+ cnpm install -g create-react-app
+ create-react-app my-app
+ cd my-app/
+ npm start
+
+// react-router-dom    升级版（封装）4.x版本
+// 低于4.x和4.x的不一样
+
+npm i react-router-dom
+
+
+
+
+
+class App extends Component {
+  fn(){
+    alert(1)
+  }
+  render() {
+    return (
+     <h1 onClick={this.fn.bind(this)}>你好</h1>
+    );
+  }
+}

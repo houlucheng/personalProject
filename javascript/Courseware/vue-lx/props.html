@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<body>
+	<div id="app">
+		<child msg="hello!"></child>
+		<child nihao="hello1!"></child>
+		<child nisha="hello2!"></child>
+
+	</div>
+<script type="text/javascript">
+/*
+props : 可以是个对象
+	props:{
+	 	"msg":{
+			type : [Number,string],//规定这个值的类型 （可以写入的值：String Number Boolean Function Object Array Symbol）
+			required : true, //规定这个值是否必传 
+			default : "123", //定义如果未传值时默认值为123  （不是强制性的 不传会报错 但是也会渲染）
+			validator : function(value){
+				return value>=0 && value<=100;
+			}
+
+	 	}
+	}
+template ：可以是一个js标签
+<script type="text/x-template" id="demo">    
+	<h1>你好</h1>
+	<h2>天气很好</h2>
+/script>
+
+template : "#demo" //这样写模版就相当于js标签里面的html
+
+<slot></slot>
+规定父组件原有的html放在哪
+
+*/
+
+	Vue.config.debug = true;
+	Vue.component('child', {
+	// declare the props
+	props: ['msg','nihao','nisha'],
+	// the prop can be used inside templates, and will also
+	// be set as `this.msg`
+	template: '<span>{{ msg }}123{{nihao}}{{nisha}}123</span>',
+	/*data: function() {
+	return {
+	msg: 'boy'
+	}
+	}*/
+	});
+
+	var vm = new Vue({
+		el:"#app"
+	})
+
+
+/*
+例子：
+props: {
+    // fooA只接受数值类型的参数
+    fooA: Number,
+    // fooB可以接受字符串和数值类型的参数
+    fooB: [String, Number],
+    // fooC可以接受字符串类型的参数，并且这个参数必须传入
+    fooC: {
+        type: String,
+        required: true
+    },
+    // fooD接受数值类型的参数，如果不传入的话默认就是100
+    fooD: {
+        type: Number,
+        default: 100
+    },
+    // fooE接受对象类型的参数
+    fooE: {
+        type: Object,
+        // 当为对象类型设置默认值时必须使用函数返回
+        default: function(){
+            return { message: 'Hello, world' }
+        }
+    },
+    // fooF使用一个自定义的验证器
+    fooF: {
+        validator: function(value){
+            return value>=0 && value<=100;
+        }
+    }
+}
+*/
+
+</script>
+</body>
+</html>

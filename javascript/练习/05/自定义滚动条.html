@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #da {
+            width: 610px;
+            height: 400px;
+            margin: 100px auto ;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #nr {
+            width: 1220px;
+            height: 370px;
+            position: absolute;
+        }
+        .nr1{
+            width: 230px;
+            height: 100%;
+            margin-left: 10px;
+            float: left;
+        }
+        .nr1>img{
+            width: 100%;
+            height: 100%;
+        }
+
+        .k {
+            width: 610px;
+            height: 30px;
+            margin-top: 370px;
+            background-color: #00b0e8;
+        }
+
+        #div {
+            width: 40px;
+            height: 30px;
+            background-color: aqua;
+            position: absolute;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body id="b">
+<div id="da">
+    <div id="nr">
+        <div class="nr1">
+            <img src="img/a.jpg">
+        </div>
+        <div class="nr1">
+            <img src="img/b.jpg">
+        </div>
+        <div class="nr1">
+            <img src="img/c.jpg">
+        </div>
+        <div class="nr1">
+            <img src="img/d.jpg">
+        </div>
+        <div class="nr1">
+            <img src="img/e.jpg">
+        </div>
+    </div>
+    <div class="k" id="ddiv">
+        <div id="div"></div>
+    </div>
+</div>
+</body>
+<script type=text/javascript>
+    div.onmousedown = function (e) {
+        var e = event || e;
+        disX = e.clientX - div.offsetLeft;
+        document.onmousemove = function (e) {
+            var e = event || e;
+            var l = e.clientX - disX;
+            if (l < 0) {
+                l = 0;
+                div.style.left = l + 'px';
+            } else if (l >= ddiv.offsetWidth - div.offsetWidth) {
+                l = ddiv.offsetWidth - div.offsetWidth;
+                div.style.left = l + 'px';
+            } else {
+                div.style.left = l + 'px';
+//                console.log(l);
+                var scal=l/(ddiv.offsetWidth-div.offsetWidth);
+                nr.style.left = -l+'px';
+            }
+            return false;
+        }
+    };
+    div.onmouseup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+    };
+
+
+</script>
+</html>

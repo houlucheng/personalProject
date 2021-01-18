@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .bar{
+            height: 30px;
+            background-color: yellowgreen;
+            position: relative;
+        }
+        .bar img{
+            width: 100%;
+            height: auto;
+        }
+        .barAd{
+            position: absolute;
+            left: 40%;
+            height: 400px;
+            background-color: skyblue;
+            width: 900px;
+            margin-left: -300px;
+            display: none;
+        }
+        .barAd img{
+            width: 100%;
+            height: auto;
+        }
+
+    </style>
+</head>
+<body>
+<div class="bar" id="bar">
+    <img src="img/q.JPG" id="img">
+    <div class="barAd" id="barAd">
+        <img src="img/v.jpg" id="img2">
+    </div>
+</div>
+<script>
+    var oBar = document.getElementById('bar');
+    var oBarAd = document.getElementById('barAd');
+    var oImg=document.getElementById('img');
+    var oImg=document.getElementById('img');
+
+    oBar.onmouseover = function(){
+        oBarAd.style.display = 'block';
+
+    };
+    oBar.onmouseout = function(){
+        oBarAd.style.display = 'none';
+    }
+
+</script>
+</body>
+</html>

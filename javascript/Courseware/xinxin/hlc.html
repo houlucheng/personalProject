@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #box{
+            position: relative;
+
+            height: 50px;
+            overflow: hidden;
+            line-height: 50px;
+        }
+        #box h3{
+            float: left;
+            margin-right: 50px;
+        }
+        #box h3 input{
+            width: 20px;
+            height: 20px;
+        }
+        #box ul{
+            width: 100px;
+            overflow: hidden;
+        }
+
+        #box ul li{
+            float: left;
+        }
+        #box ul li span{
+            cursor: pointer;
+        }
+        #box  .jian,.jia,.zero{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            background: white;
+        }
+        h4 input{
+            width: 50px;
+            height: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <h3>苹果<input type="text" id="unit" value="5" > </h3>
+    <ul>
+        <li><span class="jian" id="jian">-</span></li>
+        <li><input type="text" class="zero" id="zero" value="0"></li>
+        <li><span class="jia" id="jia">+</span></li>
+    </ul>
+</div>
+<h4>总价<input type="text" id="price" value="0" ></h4>
+
+
+
+
+<script>
+    let jia = document.getElementById("jia");
+    let jian = document.getElementById("jian");
+    let unit = document.getElementById("unit");
+    let price = document.getElementById("price");
+
+    jia.onclick = function () {
+        zero.value = parseFloat(zero.value)+1;
+        price.value = unit.value * zero.value;
+        price.setAttribute("value","price.value");
+    };
+    jian.onclick = function () {
+        if(zero.value<=0){
+            zero.value = 0;
+        }else{
+            zero.value = parseFloat(zero.value)-1;
+        }
+        price.value = unit.value * zero.value;
+        price.setAttribute("value","price.value");
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>解构负值</title>
+</head>
+<style type="text/css">
+	.box{width: 700px;height: 700px;border:1px solid #000000;margin: 10px auto;}
+	ul{
+		overflow: hidden;
+		list-style: none;
+	}
+	li{width: 100%;overflow: hidden;}
+	li span{width:30%; border:1px solid #C9C9C9;margin: 4px;display: block;float: left;}
+	#btn{width: 50px;height: 40px;}
+	#btn1{width: 50px;height: 40px;}
+	td{padding: 15px;}
+</style>
+<div class="box">
+</div>
+<body>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.js"></script>
+<script type="text/javascript">
+function fn(id){
+	$.ajax({
+		url:"a.json",
+		type:"get",	
+    		data: id,
+		success:function(res){
+			console.log(res)
+			var str = "";
+			str +=`<ul>`;
+			for (var i = 0; i < res.length; i++) {
+				str += `<li><span>${res[i].name}</span><span>${res[i].age}</span><span>${res[i].msg}</span></li>`
+			}
+			str +=`</ul><button id="btn">查询</button>`;
+			$(".box").html(str)
+		}
+	});
+}
+
+
+function fn1(id){
+	$.ajax({
+		url:"a.json",
+		type:"get",	
+    		data: id,
+		success:function(res){
+			console.log(res)
+			var str = "";
+			str +=`<table border="1" cellspacing="" cellpadding=""><tr><th>表格</th><th>表格</th><th>表格</th></tr>`;
+			for (var i = 0; i < res.length; i++) {
+				str += `<tr><td>${res[i].name}</td><td>${res[i].age}</td><td>${res[i].msg}</td></tr>`
+			}
+			str +=`</table><button id="btn1">确定</button>`;
+			$(".box").html(str)
+		}
+	});
+}
+
+
+fn(1)	
+$(".box").on('click',"#btn",function(){
+	fn1(2)
+})
+
+$(".box").on('click',"#btn1",function(){
+	fn(2)
+})
+
+</script>
+</body>
+</html>

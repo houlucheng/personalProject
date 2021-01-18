@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        body{
+            background-color: #012658;
+        }
+        .jian{
+            width:243px;
+            height: 37px;
+            background-color: #ffffff;
+            margin: 100px auto;
+            border-radius: 15px;;
+            overflow: hidden;
+        }
+        .jian>ul{
+            height: 37px;
+
+        }
+        .jian ul li{
+            float: left;
+            line-height: 37px;;
+        }
+        .jian ul li:nth-child(2n-1){
+            width: 33px;
+            text-align: center;
+        }
+        .jian>ul>li:nth-child(2n){
+            width: 2px;
+            height: 100%;
+            background-image: linear-gradient(to bottom,#fff,#827f7f);
+        }
+        .jian>ul>li:nth-child(2n-1):hover{
+            background-color: red;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div class="jian">
+    <ul>
+        <li><</li>
+        <li></li>
+        <li>1</li>
+        <li></li>
+        <li>2</li>
+        <li></li>
+        <li>3</li>
+        <li></li>
+        <li>4</li>
+        <li></li>
+        <li>5</li>
+        <li></li>
+        <li>></li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FormData</title>
+</head>
+<body>
+    <form name="form1" id="form1">  
+        <p>name:<input type="text" name="name" ></p>  
+        <p>gender:<input type="radio" name="gender" value="1">male <input type="radio" name="gender" value="2">female</p>  
+        <p>photo:<input type="file" name="photo" id="photo"></p>  
+        <p><input type="button" name="b1" value="submit" onclick="fsubmit()"></p>  
+    </form>  
+    <div id="result"></div>
+</script>
+    <script type="text/javascript">
+        function fsubmit() {
+            var form=document.getElementById("form1");
+            var formData=new FormData(form);
+            console.log(formData)
+            var oReq = new XMLHttpRequest();
+            oReq.onreadystatechange=function(){
+              if(oReq.readyState==4){
+                if(oReq.status==200){
+                    var json=JSON.parse(oReq.responseText);
+                    var result = '';
+                    // result += 'name=' + ret['name'] + '<br>';
+                    // result += 'gender=' + ret['gender'] + '<br>';
+                     result += '<img src="' + json['photo'] + '" width="100">';
+                     $('#result').html(result);
+                }
+              }
+            }
+            oReq.open("POST", "server.php");
+            oReq.send(formData); 
+            return false;
+        } 
+    </script>
+</body>
+</html>

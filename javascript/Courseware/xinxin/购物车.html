@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		div{padding:20px; margin: 20px; background-color: #999;line-height: 50px;padding-left: 10px;}
+		button{width: 30px;height: 30px}
+		i{font-style:normal;margin:20px;}
+		span{margin-right: 30px}
+		p{display: inline-block;margin-left: 20px}
+		.btn{width: 100px;height: 40px}
+	</style>
+</head>
+<body>
+<div>苹果： 单价 <span class="dan">5元</span> <button class="plus"> - </button><i>0</i><button class="reduce"> + </button> <p>总价： <span class="zong">0元</span></p></div>
+<div>香蕉： 单价 <span class="dan">8元</span> <button class="plus"> - </button><i>0</i><button class="reduce"> + </button> <p>总价： <span class="zong">0元</span></p></div>
+<div>葡萄： 单价 <span class="dan">3元</span> <button class="plus"> - </button><i>0</i><button class="reduce"> + </button> <p>总价： <span class="zong">0元</span></p></div>
+<div><button class="btn">结算</button> <p class="Total">0元</p></div>
+<script type="text/javascript">
+	let plus = document.getElementsByClassName('plus'),
+	reduce = document.getElementsByClassName('reduce'),
+	zong = document.getElementsByClassName('zong'),
+	dan = document.getElementsByClassName('dan'),
+	Total = document.getElementsByClassName('Total')[0];
+
+	function UnitPrice(){
+		for(var i = 0; i < plus.length; i++){
+			plus[i].onclick = (function(i){
+				return function(){ 
+					this.nextElementSibling.innerText==0 ? 0 : this.nextElementSibling.innerText--;
+					zong[i].innerText = parseInt(dan[i].innerText)  * this.nextElementSibling.innerText + "元";
+					total();			
+				}			
+			})(i)
+	
+			reduce[i].onclick = (function(i){
+				return function(){
+					this.previousElementSibling.innerText++;
+					zong[i].innerText = parseInt(dan[i].innerText) * this.previousElementSibling.innerText + "元";
+					total();
+				}
+			})(i)
+		}
+	}
+
+	function total(){
+		var a = 0;
+		for(var k = 0; k < zong.length; k++){
+			a += parseInt(zong[k].innerHTML)
+		}
+		Total.innerText = a + "元";
+		a = 0;
+	}
+
+     UnitPrice();
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

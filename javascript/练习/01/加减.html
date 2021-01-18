@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			input{
+				width: 40px;
+				height: 20px;
+				text-align: center;
+				line-height: 20px;
+				font-size: 12px;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" id="jian" value="-" />
+		<input type="text" id="z" value="0" />
+		<input type="button" id="jia" value="+" />
+	</body>
+	<script>
+		jia.onclick=function(){
+			var num=z.value;
+			num++;
+			if (num>=100){
+				num=100;
+			}
+			z.value=num;
+		};
+		jian.onclick=function(){
+			var num=z.value;
+			num--;
+			if(num<=0){
+		       num=0;
+		       }
+			z.value=num;
+		}
+		</script>
+</html>

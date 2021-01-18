@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: #404751;
+        }
+        .scroll{
+               width: 300px;
+               height: 18px;
+               margin: 100px auto;
+               background: rgba(20,22,27,.5);
+               padding: 1px;
+               border-radius: 9px;
+               box-shadow: 1px 1px 0 rgba(110,124,145,.7);
+           }
+        .scroll1{
+            width: 185px;
+            height: 18px;
+            border-radius: 9px;;
+            background-image: linear-gradient(rgba(1,177,253,.6),rgba(1,177,253,.6));
+            box-shadow: 1px 1px 0 rgba(0,0,0,1), inset 0 1px 0 rgba(255,255,255,.6);
+        }
+        .scroll1:after{
+            content: "";
+            background-image:linear-gradient(#299dcc,black);
+        }
+
+        .scrolla{
+            width: 300px;
+            height: 18px;
+            margin: 0 auto;
+            margin-top: 20px;;
+            background: rgba(35,39,47,1);
+            padding: 1px  ;
+            border-radius: 9px;
+            box-shadow: 1px 1px 0 rgba(110,124,145,.4);
+        }
+        .scroll1a{
+            width: 286px;
+            height: 18px;
+            border-radius: 9px;;
+            background-image:linear-gradient(to top, rgba(255,255,255,0.2),rgba(255,255,255,0.2)),linear-gradient(rgba(229,46,123,1),rgba(229,46,123,1));
+            box-shadow: 1px 1px 0 rgba(0,0,0,.4), inset 1px 1px 0 rgba(255,255,255,.6);
+        }
+        .scroll1a:after{
+            content: "";
+            background-image:linear-gradient(#299dcc,black);
+        }
+    </style>
+</head>
+<body>
+<div class="bg">
+    <div class="scroll">
+        <div class="scroll1">
+
+        </div>
+    </div>
+    <div class="scrolla">
+        <div class="scroll1a">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
