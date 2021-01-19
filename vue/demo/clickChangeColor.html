@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  .active {
+    color: red;
+  }
+</style>
+<body>
+  <div id ="app">
+    <h2 v-for="(item,index) in movies" @click="addClass(index)" :class="{active: item.isClass}" >{{item.name}}</h2>
+    <h3>{{text}}</h3>
+  </div>
+
+</body>
+
+  <script src="../vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data : {
+        movies: [
+          {name: "盗墓笔记", isClass: false}, 
+          {name: "仙剑奇侠传", isClass: false}, 
+          {name: "大话西游", isClass: true}
+        ],
+        message: "nihao"
+      },  
+      computed: {
+        text: {
+          get() {
+            return this.message += "666";
+          },
+          set(newValue) {
+            // text值改变后触发
+            this.message = newValue;
+          }
+        }
+      },
+      methods: {
+        addClass(index) {
+          console.log(index);
+          this.movies[index].isClass = !this.movies[index].isClass
+        }
+      },  
+    });
+  </script>
+</html>
