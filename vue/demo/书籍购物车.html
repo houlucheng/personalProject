@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<style>
+  th, td{
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: center;
+  }
+  table {
+    border-collapse: collapse;
+  }
+</style>
+<body>
+  <div ref="app" id ="app">
+    <template v-if="books.length">
+      <table>
+        <thead>
+          <tr>
+            <th>书籍名称</th>
+            <th>出版日期</th>
+            <th>价格</th>
+            <th>购买数量</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr v-for="(item,index) in books">
+            <td >{{item.name}}</td>
+            <td >{{item.date}}</td>
+            <td > {{item.price | getFinalPrice}}</td>
+            <td ><button @click="addBuy(item)">+</button> {{item.num}} <button :disabled="item.num === 1" @click="cutBuy(item)">-</button></td>
+            <td><button @click="removeBook(index)">移除</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>总价：{{totalPrice | getFinalPrice}}</h4>
+    </template>
+    <template v-else>
+      <h4>购物车为空</h4>
+    </template>
+
+  </div>
+
+</body>
+
+  <script src="../vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data : {
+        books: [
+          {
+            name: "javaScript",
+            date: "2019-5",
+            price: 65,
+            num: 1
+          },
+          {
+            name: "node",
+            date: "2018-6",
+            price: 105,
+            num: 1
+          },
+          {
+            name: "webpack",
+            date: "2020-7",
+            price: 85,
+            num: 1
+          },
+          {
+            name: "Vue",
+            date: "2021-8",
+            price: 66,
+            num: 1
+          },
+        ]
+      },  
+      computed: {
+        totalPrice(){
+          let total = 0;
+          this.books.forEach( el => {
+              total += el.price * el.num;
+          });
+          return total
+        }
+      },
+      methods: {
+        addBuy(item) {
+          item.num ++
+        },
+        cutBuy(item) {
+          item.num --
+        },
+        removeBook(index) {
+          this.books.splice(index,1)
+          // if(this.books.length === 0){
+          //   this.$refs.app.innerHTML = "<h4>购物车为空</h4>"
+          // }
+        }
+      },  
+      filters: {
+        getFinalPrice(price){
+          return "¥" + price.toFixed(2)
+        },
+      }
+    });
+  </script>
+</html>

@@ -13,8 +13,9 @@
 </style>
 <body>
   <div id ="app">
-    <h2 v-for="(item,index) in movies" @click="addClass(index)" :class="{active: item.isClass}" >{{item.name}}</h2>
+    <h2 v-for="(item,index) in movies" @click="addClass(index)" :class="{active: active == index}" >{{item}}</h2>
     <h3>{{text}}</h3>
+
   </div>
 
 </body>
@@ -24,12 +25,9 @@
     var vm = new Vue({
       el: '#app',
       data : {
-        movies: [
-          {name: "盗墓笔记", isClass: false}, 
-          {name: "仙剑奇侠传", isClass: false}, 
-          {name: "大话西游", isClass: true}
-        ],
-        message: "nihao"
+        movies: [ "盗墓笔记",  "仙剑奇侠传",  "大话西游"],
+        active: 0,
+        message: "你好"
       },  
       computed: {
         text: {
@@ -45,7 +43,7 @@
       methods: {
         addClass(index) {
           console.log(index);
-          this.movies[index].isClass = !this.movies[index].isClass
+          this.active = index;
         }
       },  
     });
