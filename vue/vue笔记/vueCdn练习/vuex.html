@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+    </div>
+
+    <script>
+        /*
+        ### Vuex.Store()
+            var store = new Vuex.Store({})
+        ### import { mapState, mapMutations, mapGetters, mapActions,createNamespacedHelpers } from 'vuex'
+
+        Vuex.Store()函数的的方法
+        1. ------- state
+            Vuex.Store({
+                state:{
+                    a: 666,
+                    b: 555
+                }
+            })
+        2. ------- mapState({a:a}) || mapState(["a"])
+        3. ------- getters: { fn: () => {} }
+        4. ------- mapGetters({fn: fn}) || mapGetters(["fn"])
+        5. ------- mutation:{aa:function(state,pam){}}  
+          调用mutation方法的方式  :
+            store.commit('aa',{s:1})
+            store.commit({type: 'aa', s: 1})
+        6. ------- mapMutations() //必须同步执行
+            methods: {
+                ...mapMutations([
+                'increment', // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
+
+                // `mapMutations` 也支持载荷：
+                'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
+                ]),
+                ...mapMutations({
+                add: 'increment' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+                })
+            }
+        7. ------- actions //可以异步执行
+            actions: {
+                incrementAsync ({ commit }) { //形参是一个和store一样的对象
+                    setTimeout(() => {
+                    commit('increment')
+                    }, 1000)
+                }
+            }
+        8. ------- 执行actions的方法  store.dispatch("incrementAsync") //也可以载荷(参数可以是对象形式)
+        9. ------- mapActions 
+        10. ------ registerModule() //动态注册模块
+        11. ------ unregisterModule() //动态卸载模块（不能使用此方法卸载静态模块（即创建 store 时声明的模块））
+        12. ------ plugins: [myPlugin] 插件（在mutation调用之后执行）
+            const myPlugin = store => {
+                // 当 store 初始化后调用
+                store.subscribe((mutation, state) => {
+                    // 每次 mutation 之后调用
+                    // mutation 的格式为 { type, payload }
+                })
+            }
+        13. ------ strict: process.env.NODE_ENV !== 'production' 开启严格模式（开启后只可以用mutation改state）只适合开发环境
+
+
+        */
+    </script>
+</body>
+</html>

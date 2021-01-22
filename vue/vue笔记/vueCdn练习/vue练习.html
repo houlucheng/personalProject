@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <component :is="show"><p>eee</p></component>
+        <base-input url="./dfsd" v-bind.sync = "searchText" >
+            <template #aa="{data:rew}" v-slot:hlcc>
+                <p>{{rew}}</p>
+                <anchored-heading :level='1'>header <p>hlc</p></anchored-heading>
+            </template>
+        </base-input>
+        <lists>666</lists>
+    </div>
+    <script>
+        /*
+        *  父子组件传值时props可以是对象类型 对象类型里面父组件传过来的数据如果是数组或者对象类型 default(默认值)属性必须是一个函数 然后return一个对象
+        * .sync //prop双向绑定 实现实时响应
+        * .native //将原生事件绑定到组件
+        *  $attrs //父和孙传值 
+        *  $listeners //父和孙传事件
+        *  keep-alive //缓存组件状态
+        *  this.$root.aa // 表示根数据；
+        *  this.$parent.aa // 表示上一级的数据（也就是直接的父节点）
+        *  this.$options.aa //获取自身在data之外定义的属性和方法通过$options可以获取和调用(包括methods，created...)
+        *  provide:function(){return a:1} //父组件想要暴露给子组件的数据
+        *  inject:['a'] //接收provide暴露出来的数据
+        *  inline-template //组件的标签属性 这个组件将会使用其里面的内容作为模板，而不是将其内部写好的作为渲染内容
+        *  this.$forceUpdate() //强制更新
+        *  v-once //只计算一次然后缓存起来 写在组件的根元素上
+        *  Vue.extend({minxins: [myMixin]}) 组件构造器
+        *  Vue.mixin() //混入
+        *  Vue.component('header',{ render:function(createElement){return createElement('标签名','内容')} }) //render函数
+        *  
+        **/
+        // var myMixin = {
+        //     created: function () {
+        //         this.hello()
+        //     },
+        //     methods: {
+        //         hello: function () {
+        //             console.log('hello from mixin!')
+        //         }
+        //     },
+
+        // }
+
+        //     // 定义一个使用混入对象的组件
+        //     var Component = Vue.extend({
+        //         mixins: [myMixin]
+        //     })
+        //     console.log(Component)
+        //     var component = new Component()
+
+    /**/
+        Vue.component('base-input', {
+            props: ['a','b','c'],
+            searchText: '333',
+            data(){
+                return {
+                    user: '9999',
+                    text1: {}
+                    
+                }
+            },
+            template: `<div v-once>
+                    <slot name="aa" v-bind:data="user">{{user}}</slot>
+                    <input @input="onInput" :value = "a"/>
+                </div>
+            `,
+            methods: {
+                onInput (e){
+                    // console.log(this.$root.searchText)
+                    // console.log(this.$options.searchText)
+                    console.log(this.$slots);
+                    // console.log(this.a)
+                    this.text1 = this.$root.searchText
+                    this.$emit('update:a',e.target.value)
+                    this.$emit('update:b',e.target.value)
+                    this.$emit('update:c',e.target.value)
+                }
+            },
+        })
+
+        Vue.component('demo',(resolve,reject)=>{
+            setTimeout(()=>{
+                resolve(
+                    {
+                        data(){
+                            return {
+                                show: true
+                            }
+                        },
+                        template: `
+                        <div>
+                            <h2 @click="show = !show">hello World</h2>   
+                            <transition>
+                                <p id="box" v-if="show"> 你大爷 </p>       
+                            </transition>   
+                        </div> 
+                        `,
+                        inject: ['myText'],
+                        mounted() {
+                            // setTimeout(()=>{
+                            //     alert(this.myText)
+                            // },2000)
+                        },
+
+                    }
+                )
+                
+            })
+        })
+        
+        var getChildrenTextContent = function (children) {
+            return children.map(function (node) {
+                return node.children
+                ? getChildrenTextContent(node.children)
+                : node.text
+            }).join('')
+        }
+
+        Vue.component('anchored-heading', {
+            render: function (createElement) {
+                // 创建 kebab-case 风格的 ID
+                var headingId = getChildrenTextContent(this.$slots.default)
+                .toLowerCase()
+                .replace(/\W+/g, '-')
+                .replace(/(^-|-$)/g, '')
+
+                return createElement(
+                'h' + this.level,
+                [
+                    createElement('a', {
+                    attrs: {
+                        name: headingId,
+                        href: '#' + headingId
+                    }
+                    }, this.$slots.default)
+                ]
+                )
+            },
+            props: {
+                level: {
+                type: Number,
+                required: true
+                }
+            }
+        })
+        
+        Vue.component('lists',{
+                render: function (createElement) {
+                    return createElement('div',
+                        Array.apply(null, { length: 20 }).map(function () {
+                        return createElement('p', 'hi')
+                        })
+                    )
+                }
+            })
+
+            const NotFound = { template: '<p>Page not found</p>' }
+            const Home = { template: '<p>home page</p>' }
+            const About = { template: '<p>about page</p>' }
+
+            const routes = {
+                '/': Home,
+                '/about': About
+            }
+
+
+        var obj = {
+            aa: 123,
+            bb: 456,
+            cc: 321
+        }
+        Vue.config.optionMergeStrategies.aa = function(old, newVal){
+            return newVal ? newVal : old //有自己的值就用自己的值，每设置一遍aa属性就走一遍
+        }
+        let vm = new Vue({
+            mixins: [obj],
+            aa: 999,
+            bb: 111,
+            cc: 222,
+            searchText: '222',
+            data(){
+                return {
+                    currentRoute: window.location.pathname,
+                    searchText: {
+                        a: 1,
+                        b: 2,
+                        c: 3
+                    },
+                    show:'demo'
+                }
+            },
+            computed: {
+                ViewComponent () {
+                return routes[this.currentRoute] || NotFound
+                }
+            },
+            render (h) { return h(this.ViewComponent) },
+            created () {
+                console.log(this.$options.aa) //999
+                console.log(this.$options.bb) //111
+                console.log(this.$options.cc) //222
+                //如果没有设置aa等于999 那就会等于123
+            },
+            methods: {
+                onFocus(v){
+                    this.searchText = v;
+                }
+            },
+            provide: function(){
+                return {
+                    myText: '666666'
+                }
+            },
+            
+        }).$mount('#app')
+        console.log(vm)
+        
+        
+        
+        
+    </script>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            border: darkkhaki 10px solid;
+        }
+        .v-enter-active {
+            transition: all .8s ease;
+        }
+        .v-leave-active {
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+        .v-enter, .v-leave-to
+            /* .v-leave-active for below version 2.1.8 */ {
+            transform: translateX(10px);
+            opacity: 0;
+        }
+    </style>
+</body>
+</html>

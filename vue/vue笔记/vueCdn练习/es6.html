@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /*
+        1. let const  声明变量有六种方式 var function let const import class
+            (1. 没有变量提升
+            (2. 有块级作用域
+                { //在es6中 一个大括号就代表一个作用域 不需要用自执行匿名函数创建作用域
+                    {let insane = 'Hello World'}
+                    console.log(insane); // 报错
+                };
+            (3. 有暂时性死区
+                var tmp = 123;
+                if (true) {
+                    tmp = 'abc'; // ReferenceError
+                    let tmp;
+                }
+            (4. 不能重复声明
+        globalThis 可以在所有环境拿到顶层对象 （如 window、global）
+
+        2. 变量的解构赋值
+            (1. 数组的解构赋值 (解构不成功就等于undefineds)
+                let [foo, [[bar], baz]] = [1, [[2], 3]];
+                let [x, , y] = [1, 2, 3];
+                let [head, ...tail] = [1, 2, 3, 4]; // tail [2,3,4]
+                let [x, y = 'b'] = ['a']; // x='a', y='b'  赋默认值
+
+            (2. 对象的解构赋值
+                let { foo, bar } = { foo: 'aaa', bar: 'bbb' }; //foo = "aaa"; bar = "bbb"
+
+                嵌套赋值
+                    let obj = {};
+                    let arr = [];
+                    ({ foo: obj.prop, bar: arr[0] } = { foo: 123, bar: true });// obj = {prop:123}; arr = [true]
+                    var {x: y = 3} = {x: 5};// y = 5 赋默认值
+                    
+                    由于数组本质是特殊的对象，因此可以对数组进行对象属性的解构
+                    let arr = [1, 2, 3];
+                    let {0 : first, [arr.length - 1] : last} = arr; // first = 1  last = 3
+            (3. 字符串的解构赋值
+                const [a, b, c, d, e] = 'hello';
+                a // "h"
+                b // "e"
+                c // "l"
+                d // "l"
+                e // "o"
+                let {length : len} = 'hello';
+                len // 5       
+        3.  字符串模版
+                `<p>${id}</p>`
+            (1. 标签模版
+                alert`hello`
+                // 等同于
+                alert(['hello'])
+
+        
+    */
+    </script>
+</body>
+</html>

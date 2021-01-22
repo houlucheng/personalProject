@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id ="app">
+    <!-- <my-cpn></my-cpn> -->
+
+    <cpn2></cpn2>
+    
+  </div>
+</body>
+
+  <script type="text/x-template" id="aaa">
+    <div>
+      <h2>我是子组件1</h2>
+    </div>
+  </script>
+
+  <template id="bbb">
+    <div>
+      <h2>我是子组件2</h2>
+    </div>
+  </template>
+
+  <script src="../vue.js"></script>
+  <script>
+
+    // 组件的语法糖就是直接在component里面注册 就不需要extend了
+    const cpn1 = Vue.extend({
+      template: "#bbb",
+    })
+    const cpn3 = Vue.extend({
+      template: "#aaa",
+    })
+
+    const cpn2 = Vue.extend({
+      template: `
+          <div>
+            <h2>我是父组件</h2>
+            <cpn1></cpn1>
+            <cpn3></cpn3>
+          </div>
+      `,
+      components: {
+        cpn1: cpn1,
+        cpn3
+      }
+    })
+
+    const vm = new Vue({
+      el: "#app",
+      data() {return {}},
+      components: {
+        cpn2: cpn2
+      }
+    })
+
+
+
+
+
+
+
+
+
+    /* ------------ 基本组件创建 --------------- */
+    // const cpnC = Vue.extend({ //目前官网已经基本看不到这种写法 但是源码里面还是调用extend这种方式
+    //   template: `<div>
+    //       <p>你好</p>
+    //       <p>Hello！</p>
+    //     </div>`
+    // })
+    // Vue.component("my-cpn", cpnC)
+
+    // var vm = new Vue({
+    //   el: '#app',
+    //   data : {},  
+    //   methods: {},  
+    //   components: {
+    //     cpn: cpnC
+    //   }
+    // });
+
+    
+
+  </script>
+</html>

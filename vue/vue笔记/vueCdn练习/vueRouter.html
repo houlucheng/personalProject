@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vueRouter</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/Home/666/999/old">首页</router-link>
+        <router-link to="/List">列表页</router-link>
+        <router-view></router-view>
+        <router-view name="a"></router-view>
+    </div>
+
+    <script>
+        /**
+        * mode: 'hash' //默认  开发环境用 hash   生产环境用 history
+        * let router = new VueRouter({routes:routes})  new Vue({router:router})
+        * $route //当前路由
+        * $route.params //路由参数 path:'/Home/:aa'  <router-link to="/Home/666"> $route.params.aa //666
+        * beforeRouteEnter(to,from,next){} //组件钩子函数 监听路由参数变化 函数体内无法获取this
+        * beforeRouteUpdate(to,from,next){} //组件钩子函数 监听路由参数变化 to新 from旧 next只有在beforeRouteEnter中有用 用来获取this
+        * beforeRouteLeave(to,from,next){} //组件钩子函数 监听路由参数变化 next可以传false
+        * $routes //全部路由配置
+        * path:'*' //匹配全部路径
+        * path:'user-*' //匹配以user-开头的路径
+        * 当使用一个通配符时，$route.params 内会自动添加一个名为 pathMatch 参数。它包含了 URL 通过通配符被匹配的部分：
+          给出一个路由 { path: '/user-*' }
+          this.$router.push('/user-admin')
+          this.$route.params.pathMatch // 'admin'
+        * 嵌套路由
+        * 在组件中用<router-view></router-view> 
+          const Home = {
+            template: `
+                <div class="Home">
+                <h2>User {{ $route.params.id }}</h2>
+                <router-view></router-view>
+                </div>
+          `}
+        * 要在嵌套的出口中渲染组件，需要在 VueRouter 的参数中使用 children 配置：
+          const router = new VueRouter({
+            routes: [
+                { path: '/user/:id', component: User,
+                children: [
+                    {
+                    // 当 /user/:id/profile 匹配成功，
+                    // UserProfile 会被渲染在 User 的 <router-view> 中
+                    path: 'profile',
+                    component: UserProfile
+                    }
+                ]
+            }]
+          })
+        
+        * router.push({ name: 'user', params: { userId: '123' }}) // 命名的路由
+        * router.push({ path: 'register', query: { plan: 'private' }}) // 带查询参数，变成 /register?plan=private
+        * router.push({ path: '/user', params: { userId }}) //如果提供了 path，params 会被忽略 不生效
+        * const userId = '123'
+        * router.push({ name: 'user', params: { userId }}) // -> /user/123 通过name设置
+        * router.push({ path: `/user/${userId}` }) // -> /user/123 手写完整的带有参数的 path
+        * <router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link> //声明式导航
+        * 命名视图
+        * <router-view name="bb"></router-view>
+        * components:{
+        *   default: {template:``}, 
+        *   bb: {template:``}
+        * }
+        * 重定向
+        * routes: [path: '/a', redirect: '/b']
+        * routes: [path: '/a', redirect: {name: 'foo'}]
+        * routes: [path: '/a', redirect: to => {return 重定向的 字符串路径/路径对象}]
+        * 路由组件传参props(取代与 $route.params 的耦合)
+        * const User = {
+            props: ['id'],
+            template: '<div>User {{ id }}</div>'
+          }
+          const router = new VueRouter({
+            routes: [{
+                path: '/user/:id', component: User, 
+                props: true,
+                //props: { default: true, sidebar: false } //对于包含命名视图的路由，你必须分别为每个命名视图添加 `props` 选项：
+                //props: (route) => ({ query: route.query.q })
+            }]
+          })
+        * 全局前置守卫（router.beforeEach）
+        * const router = new VueRouter({ ... })
+          router.beforeEach((to, from, next) => {})
+
+        * 全局解析守卫（router.beforeResolve）
+        * 这和 router.beforeEach 类似，区别是在导航被确认之前，同时在所有组件内守卫和异步路由组件被解析之后，解析守卫就被调用
+        * 
+        * 全局后置钩子（router.afterEach）
+        * router.afterEach((to, from) => {})
+        * 
+        * 路由元信息meta（$route.matched）$route.mtea||$route.matched.meta
+        *   path:"/test",
+            name:"test",
+            component:()=>import("@/components/test"),
+            meta:{} //相当于设置私有属性
+        * 滚动行为 scrollBehavior
+        * 当切换到新路由时，想要页面滚到顶部，或者是保持原先的滚动位置
+        * const router = new VueRouter({
+            routes: [...],
+            scrollBehavior (to, from, savedPosition) {
+                // return { x: 0, y: 0 }期望滚动到哪个的位置  如果是falsy则不会发生改变或者是控对象
+            }
+          })
+        * 路由懒加载
+        * 利用异步组件和webpack动态import
+        * 把组件按组分块 
+        * 有时候我们想把某个路由下的所有组件都打包在同个异步块中
+        */
+        //const Foo = () => import(/* webpackChunkName: "group-foo" */ './Foo.vue')
+        //const Bar = () => import(/* webpackChunkName: "group-foo" */ './Bar.vue')
+        //const Baz = () => import(/* webpackChunkName: "group-foo" */ './Baz.vue')
+        
+       
+        const Home = {
+            props:['id','name'],
+            template: `<div>Home <p>{{$route.params}}{{id + - + name}}</p> 
+            <router-view></router-view>
+            <router-view name="bb"></router-view> </div>`,
+            beforeRouteUpdate(to, from, next) {
+                console.log(to.matched);
+                console.log(this.$route);
+            },
+            methods: {
+                goBack() {
+                    window.history.length > 1
+                        ? this.$router.go(-1)
+                        : this.$router.push('/')
+                }
+            }
+        }
+        function fn(route){
+            console.log(route)
+        }
+        const List = { template: `<div>List</div>` }
+        const Data = { template: `<p>你好</p>` }
+        const routes = [
+            {
+                name: '404',
+                path: '/',
+                component: { template: `<h1>404</h1>` }
+            },
+            {
+                name: 'Home',
+                path: '/Home/:id/:name',
+                component: Home,
+                props: true,
+                children: [
+                    {
+                        path: 'new',
+                        component: { template: `<p>首页子栏目</p>` }
+                    },
+                    {
+                        path: 'old',
+                        components: {
+                            default: { template: `<p>首页子栏目二</p>` },
+                            bb: { template: `<p>呵呵哒</p>` }
+                        }
+                    }
+                ]
+            },
+            {
+                name: 'List',
+                path: '/List',
+                // alias: '/hlc', //别名
+                // redirect: '/Home/666/999/old', //重定向
+                components: {
+                    default: List,
+                    a: Data
+                }
+            }
+        ]
+
+        const router = new VueRouter({
+            routes
+        })
+
+        const vm = new Vue({
+            data() {
+                return {
+
+                }
+            },
+            router
+        }).$mount('#app')
+    // router.push({ path: 'register', query: { plan: 'private' }})
+    // router.replace({path: '/Home/666/999/old'})
+    </script>
+</body>
+
+</html>
