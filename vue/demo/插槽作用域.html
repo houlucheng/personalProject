@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id ="app">
+    <cpn>
+      <!-- <template slot-scope="res">
+        <span v-for="item in res.data">
+          {{item}}-----
+        </span>
+      </template> -->
+
+      <template v-slot="res">
+        <span v-for="item in res.data">
+          {{item}}-----
+        </span>
+      </template>
+
+    </cpn>
+    <cpn>
+      <template slot-scope="res">
+        <span>
+          {{res.data.join(" ++ ")}}
+        </span>
+      </template>
+    </cpn>
+  </div>
+  <template id="cpn">
+    <div>
+      <slot :data="planguage">
+        <ul>
+          <li v-for="item in planguage">{{item}}</li>
+        </ul>
+      </slot>
+    </div>
+  </template>
+</body>
+
+  <script src="../vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data : {},  
+      methods: {},  
+      components: {
+        cpn: {
+          template: "#cpn",
+          data() {
+            return {
+              planguage: ['javascript', "c++", "java", "C#"]
+            }
+          },
+        }
+      }
+    });
+  </script>
+</html>

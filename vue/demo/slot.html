@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id ="app">
+    <cpn>
+      <button>按钮</button>
+    </cpn>
+    <cpn>
+      <span slot="slot1">你好</span>
+    </cpn>
+
+  </div>
+  <template id="cpn">
+    <div>
+      <h2>我是组件</h2>
+      <!-- 给slot设置默认追 -->
+      <slot><button>按钮222</button></slot>
+      <p>我是组件，哈哈哈</p>
+      <slot name="slot1"></slot>
+    </div>
+  </template>
+</body>
+
+  <script src="../vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data : {},  
+      methods: {},  
+      components: {
+        cpn: {
+          template: "#cpn"
+        }
+      }
+    });
+  </script>
+</html>
