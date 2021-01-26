@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script src="./aaa.js" type="module">
+    // type值为module时就定义为这里面的部分是一个模块 外面获取不到
+    // export 导出 import 导入 这种方式是es6提供的
+    // module.exports 导出 require() 导出 这种方式是common.js提供的 需要特定的环境支持才能用
+  </script>
+  <script type="module">
+    // 导入多个
+    // 1. 一个一个导入 这种方式名字过多还有可能与这个作用域下定义的变量重复
+        import {age, num, sex, fn, Person} from "./aaa.js";
+        console.log(age);
+        console.log(num(40));
+        fn();
+        let p = new Person()
+        p.run();
+    // 2. 简洁
+        import * as obj from "./aaa.js"
+        console.log(obj);
+        console.log(obj.age);
+  </script>
+
+
+
+
+
+
+  <script>
+    /* ------ ES5模块化 ------ */
+
+    // const utils = (function(){
+    //   let obj = {}
+    //   let age = 30;
+    //   function num (n) {
+    //     n++;
+    //   }
+    //   obj.age = age;
+    //   obj.num = num;
+    //   return obj
+    // })()
+    // console.log(utils);
+
+    /* ------ common.js模块化(必须要底层支撑这个环境 直接的js文件不支持) ------ */ 
+    // 导出
+    // module.exports = {
+    //   age: 20,
+    //   num(n){
+    //     n++;
+    //   }
+    // }
+    // 导入
+    // let {age, num} = require("aaa")
+
+  </script>
+  
+</body>
+</html>
