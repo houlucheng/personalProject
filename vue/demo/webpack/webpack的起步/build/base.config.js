@@ -6,7 +6,7 @@ const UglifyjsWebpaackPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   entry: "./src/main.js",
   output: {
-    path: path.resolve(__dirname, 'dist'), // __dirname是node里面的全局变量 保存着当前文件夹的路径
+    path: path.resolve(__dirname, '../dist'), // __dirname是node里面的全局变量 保存着当前文件夹的路径
     filename: "bundle.js",
     // publicPath: "dist/" //在用url方式引入的资源路径前面加上 dist 路径
   },
@@ -74,13 +74,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "index.html"
     }),
-    new UglifyjsWebpaackPlugin(),
+    // new UglifyjsWebpaackPlugin(), // 压缩编译
   ],
-  devServer: {
-    contentBase: "./dist", // 服务于哪个文件夹
-    inline: true, // 是否需要实时监听
-    port: 8083 // 设置端口号
-    // historyApiFallback: "history" // 设置在SPA页面中，依赖html5的history模式
+  // devServer: {
+  //   contentBase: "./dist", // 服务于哪个文件夹
+  //   inline: true, // 是否需要实时监听
+  //   port: 8083 // 设置端口号
+  //   // historyApiFallback: "history" // 设置在SPA页面中，依赖html5的history模式
 
-  }
+  // }
 }

@@ -95,5 +95,94 @@
           ],
         },
 
+    8. babel-loader (ES6转ES5)
+      。"npom install --save-dev babel-loader@7 babel-core babel-preset-es2015df" 安装
+        {
+          test: /\.js$/i,
+          use: {
+            loader: "babel-loader",
+            options: {
+              preset: ['es2015']
+            }
+          }
+        }
+    9. webpack中使用vue
+      。‘npm install vue --save’ // 安装vue 因为生产中也依赖vue所以不需要加 -dev
+      。‘import Vue from 'vue'’ // from后面写的不是具体路径时回去node——modules里面找
+      。上面两步完成后就能创建vue实例开始开发了 但此时编译之后页面会报错 错误内容是有template模版无法解析 原因看下文：
+        . runtime-only // 代码中，不可有任何的template
+        . runtime-compiler //代码中，可以有template，因为 compiler 会编译template
+        解决方法：
+        在 webpack.config.js 中配置 resolve 指定用哪个版本的vue.js
+        module.exports = {
+          resolve: {
+            alias: {
+              'vue$': "vue/dist/vue.esm.js"
+            }
+          }
+        }
+    10. webpack中对 .vue 文件的编译 vue-loader 和 vue-template-compiler
+      。'npm install vue-loader vue-template-compiler --save-dev' 安装编译 .vue 的loader
+      。在 webpack.config.js 中配置 vue-loader
+        {
+          test: /\.vue$/i,
+          use: ["vue-loader"]
+        }
+      。操作完以上步骤时编译运行有可能还是会报错 这个原因是vue-loader版本在 14.0.0 以上需要安装另一个插件来配合使用
+      。要想省略 import Vue from 'App.vue' 中 .vue 后缀 需要在 webpack.config.js 中配置 extensions
+        module.exports = {
+          resolve: {
+            extensions: ['.js', '.css', '.vue'],
+            alias: {
+              "vue$": "vue/dist/vue.esm.js"
+            }
+          }
+        }
+    11. plugin
+      。在打包后的js中最顶部有一些信息，比如说：作者、描述、版权等等。 （版权中有MIT的说明是开源的）webpack自带插件
+        在webpack.config.js中配置
+          const webpack = require('webpack')
+          mdule.exports = {
+            plugin: [
+              new webpack.Bannelugin("最红版权归xxx所有")
+            ]
+          }
+      。html-webpack-plugin  处理 html 文件 
+        . 'npm install html-webpack-plugin --save-dev' // 安装html-webpack-plugin插件
+        . 此插件会在dist文件夹生成一个index.html文件，然后自动把打包后的js引入进去
+        . 在webpack.config.js中配置
+          const HtmlWebpackPlugin = require("html-webpack-plugin")
+          mdule.exports = {
+            plugin: [
+              new HtmlWebpackPlugin({
+                template: "index.html" //在同级目录找index.html作为模版 要不然dist文件下生成的index.html内没有 div哪个DOM
+              })
+            ]
+          }
+      。uglifyjs-webpack-plugin 压缩编译最终的js代码
+        . 'npm install uglifyjs-webpack-plugin --save-dev' // 安装 uglifyjs-webpack-plugin 插件
+        . 在 webpack.config.js 中配置
+          const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
+          module.exports = {
+            plugins: [
+              new UglifyjsWebpackPlugin()
+            ]
+          }
+    12. 搭建本地服务器 是基于node的 服务于dist文件夹 这个服务是会把最终的文件放在内存中运行速度会很快不会放在硬盘中
+      。'npm install webpack-dev-server --save-dev' // 安装插件
+      。在webpack.config.js中配置
+        module.exports: {
+          devServer: {
+            contentBase: "./dist", // 服务于哪个文件夹
+            inline: true, // 是否需要实时监听
+            port: 8080, // 蛇追端口号
+            historyApiFallback: "history" //设置在SPA页面中，依赖html5的history模式
+          }
+        }
+    13. 对webpack.config.js配置进行分离整理
+
+        
+      
+
 
 */
