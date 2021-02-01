@@ -96,9 +96,11 @@
         },
 
     8. babel-loader (ES6转ES5)
-      。"npom install --save-dev babel-loader@7 babel-core babel-preset-es2015df" 安装
+      。"npm install --save-dev babel-loader@7 babel-core babel-preset-es2015" 安装
         {
           test: /\.js$/i,
+          // exclude 排除这两个文件里面的js
+          exclude: /(node_modules|bower_components)/,
           use: {
             loader: "babel-loader",
             options: {
@@ -180,6 +182,21 @@
           }
         }
     13. 对webpack.config.js配置进行分离整理
+      。把 webpack.config.js 分为 base.config.js(基础配置) dev.config.js(开发时的配置) prod.config.js(生产配置)  放在build文件夹
+      。开发时需要运行npm run dev 所以需要 base.config.js 和 dev.config.js 不需要压缩js什么的
+      。发布生产时需要先打包 npm run build 所以需要 base.config.js 和 prod.config.js 来进行打包压缩编译
+      。合并两个config文件
+        . 'npm install webpack-merge --save-dev'
+        . 在 dev.config.js 中：
+          const webpackMerge = require('webpack-merge');
+          const baseConfig = require('./base.config')
+          module.exports = webpackMerge(baseConfig, {
+            //这里是dev.config.js中的相关配置
+          })
+      。有了这三个文件就不需要webpack.config.js文件 但是不管 运行 还是 打包 webpack都会去找webpack.config.js文件
+      。综上所诉就需要修改package.json文件里面的 scripts 脚本如下：加上 --config 后面写路径
+        "build": "webpack --config ./build/prod.config.js"
+        "dev": "webpack-dev-server --open --config ./build/dev.config.js"
 
         
       
