@@ -46,6 +46,7 @@
       }
     })
 
+
 ## @vue/cli3
   vue-cli3 是基于 webpaack4 打造。 vue-cli2 是基于 webpack3 打造
   vue-cli3 的设计原则是“0配置”，移除了配置文件根目录下的，build和config文件
@@ -65,4 +66,93 @@
   package-lock.json 文件里保存了实际安装的包的版本 ^符号是安装版本只有最后一位可以浮动3.6.0(3.6.4)， ～符号是可以浮动后两位3.6.0 (3.7.3)
 
 
-    
+## vue-router
+  1. 路由的安装、使用 和 重定向 和 mode 和 设置默认路由
+    npm install vue-router --save
+    import vueRouter from "vue-router"
+    vue.use(vueRouter)
+    exoprt default new vueRouter({
+      routes: [
+        {
+          path: "/",
+          <!-- component: Home, -->
+          redirect: "/Home" //重定向
+        }
+      ],
+      mode: "history" // 模式
+    })
+    import router from './router/index.js'
+    new Vue({
+      el: "#app",
+      router
+    })
+  2. router-link 组件
+    > router-link 组件上的属性
+      - to  // to="/Home" 和a标签的href相似 用来跳转路由
+      - tag // tag="button" 用来定义router-link组件最终会渲染成什么标签
+      - replace // replace 用来控制跳转路由用 pushState 还是 replaceState 前者可以前进后退 后者不可以前进后退
+      - active-class // active-class="active" 修改选中tab的class名
+        修改class还有一种方法是在路由里面配置linkActiveClass属性 这个属性和mode、routes并列
+    > 编程式路由跳转
+      - this.$router.push()
+      - this.$router.replace()
+       
+  3. 路由懒加载 
+    - 用了路由懒加载之后 打包后的js也会按组件来分 一个组件一个js
+    export default new vueRouter({
+      routes:[
+        {
+          path: "/Home",
+          component: () => import('../components/Home.vue')
+        }
+      ],
+      mode: ""
+    })
+
+  4. 嵌套路由
+    new vueRouter({
+      routes: [
+        {
+          path: "/Home",
+          conponent: () => import('../components/Home.vue'),
+          children: [
+            {
+              path: "HomeNew",
+              component: HomeNew
+            }
+          ]
+        }
+      ]
+    })
+  
+  5. 动态路由
+    a. 需要在路由里面配置路由路径path
+      routes: [
+        {
+          path: "/Home/:userId",
+          component: Home
+        }
+      ]
+    b. 在 router-link 的 to属性中传递参数
+      <router-link :to="'/Home' + text">走你</router-link>
+      data(){
+        return {
+          text: 666
+        }
+      }
+      // // http://localhost:8080/Home/666
+    c. 在Home组件中获取参数
+      this.$route.params.userId
+  6. 路由传递参数
+    a. 第一种方式可以用上面动态路由的方式传递 params
+    b. 第二种方式是 query
+      <router-link :to="{path: '/User', query: {name: '666'}}"></router-link>
+      // http://localhost:8080/User?name=666
+      // 获取参数 在User组件中 this.$route.query
+    c. 用编程式传递参数
+      this.$router.push({
+        path: "/User",
+        query: {
+          name: 666
+        }
+      })
