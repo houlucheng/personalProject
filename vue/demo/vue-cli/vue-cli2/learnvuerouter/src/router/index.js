@@ -9,7 +9,7 @@ const User = () => import('@/components/User')
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -18,6 +18,13 @@ export default new Router({
     {
       path: '/Home',
       component: Home,
+      meta: {
+        title: "首页"
+      },
+      beforeEnter: (to, from, next) => {
+        console.log("hahaha")
+        next();
+      },
       children: [
         {
           path: "",
@@ -31,11 +38,17 @@ export default new Router({
     },
     {
       path: '/About',
-      component: About
+      component: About,
+      meta: {
+        title: "关于"
+      }
     },
     {
       path: "/User/:userId",
       component: User,
+      meta: {
+        title: "用户"
+      }
     },
     {
       path: "/Profile",
@@ -45,3 +58,9 @@ export default new Router({
   mode: "history",
   linkActiveClass: "active", // 修改选中tab的class
 })
+
+// router.beforeEach((to, from, next) => {
+//   console.log(to.matched[0].meta.title);
+//   next()  
+// })
+export default router

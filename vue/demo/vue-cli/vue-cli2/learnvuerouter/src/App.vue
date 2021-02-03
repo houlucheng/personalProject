@@ -8,7 +8,6 @@
     <button @click="homeClick">首页</button>
     <button @click="aboutClick">关于</button>
     <button @click="profileClick">档案</button>
-
     <router-view></router-view>
   </div>
 </template>

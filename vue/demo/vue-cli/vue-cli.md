@@ -156,3 +156,69 @@
           name: 666
         }
       })
+  7. $router 与 $route
+    vue 源码在vue的原型上定义了这两个属性 
+    $router是 vue.use(vue-router) 的时候，调用了vueRouter里面的install方法并且把vueRouter赋值到了vue的原型上
+    $route是 把当前活跃的路由对象赋值给了router
+    综上所述只要在vue.prototype上定义的属性或方法，都可以在任何组件里面以this.的方式访问执行
+  8. 导航守卫(路由拦截器)
+    - 全局守卫
+      > beforeEach(前置钩子)
+        例子： 跳转路由时改变页面的title
+        两种方法：
+          a. 在每个组件的 created 生命周期中 修改document.title //这种方法比较麻烦，需要在每个组件中写逻辑
+          b. 在定义路由的文件里这样写
+            router.beforeEach((to, from, next) => {
+              document.title = to.matched[0].meta.title
+              // to 即将要跳转到的路由对象
+              // from 上一个路由对象
+              next() 
+              // 这里的next必须执行 不执行会导致整体代码到这里就不走了 原本vue会自己执行next现在你从新定义了这个方法就需要你自己执行一下
+              // next({path: "/User"}) || next("/User") 跳到User路由
+              // next(false) 停止跳转
+            })
+            所以此时你就可以在每个路由对象中设置title属性然后在beforeEach中获取并设置
+            new router({
+              routes: [
+                {
+                  path: "/Home",
+                  component: Home,
+                  meta: {
+                    title: "首页"
+                  }
+                }
+              ]
+            })
+      > afterEach(后置钩子)
+        router.afterEach((to, from) => {})
+    - 路由独享守卫
+      > beforeEnter
+        {
+          path: "/Home",
+          component: Home,
+          beforeEnter: (to, from, next) => {
+            next()
+          }
+        }
+    - 组件内守卫
+      >  beforeRouteEnter
+        // 在渲染该组件对应的路由时调用
+        beforeRouteEnter (to, from, next) {}
+      > beforeRouteUpdate
+        // 在当前路由改变，但是该组件被复用时调用
+        // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候
+        beforeRouteUpdate (to, from, next) {}
+      > beforeRouteLeave
+        // 在离开该组件对应的路由时调用
+        beforeRouteLeave (to, from, next) {}
+  9. keep-alive(缓存 vue内置组件)
+    正常情况下来回跳转路由会从新创建渲染组件 用了keep-alive之后就不会重新创建
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
+    > 跳转到被缓存的组件时会调用 activated生命周期 离开时会调用 deactivated生命周期
+    > keep-alive 组件有两个属性
+      - include // 哪个组件被缓存 值是一个字符串或者一个正则 
+        <keep-alive include="User"></keep-alive> //User是组件里面定义的name的值
+      - exclude // 哪个组件不会被缓存 值是一个字符串或者一个正则
+        <keep-alive exclude="Home,info"></keep-alive> //Home 和 info 是这两个组件里面定义的name的值

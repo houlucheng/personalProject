@@ -10,7 +10,15 @@
 </template>
 <script>
 export default {
-  
+  created() {
+    console.log("created")
+  },
+  activated() {
+    console.log("activated")
+  },
+  deactivated() {
+    console.log("deactivated")
+  },
 }
 </script>
 <style scoped>
