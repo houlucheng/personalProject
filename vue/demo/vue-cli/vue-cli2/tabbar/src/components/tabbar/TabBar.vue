@@ -1,23 +1,24 @@
 <template>
   <div id="app">
-    <tab-bar></tab-bar>
+    <div id="tabbar">
+      <div class="tab-bar-item">首页</div>
+      <div class="tab-bar-item">分类</div>
+      <div class="tab-bar-item">购物车</div>
+      <div class="tab-bar-item">我的</div>
+    </div>
   </div>
 </template>
 
 <script>
-import TabBar from "@/components/tabbar/TabBar.vue"
-
 export default {
-  name: 'App',
+  name: 'tabbar',
   components: {
-    TabBar
+
   }
 }
 </script>
 
 <style>
-@import "./assets/css/base.css";
-
 #tabbar {
   display: flex;
   background-color: #f6f6f6;
