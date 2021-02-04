@@ -9,17 +9,18 @@ const Profile = () => import("../views/profile/Profile.vue")
 Vue.use(Router)
 
 export default new Router({
+  mode: "history",
   routes: [
     {
       path: "",
-      redirect: "/Home"
+      redirect: "/home"
     },
     {
-      path: "/Home",
+      path: "/home",
       component: Home
     },
     {
-      path: "/Category",
+      path: "/category",
       component: Category
     },
     {
@@ -27,7 +28,7 @@ export default new Router({
       component: cart
     },
     {
-      path: "/Profile",
+      path: "/profile",
       component: Profile
     }
     

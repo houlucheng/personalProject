@@ -9,9 +9,11 @@
 <script>
 export default {
   name: 'tabbar',
-  components: {
-
-  }
+  components: {},
+  data() {
+      return {
+      }
+  },
 }
 </script>
 

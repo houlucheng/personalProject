@@ -17,6 +17,9 @@ export default {
   name: 'TabBarItem',
   components: {
   },
+  props: {
+      path: String
+  },
   data() {
     return {
       isActive: true
@@ -24,7 +27,7 @@ export default {
   },
   methods: {
     itemClick () {
-      
+      this.$router.replace(this.path)
     }
   },
 }
