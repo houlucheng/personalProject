@@ -222,3 +222,106 @@
         <keep-alive include="User"></keep-alive> //User是组件里面定义的name的值
       - exclude // 哪个组件不会被缓存 值是一个字符串或者一个正则
         <keep-alive exclude="Home,info"></keep-alive> //Home 和 info 是这两个组件里面定义的name的值
+
+## vuex
+  new Vuex.Store({
+    state: {}, // 状态
+    mutations: {}, // 改变 这里面一般写一些同步的操作
+    actions: {}, // 行动 这里面一般写一些异步操作
+    getters: {},
+    modules: {}
+  })
+  组件中这样使用store里的值：this.$store.state
+  修改 state 里的值可以直接 this.$store.state = xxx 这样修改 （但是最好不要这样改）
+  原因：有个浏览器插件叫 devtools 能帮我们记录是哪个组件修改store里的值 但是如果用上面这种方式修改是无法记录的，所以推荐用 mutations修改
+  在组件中这样调用 mutations 里面的方法。因为执行了 Vue.use(Vuex) 所以在 vue 的原型上有了一个$store的属性 所以如下：
+    new Vuex.Store({
+      mutations: {
+        editState(state) {
+          // 会默认有一个state参数
+        }
+      }
+    })
+    methods: {
+      aaa() {
+        this.$store.commit("editState") // commit里面传 在mutations里定义的方法名
+      }
+    }
+  #### Vuex的五大核心
+    > state 单一状态树 (一个项目里面只有一个store)
+      - 如果你的状态信息保存到多个store里面，那么对于之后的管理和维护来说比较困难 所以vuex使用了单一状态树来管理应用层级的全部状态
+      - 单一状态树能让我们用最直接的方式找到某个状态的片段，也让然后的管理和维护变的简单方便
+      - 
+    > getters (一般当 state 里面的数据对外提供时需要改变的时候使用)
+      例如：state 中定义了一个 a:"hello", b:"word!"。 在某些组件中用的时候需要把 a 和 b 拼接起来 这时候就用到getters 和计算属性相似
+        getters: {
+          content(state, getters) {
+            // 第二个参数getters就是store中的getters 所以可以在此方法中调用 getters 中的其他方法 如：
+            // getters.getText
+            return state.a + state.b
+          },
+          getText() {
+            return "666"
+          }
+        }
+        在组件中调用：
+        methods: {
+          getContent() {
+            console.log(this.$store.getters.content)
+          }
+        }
+      例如：state中存了一个数组 数组中是一些学生的信息 比如 名字、年龄等 在某个组件中要获取 state中存的这些学生的数据 并且只取大于30岁的
+      - 进阶方法  （如果组件中调用 getters 里的方法并且需要传入自己想传入的参数 那么可以如下面这样）
+        methods: {
+          getContent() {
+            console.log(this.$store.getters.viewText('vuex')) // vuex 你好
+          }
+        }
+        getters: {
+          viewText(state, getters) {
+            return function (a) {
+              return a + " 你好"
+            }
+          }
+        }
+    > mutations (payload负载)
+      - vuex的store状态的唯一更改方式就是提交 mutations
+      - mutations主要包括两部分
+        。字符串的事件类型(type) //(方法名)
+        。一个回调函数(handle),该回掉的第一个参数就是state
+      - 如何在调用mutations里面的方法时传入参数方式
+       methods: {
+         this.$store.commit("addText", 10) // 普通传参方式
+
+         this.$store.commi({
+           type: "addText",
+           count: 10
+         }) //这种方式传参在mutations中接收的时候第二个参数就变为了一个对象 这个对象就是我们传过去的对象
+
+
+       }
+
+       mutations: {
+         addtext(state, num) {
+           alert(num) // 10
+         }
+       }
+
+      - 如果业务多了 mutations 中定义的方法也就越来越多 commit 的时候也就多了 为了防止定义和提交的时候方法名写错可以用这种方式写
+        import {getContent} from "./store/mutations-types.js"       
+
+        mutations: {
+          [getContent]() {
+            
+          }
+        }
+
+        methods: {
+          getText() {
+            this.$store.commit(getContent)
+          }
+        }
+
+      
+
+  
