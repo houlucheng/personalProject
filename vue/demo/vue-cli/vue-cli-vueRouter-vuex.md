@@ -30,44 +30,47 @@
     Setup e2e tests with Nightwatch? (Y/n) 
       // e2e-端到端 安装 Nightwatch，是一个利用 selenium 或 webdriver或phantomjs等进行自动化测试框架 可操作浏览器自动点击啥的
 
-  2. runtime-only 创建项目后 render函数使用
-    new Vue({
-      el: "#app",
-      render: function (createElement) {
-        // createElement("标签名", {标签属性}, ["内容"])
-        return createElement("h2", {class: 'box'}, ["hello world"]) // 基础用法
-        //高级用法 可以直接放个组件
-        return createElement({
-          template: "<h2></h2>",
+  2. runtime-only 创建项目后 render函数使用  
+  ```
+    new Vue({  
+      el: "#app",  
+      render: function (createElement) {  
+        // createElement("标签名", {标签属性}, ["内容"])  
+        return createElement("h2", {class:   'box'}, ["hello world"]) // 基础用法
+        //高级用法 可以直接放个组件  
+        return createElement({  
+          template: '<h2></h2>'
           data(){
             return {}
           }
         })
       }
     })
+  ```
 
 
 ## @vue/cli3
   vue-cli3 是基于 webpaack4 打造。 vue-cli2 是基于 webpack3 打造
   vue-cli3 的设计原则是“0配置”，移除了配置文件根目录下的，build和config文件
   vue-cli3 提供了 vue ui 命令，提供了可视化配置
+  ```
+    vue create demo
 
-  vue create demo
+    Please pick a preset: Manually select features // 选择一些预设配置
 
-  Please pick a preset: Manually select features // 选择一些预设配置
+    Where do you prefer placing config for Babel, ESLint, etc.?  // 选择把配置放到哪
+      ❯ In dedicated config files // 单独放在一个 config 文件
+      ❯ In package.json // 放在 package.json 里
 
-  Where do you prefer placing config for Babel, ESLint, etc.?  // 选择把配置放到哪
-    ❯ In dedicated config files // 单独放在一个 config 文件
-    ❯ In package.json // 放在 package.json 里
+    Save this as a preset for future projects? (y/N) // 是否把本次的配置保存 
+      > 删除保存的配置 在 .vuerc 文件里
 
-  Save this as a preset for future projects? (y/N) // 是否把本次的配置保存 
-    > 删除保存的配置 在 .vuerc 文件里
-
-  package-lock.json 文件里保存了实际安装的包的版本 ^符号是安装版本只有最后一位可以浮动3.6.0(3.6.4)， ～符号是可以浮动后两位3.6.0 (3.7.3)
-
+    package-lock.json 文件里保存了实际安装的包的版本 ^符号是安装版本只有最后一位可以浮动3.6.0(3.6.4)， ～符号是可以浮动后两位3.6.0 (3.7.3)
+  ```
 
 ## vue-router
   1. 路由的安装、使用 和 重定向 和 mode 和 设置默认路由
+  ```
     npm install vue-router --save
     import vueRouter from "vue-router"
     vue.use(vueRouter)
@@ -86,6 +89,7 @@
       el: "#app",
       router
     })
+  ```
   2. router-link 组件
     > router-link 组件上的属性
       - to  // to="/Home" 和a标签的href相似 用来跳转路由
@@ -99,17 +103,20 @@
        
   3. 路由懒加载 
     - 用了路由懒加载之后 打包后的js也会按组件来分 一个组件一个js
-    export default new vueRouter({
-      routes:[
-        {
-          path: "/Home",
-          component: () => import('../components/Home.vue')
-        }
-      ],
-      mode: ""
-    })
+    ```
+      export default new vueRouter({
+        routes:[
+          {
+            path: "/Home",
+            component: () => import('../components/Home.vue')
+          }
+        ],
+        mode: ""
+      })  
+    ```
 
   4. 嵌套路由
+  
     new vueRouter({
       routes: [
         {
@@ -125,7 +132,8 @@
       ]
     })
   
-  5. 动态路由
+  5. 动态路由  
+    ```
     a. 需要在路由里面配置路由路径path
       routes: [
         {
@@ -133,7 +141,7 @@
           component: Home
         }
       ]
-    b. 在 router-link 的 to属性中传递参数
+    b. 在 router-link 的 to属性中传递参数  
       <router-link :to="'/Home' + text">走你</router-link>
       data(){
         return {
@@ -143,7 +151,9 @@
       // // http://localhost:8080/Home/666
     c. 在Home组件中获取参数
       this.$route.params.userId
+    
   6. 路由传递参数
+  
     a. 第一种方式可以用上面动态路由的方式传递 params
     b. 第二种方式是 query
       <router-link :to="{path: '/User', query: {name: '666'}}"></router-link>
@@ -156,16 +166,19 @@
           name: 666
         }
       })
-  7. $router 与 $route
+  7. $router 与 $route    
+   
     vue 源码在vue的原型上定义了这两个属性 
-    $router是 vue.use(vue-router) 的时候，调用了vueRouter里面的install方法并且把vueRouter赋值到了vue的原型上
-    $route是 把当前活跃的路由对象赋值给了router
+    $router是 // vue.use(vue-router) 的时候，调用了vueRouter里面的install方法并且把vueRouter赋值到了vue的原型上
+    $route是 // 把当前活跃的路由对象赋值给了router
     综上所述只要在vue.prototype上定义的属性或方法，都可以在任何组件里面以this.的方式访问执行
-  8. 导航守卫(路由拦截器)
-    - 全局守卫
-      > beforeEach(前置钩子)
-        例子： 跳转路由时改变页面的title
-        两种方法：
+  9. 导航守卫(路由拦截器)  
+  - 全局守卫  
+    > beforeEach(前置钩子)  
+      例子： 跳转路由时改变页面的title  
+      两种方法：  
+
+        ```
           a. 在每个组件的 created 生命周期中 修改document.title //这种方法比较麻烦，需要在每个组件中写逻辑
           b. 在定义路由的文件里这样写
             router.beforeEach((to, from, next) => {
@@ -189,10 +202,15 @@
                 }
               ]
             })
-      > afterEach(后置钩子)
-        router.afterEach((to, from) => {})
-    - 路由独享守卫
-      > beforeEnter
+        ```
+      > afterEach(后置钩子)   
+      ```
+      router.afterEach((to, from) => {}) 
+      ```
+
+  - 路由独享守卫  
+    > beforeEnter    
+      ```
         {
           path: "/Home",
           component: Home,
@@ -200,23 +218,33 @@
             next()
           }
         }
-    - 组件内守卫
-      >  beforeRouteEnter
-        // 在渲染该组件对应的路由时调用
-        beforeRouteEnter (to, from, next) {}
-      > beforeRouteUpdate
-        // 在当前路由改变，但是该组件被复用时调用
-        // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候
-        beforeRouteUpdate (to, from, next) {}
-      > beforeRouteLeave
-        // 在离开该组件对应的路由时调用
-        beforeRouteLeave (to, from, next) {}
-  9. keep-alive(缓存 vue内置组件)
-    正常情况下来回跳转路由会从新创建渲染组件 用了keep-alive之后就不会重新创建
+      ```
+  - 组件内守卫
+    >  beforeRouteEnter
+      // 在渲染该组件对应的路由时调用
+      ```
+      beforeRouteEnter (to, from, next) {}
+      ```
+    > beforeRouteUpdate
+      ```
+      // 在当前路由改变，但是该组件被复用时调用
+      // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候
+      beforeRouteUpdate (to, from, next) {}
+      ```
+    > beforeRouteLeave
+      ```
+      // 在离开该组件对应的路由时调用
+      beforeRouteLeave (to, from, next) {}
+      ```
+  - keep-alive(缓存 vue内置组件)  
+    > 正常情况下来回跳转路由会从新创建渲染组件 用了keep-alive之后就不会重新创建
+    ```
     <keep-alive>
       <router-view/>
     </keep-alive>
-    > 跳转到被缓存的组件时会调用 activated生命周期 离开时会调用 deactivated生命周期
+    ```
+    > 跳转到被缓存的组件时会调用 activated生命周期 离开时会调用 deactivated生命周期  
+    
     > keep-alive 组件有两个属性
       - include // 哪个组件被缓存 值是一个字符串或者一个正则 
         <keep-alive include="User"></keep-alive> //User是组件里面定义的name的值
@@ -321,7 +349,62 @@
             this.$store.commit(getContent)
           }
         }
+    > actions (执行异步操作)
+      - 如果异步操作也在 mutations 中执行，那么数据源和页面上也会改，但是在 devtools 中将检测不到 还是会显示上次的值 就会让你无法再调试
+      - actions 中定义的方法也会默认有一个参数 context(上下文) 这个参数可以理解为是当前的store对象
+      - 在actions中异步修改state中定义的变量时也必须要经过mutations用commit提交进行修改
+      - 调用aupdateInfo时传递参数 直接作为第二个参数传入
+        methods: {
+          getHandle() {
+            this.$store.dispatch("aupdateInfo",{name:"xiaoming"})
 
-      
+            this.$store
+              .dispatch("aupdatecon",{name:"xiaoguang"})
+              .then((parm) => {  // 修改成功后回掉
+                console.log(parm)
+                })
+          }
+        } 
+        actions: {
+          aupdateInfo(context,payload) {
+            setTimeout(() => {
+              context.commit("getContent")
+              console.log(payload) // 调用aupdateInfo时传递过来的参数
+            },1000)
+          },
+          aupdatecon(context, payload) {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                context.commit("getContent")
+                console.log(payload) // 调用aupdateInfo时传递过来的参数
+                resolve(666)
+              },1000)
+            })
+          }
+        } 
+    > modules (模块化)
+      const moduleA = {
+              state: {},
+              mutations: {},
+              actions: {},
+              getters: {},
+              modules: {}
+            }
+      modules: {
+        a: {
+          state: {
+            name: "zhangshan"
+          },
+          mutations: {},
+          actions: {},
+          getters: {},
+          modules: {}
+        },
+        b: moduleA
+      } 
+      - 获取的方式
+        created() {
+          console.log(this.$store.state.a.name)
+        }
 
   
