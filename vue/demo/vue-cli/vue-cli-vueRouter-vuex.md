@@ -166,7 +166,7 @@
           name: 666
         }
       })
-  7. $router 与 $route    
+  7. \$router 与 $route    
    
     vue 源码在vue的原型上定义了这两个属性 
     $router是 // vue.use(vue-router) 的时候，调用了vueRouter里面的install方法并且把vueRouter赋值到了vue的原型上
@@ -252,6 +252,7 @@
         <keep-alive exclude="Home,info"></keep-alive> //Home 和 info 是这两个组件里面定义的name的值
 
 ## vuex
+```
   new Vuex.Store({
     state: {}, // 状态
     mutations: {}, // 改变 这里面一般写一些同步的操作
@@ -275,136 +276,168 @@
         this.$store.commit("editState") // commit里面传 在mutations里定义的方法名
       }
     }
-  #### Vuex的五大核心
-    > state 单一状态树 (一个项目里面只有一个store)
-      - 如果你的状态信息保存到多个store里面，那么对于之后的管理和维护来说比较困难 所以vuex使用了单一状态树来管理应用层级的全部状态
-      - 单一状态树能让我们用最直接的方式找到某个状态的片段，也让然后的管理和维护变的简单方便
-      - 
-    > getters (一般当 state 里面的数据对外提供时需要改变的时候使用)
-      例如：state 中定义了一个 a:"hello", b:"word!"。 在某些组件中用的时候需要把 a 和 b 拼接起来 这时候就用到getters 和计算属性相似
-        getters: {
-          content(state, getters) {
-            // 第二个参数getters就是store中的getters 所以可以在此方法中调用 getters 中的其他方法 如：
-            // getters.getText
-            return state.a + state.b
-          },
-          getText() {
-            return "666"
-          }
-        }
-        在组件中调用：
-        methods: {
-          getContent() {
-            console.log(this.$store.getters.content)
-          }
-        }
-      例如：state中存了一个数组 数组中是一些学生的信息 比如 名字、年龄等 在某个组件中要获取 state中存的这些学生的数据 并且只取大于30岁的
-      - 进阶方法  （如果组件中调用 getters 里的方法并且需要传入自己想传入的参数 那么可以如下面这样）
-        methods: {
-          getContent() {
-            console.log(this.$store.getters.viewText('vuex')) // vuex 你好
-          }
-        }
-        getters: {
-          viewText(state, getters) {
-            return function (a) {
-              return a + " 你好"
-            }
-          }
-        }
-    > mutations (payload负载)
-      - vuex的store状态的唯一更改方式就是提交 mutations
-      - mutations主要包括两部分
-        。字符串的事件类型(type) //(方法名)
-        。一个回调函数(handle),该回掉的第一个参数就是state
-      - 如何在调用mutations里面的方法时传入参数方式
-       methods: {
-         this.$store.commit("addText", 10) // 普通传参方式
+```  
+###### Vuex的五大核心  
+  > state 单一状态树 (一个项目里面只有一个store)
+  - 如果你的状态信息保存到多个store里面，那么对于之后的管理和维护来说比较困难 所以vuex使用了单一状态树来管理应用层级的全部状态
+  - 单一状态树能让我们用最直接的方式找到某个状态的片段，也让然后的管理和维护变的简单方便   
 
-         this.$store.commi({
-           type: "addText",
-           count: 10
-         }) //这种方式传参在mutations中接收的时候第二个参数就变为了一个对象 这个对象就是我们传过去的对象
-
-
-       }
-
-       mutations: {
-         addtext(state, num) {
-           alert(num) // 10
-         }
-       }
-
-      - 如果业务多了 mutations 中定义的方法也就越来越多 commit 的时候也就多了 为了防止定义和提交的时候方法名写错可以用这种方式写
-        import {getContent} from "./store/mutations-types.js"       
-
-        mutations: {
-          [getContent]() {
-            
-          }
-        }
-
-        methods: {
-          getText() {
-            this.$store.commit(getContent)
-          }
-        }
-    > actions (执行异步操作)
-      - 如果异步操作也在 mutations 中执行，那么数据源和页面上也会改，但是在 devtools 中将检测不到 还是会显示上次的值 就会让你无法再调试
-      - actions 中定义的方法也会默认有一个参数 context(上下文) 这个参数可以理解为是当前的store对象
-      - 在actions中异步修改state中定义的变量时也必须要经过mutations用commit提交进行修改
-      - 调用aupdateInfo时传递参数 直接作为第二个参数传入
-        methods: {
-          getHandle() {
-            this.$store.dispatch("aupdateInfo",{name:"xiaoming"})
-
-            this.$store
-              .dispatch("aupdatecon",{name:"xiaoguang"})
-              .then((parm) => {  // 修改成功后回掉
-                console.log(parm)
-                })
-          }
-        } 
-        actions: {
-          aupdateInfo(context,payload) {
-            setTimeout(() => {
-              context.commit("getContent")
-              console.log(payload) // 调用aupdateInfo时传递过来的参数
-            },1000)
-          },
-          aupdatecon(context, payload) {
-            return new Promise((resolve, reject) => {
-              setTimeout(() => {
-                context.commit("getContent")
-                console.log(payload) // 调用aupdateInfo时传递过来的参数
-                resolve(666)
-              },1000)
-            })
-          }
-        } 
-    > modules (模块化)
-      const moduleA = {
-              state: {},
-              mutations: {},
-              actions: {},
-              getters: {},
-              modules: {}
-            }
-      modules: {
-        a: {
-          state: {
-            name: "zhangshan"
-          },
-          mutations: {},
-          actions: {},
-          getters: {},
-          modules: {}
+  > getters (一般当 state 里面的数据对外提供时需要改变的时候使用)
+  ```
+    例如：state 中定义了一个 a:"hello", b:"word!"。 在某些组件中用的时候需要把 a 和 b 拼接起来 这时候就用到getters 和计算属性相似
+      getters: {
+        content(state, getters) {
+          // 第二个参数getters就是store中的getters 所以可以在此方法中调用 getters 中的其他方法 如：
+          // getters.getText
+          return state.a + state.b
         },
-        b: moduleA
-      } 
-      - 获取的方式
-        created() {
-          console.log(this.$store.state.a.name)
+        getText() {
+          return "666"
         }
+      }
+      在组件中调用：
+      methods: {
+        getContent() {
+          console.log(this.$store.getters.content)
+        }
+      }
+    例如：state中存了一个数组 数组中是一些学生的信息 比如 名字、年龄等 在某个组件中要获取 state中存的这些学生的数据 并且只取大于30岁的
+    - 进阶方法  （如果组件中调用 getters 里的方法并且需要传入自己想传入的参数 那么可以如下面这样）
+      methods: {
+        getContent() {
+          console.log(this.$store.getters.viewText('vuex')) // vuex 你好
+        }
+      }
+      getters: {
+        viewText(state, getters) {
+          return function (a) {
+            return a + " 你好"
+          }
+        }
+      }
+  ```
+  > mutations (payload负载)
+
+  - vuex的store状态的唯一更改方式就是提交 mutations  
+  - mutations主要包括两部分  
+    。字符串的事件类型(type) //(方法名)
+    。一个回调函数(handle),该回掉的第一个参数就是state
+  - 如何在调用mutations里面的方法时传入参数方式
+    ```
+    methods: {
+      this.$store.commit("addText", 10) // 普通传参方式
+
+      this.$store.commi({
+        type: "addText",
+        count: 10
+      }) //这种方式传参在mutations中接收的时候第二个参数就变为了一个对象 这个对象就是我们传过去的对象
+
+
+    }
+
+    mutations: {
+      addtext(state, num) {
+        alert(num) // 10
+      }
+    }
+    ```
+  - 如果业务多了 mutations 中定义的方法也就越来越多 commit 的时候也就多了 为了防止定义和提交的时候方法名写错可以用这种方式写
+    ```
+    import {getContent} from "./store/mutations-types.js"       
+
+    mutations: {
+      [getContent]() {
+        
+      }
+    }
+
+    methods: {
+      getText() {
+        this.$store.commit(getContent)
+      }
+    }
+    ```
+  > actions (执行异步操作)  
+  - 如果异步操作也在 mutations 中执行，那么数据源和页面上也会改，但是在 devtools 中将检测不到 还是会显示上次的值 就会让你无法再调试
+  - actions 中定义的方法也会默认有一个参数 context(上下文) 这个参数可以理解为是当前的store对象
+  - 在actions中异步修改state中定义的变量时也必须要经过mutations用commit提交进行修改
+  - 调用aupdateInfo时传递参数 直接作为第二个参数传入
+    ```
+    methods: {
+      getHandle() {
+        this.$store.dispatch("aupdateInfo",{name:"xiaoming"})
+
+        this.$store
+          .dispatch("aupdatecon",{name:"xiaoguang"})
+          .then((parm) => {  // 修改成功后回掉
+            console.log(parm)
+            })
+      }
+    } 
+    actions: {
+      aupdateInfo(context,payload) {
+        setTimeout(() => {
+          context.commit("getContent")
+          console.log(payload) // 调用aupdateInfo时传递过来的参数
+        },1000)
+      },
+      aupdatecon(context, payload) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            context.commit("getContent")
+            console.log(payload) // 调用aupdateInfo时传递过来的参数
+            resolve(666)
+          },1000)
+        })
+      }
+    } 
+    ```
+> modules (模块化)
+  ```
+    const moduleA = {
+            state: {},
+            mutations: {},
+            actions: {},
+            getters: {},
+            modules: {}
+          }
+    modules: {
+      a: {
+        state: {
+          name: "zhangshan"
+        },
+        mutations: {},
+        actions: {},
+        getters: {},
+        modules: {}
+      },
+      b: moduleA
+    }   
+    获取的方式:
+      created() {
+        console.log(this.$store.state.a.name)
+      }
+    
+    - 在 modules 中调用 mutations 里的方法依然是用commit
+    - 在 modules 中调用 getters 里的方法依然是用 $store.getters.xxx, 但是唯一不同的是 模块中getters里定义的方法多一个参数 rootState
+      modules: {
+        getters: {
+          getHandel(state, getters, rootState) {
+            // rootState 是根的state
+          }
+        }
+      }
+    - 在 modules 中调用 actions
+      modules: {
+        actions: {
+          aupdateCon(context) {
+            // 这里的context不再是store对象 而是这个模块 里面有rootGetters、rootState等
+          }
+        }
+      }
+  ```
+
+  
+    
 
   
