@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+  <script>
+    // axios({
+    //   url: "http://123.207.32.32:8000/home/multidata",
+    //   method: "get"
+    // }).then((res)=> {
+    //   console.log(res);
+    // })
+
+    // axios({
+    //   url: "http://123.207.32.32:8000/home/data",
+    //   method: 'get',
+    //   params: {
+    //     type: "sell",
+    //     age: 1
+    //   }
+    // }).then((res)=> {
+    //   console.log(res);
+    // })
+
+    // axios 发送并发请求
+      // 全局配置
+      axios.defaults.baseURL = "http://123.207.32.32:8000/"
+      axios.default.timeout = 5000
+      // 发送请求
+      axios.all([
+        axios({
+          url: "home/multidata",
+          method: "get"
+        }),
+        axios({
+          url: "home/data",
+          method: 'get',
+          params: {
+            type: "sell",
+            age: 1
+          }
+        })
+      ]).then(axios.spread((res1, res2)=> {
+        console.log(res1);
+        console.log(res2);
+      }))
+  </script>
+</body>
+</html>

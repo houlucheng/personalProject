@@ -8,7 +8,20 @@
 <body>
   
   <script>
-    
+    Promise.all([
+      new Promise((resolve,reject) => {
+        setTimeout(()=> {
+          resolve()
+        })
+      }),
+      new Promise((resolve,reject)=> {
+        setTimeout(()=> {
+          resolve()
+        })
+      })
+    ]).then((res)=> {
+      console.log(res); // 是个数组
+    })
   </script>
 </body>
 </html>

@@ -437,7 +437,76 @@
       }
   ```
 
+
   
     
 
   
+
+
+
+
+## axios
+  > 参数  
+  - 请求地址  
+    `url: "/ueer"`
+  - 请求类型  
+    `method: "get"`
+  - 请求根路径  
+    `baseURL: "http://127.0.0.1:8080"` 
+  - 请求前的数据处理  
+    `transformRequest: [function(data){}]` 
+  - 请求后的数据处理  
+    `transformResponse: [function(data){}]`
+  - 自定义的请求头  
+    `headers: {x-Requested-with: "XMLHttpRequest"}` 
+  - URL查询参数  
+    `params: {id:2}` 
+  - 查询对象序列化  
+    `paramsSerializer: function(params){}` 
+  - request body  
+    `data: {key:'aa'}` 
+  - 超时设置  
+    `timeout: 1000` 
+  - 跨域是否带Token  
+    `withCredentials: false` 
+  - 自定义请求处理    
+    `adapter: function(resolve, reject, config){}` 
+  - 跨域是否带Token  
+    `withCredentials: false` 
+  - 身份验证信息  
+    `auth: {username: "", pwd: '123'}` 
+  - 响应的数据格式json/blob/document/arraybuffer/text/tream
+    `responseType: 'json'` 
+  > 全局配置  
+  ```
+    axios.defaults.baseUrl = "http://127.0.0.1:8080";
+    axios.defaults.timeout = 5000;
+    ......
+  ```  
+  > 用法事例  
+  ```
+    axios.defaults.baseURL = "http://123.207.32.32:8000/"
+    axios.default.timeout = 5000
+
+    axios.all([
+        axios({
+          url: "home/multidata",
+          method: "get"
+        }),
+        axios({
+          url: "home/data",
+          method: 'get',
+          params: {
+            type: "sell",
+            age: 1
+          }
+        })
+    ]).then(axios.spread((res1, res2)=> {
+      console.log(res1);
+      console.log(res2);
+    }))
+  ```
+
+
+    
