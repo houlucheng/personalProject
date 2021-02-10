@@ -476,7 +476,7 @@
     `withCredentials: false` 
   - 身份验证信息  
     `auth: {username: "", pwd: '123'}` 
-  - 响应的数据格式json/blob/document/arraybuffer/text/tream
+  - 响应的数据格式json/ blob/ document/ arraybuffer/ text/ tream
     `responseType: 'json'` 
   > 全局配置  
   ```
@@ -484,7 +484,7 @@
     axios.defaults.timeout = 5000;
     ......
   ```  
-  > 用法事例  
+  > 全局用法事例  
   ```
     axios.defaults.baseURL = "http://123.207.32.32:8000/"
     axios.default.timeout = 5000
@@ -506,6 +506,30 @@
       console.log(res1);
       console.log(res2);
     }))
+  ```  
+  > 创建实例的用法  
+  ```
+    const instance1 = axios.create({
+      baseURL: "http://123.207.32.32:8000/",
+      timeout: 5000
+    })
+
+    instance1({
+      url: "home/multidata",
+      method: "get"
+    }).then((res)=>{
+      console.log(res)
+    })
+    instance1({
+      url: "home/data",
+      method: "get",
+      params: {
+        type: "sell",
+        age: 1
+      }
+    }).then((res)=>{
+      console.log(res);
+    })
   ```
 
 
