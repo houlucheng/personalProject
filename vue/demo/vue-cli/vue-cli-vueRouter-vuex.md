@@ -447,7 +447,7 @@
 
 
 ## axios
-  > 参数  
+> axios参数  
   - 请求地址  
     `url: "/ueer"`
   - 请求类型  
@@ -530,7 +530,31 @@
     }).then((res)=>{
       console.log(res);
     })
-  ```
+  ```  
+  > axios请求拦截器 (interceptors.request.use)
+  - 全局拦截器
+  `axios.interceptors.request.use()`
+  - 实例拦截器
+    ```
+    const instance = axios.create({
+        baseURL: "http://123.207.32.32:8000/",
+        timeout: 5000
+    })
+
+    // 请求拦截器
+    instance.interceptors.request.use(config => {
+      // 必须return 要不然请求无法完成
+      return config
+    }, err => {})
+
+    // 响应拦截器
+    instance.interceptors.response.use(res => {
+      // console.log(res);
+      return res.data
+    }, err => {})
+
+    instance({url: "", method: ""})
+    ```
 
 
     

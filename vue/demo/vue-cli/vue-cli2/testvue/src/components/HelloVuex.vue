@@ -5,11 +5,20 @@
   </div>
 </template>
 <script>
+import {request} from "@/network/request.js"
+
 export default {
   props: {
     counter: Number
   },
-  created() {},
+  created() {
+    request({
+      url: "home/multidata",
+      method: "get"
+    }).then(res => {
+      console.log(res);
+    })
+  },
   computed: {
     num () {
       return this.$store.state.counter
