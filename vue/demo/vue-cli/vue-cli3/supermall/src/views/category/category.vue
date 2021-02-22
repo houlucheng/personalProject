@@ -113,7 +113,7 @@ export default {
     // new BScroll('.wrapper', {})
     // new BScroll(document.querySelector(".wrapper"), {})
     const bscroll = new BScroll(this.$refs.aa, {
-      probeType: 0,
+      probeType: 2, // 设置了上拉加载这个值就无效了，始终都所有都监听
       // 0 和 1 代表不允许监听滚动
       // 2 滚动时监听滚动位置 但是手指离开滚动区域时就算有惯性继续滚动着也不会再监听滚动位置
       // 3 只要是滚动都监听

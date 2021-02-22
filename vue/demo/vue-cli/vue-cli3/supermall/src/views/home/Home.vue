@@ -1,11 +1,14 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <home-swiper :banners="banners" />
-    <recommend-view :recommends="recommends" />
-    <feature-view></feature-view>
-    <tab-control class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
-    <goods-list :goods="showGoods" />
+    
+    <scroll class="content" ref="a">
+      <home-swiper :banners="banners" />
+      <recommend-view :recommends="recommends" />
+      <feature-view></feature-view>
+      <tab-control class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
+      <goods-list :goods="showGoods" />
+    </scroll>
 
     <ul>
       <li>hello1</li>
@@ -62,6 +65,8 @@
   </div>
 </template>
 <script>
+import Scroll from "components/common/scroll/Scroll"
+
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
@@ -96,6 +101,7 @@ export default {
     showGoods() {
       return this.goods[this.currentType].list
     }
+    
   },
   methods: {
     tabClick(index) {
@@ -131,7 +137,8 @@ export default {
     FeatureView,
     NavBar,
     TabControl,
-    GoodsList
+    GoodsList,
+    Scroll
   }
 }
 </script>
@@ -152,5 +159,9 @@ export default {
     position: sticky;
     top: 44px;
     z-index: 9;
+  }
+  .content {
+    height: 300px;
+    overflow: hidden;
   }
 </style>
