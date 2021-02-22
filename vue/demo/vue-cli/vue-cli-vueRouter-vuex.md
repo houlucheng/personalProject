@@ -556,5 +556,60 @@
     instance({url: "", method: ""})
     ```
 
+## better-scroll
+  > 安装  
 
-    
+      npm install better-scroll --save
+  > 使用  
+  ```
+    <div class="wrapper">
+      <ul>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+    <script>
+
+      import BScroll from 'better-scr0ll';
+
+      // new BScroll('.wrapper', {})
+      // new BScroll(document.querySelector(".wrapper"), {})
+
+      const bscroll = new BScroll(this.$refs.aa, {
+        probeType: 0,
+        // 0 和 1 代表不允许监听滚动
+        // 2 滚动时监听滚动位置 但是手指离开滚动区域时就算有惯性继续滚动着也不会再监听滚动位置
+        // 3 只要是滚动都监听
+        click: true, // 默认false 在wrapper元素中click不起作用
+        pullUpLoad: true, // 监听上拉加载
+      })
+
+      // 监听滚动
+      bscroll.on('scroll', (position) => {
+        console.log(position);
+      })
+
+      // 监听上拉加载
+      bscroll.on('pullingUp', () => {
+        console.log('上拉加载');
+        setTimeout(()=>{
+          bscroll.finishPullUp(); // 如果不执行这个方法那么上拉加载只会触发一次
+        },2000)
+      })
+
+    </script>
+
+    <style scoped>
+      .wrapper {
+        height: 300px;
+        background-color: #673;
+        overflow: hidden;
+      }
+    </style>
+
+    注：最外边的容器必须设置 固高 以及 overflow: hidden，而且最外面的元素里面必须只能有一个元素。
+
+      
+
+  ```

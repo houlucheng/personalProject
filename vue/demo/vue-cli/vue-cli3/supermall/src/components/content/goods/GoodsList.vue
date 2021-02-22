@@ -17,7 +17,6 @@ export default {
     }
   },
   created() {
-    console.log(this.goods)
   },
   components: {
     GoodsListItem
@@ -29,6 +28,7 @@ export default {
     .goods {
       display: flex;
       flex-wrap: wrap;
-      padding: 5px;
+      justify-content: space-around;
+      padding: 2px;
     }
 </style>

@@ -36,9 +36,9 @@ export default {
     width: 100%;
     position: absolute;
     left: 0;
-    bottom: 0;
+    right: 0;
+    bottom: 5px;
     text-align: center;
-    padding: 5px;
     font-size: 13px;
   }
   .goods-info p {
