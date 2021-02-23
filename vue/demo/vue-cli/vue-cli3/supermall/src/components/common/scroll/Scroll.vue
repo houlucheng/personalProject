@@ -41,9 +41,7 @@ export default {
     this.scroll.on("pullingUp", () => {
       this.$emit("pullingUp")
     })
-    // window.addEventListener('load', () => {
-    //   this.scroll.refresh()
-    // })
+    console.log(this.scroll);
   },
   methods: {
     scrollTo(x, y, time=300) {

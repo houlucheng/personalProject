@@ -46,6 +46,9 @@ export default {
     this.getHomeGoods('pop')
     this.getHomeGoods("new")
     this.getHomeGoods("sell")
+    this.$bus.on('itemImageLoad', () => {
+      
+    })
   },
   computed: {
     showGoods() {
@@ -89,7 +92,7 @@ export default {
         this.goods[type].page += 1
 
         this.$refs.scroll.finishPullUp();
-        this.$refs.scroll.refresh();
+        // this.$refs.scroll.refresh(); 
       })
     }
   },
