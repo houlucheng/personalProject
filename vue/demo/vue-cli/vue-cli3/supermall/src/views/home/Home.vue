@@ -3,10 +3,10 @@
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
     
     <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
-      <home-swiper :banners="banners" />
+      <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
       <recommend-view :recommends="recommends" />
       <feature-view></feature-view>
-      <tab-control class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
+      <tab-control ref="tabControl" class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
       <goods-list :goods="showGoods" />
     </scroll>
     <back-top @click.native="backClick" v-show="isShowBackTop" />
@@ -23,6 +23,7 @@ import TabControl from "components/content/tabControl/TabControl"
 import GoodsList from "components/content/goods/GoodsList"
 import Scroll from "components/common/scroll/Scroll"
 import BackTop from "components/content/backTop/BackTop"
+import {debounce} from "common/utils"
 
 import {getHomeMultidata, getHomeGoods} from "network/home";
 
@@ -38,7 +39,8 @@ export default {
         sell: {page: 0, list: []}
       },
       currentType: "pop",
-      isShowBackTop: false
+      isShowBackTop: false,
+      tabOffsetTop: 0
     }
   },
   created() {
@@ -46,8 +48,12 @@ export default {
     this.getHomeGoods('pop')
     this.getHomeGoods("new")
     this.getHomeGoods("sell")
-    this.$bus.on('itemImageLoad', () => {
-      
+
+  },
+  mounted() {
+    const refresh = debounce(this.$refs.scroll.refresh, 300)
+    this.$bus.$on('itemImageLoad', () => {
+      refresh()
     })
   },
   computed: {
@@ -57,6 +63,9 @@ export default {
     
   },
   methods: {
+    swiperImageLoad() {
+      console.log(this.$refs.tabControl.$el.offsetTop); 
+    },
     loadMore() {
       this.getHomeGoods(this.currentType)
     },
@@ -92,7 +101,6 @@ export default {
         this.goods[type].page += 1
 
         this.$refs.scroll.finishPullUp();
-        // this.$refs.scroll.refresh(); 
       })
     }
   },

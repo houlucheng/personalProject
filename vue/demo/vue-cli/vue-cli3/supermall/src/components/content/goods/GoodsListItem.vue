@@ -15,14 +15,18 @@ export default {
     goodsItem: {
       type: Object,
       default() {
-        return {}
+        return {
+          time: null
+        }
       }
     }
+  },
+  created() {
   },
   methods: {
     imageLoad() {
       this.$bus.$emit("itemImageLoad")
-    }
+    },
   },
 }
 </script>
