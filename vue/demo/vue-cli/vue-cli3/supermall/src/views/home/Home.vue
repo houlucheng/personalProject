@@ -1,14 +1,16 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    
-    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
-      <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
-      <recommend-view :recommends="recommends" />
-      <feature-view></feature-view>
-      <tab-control ref="tabControl" class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
-      <goods-list :goods="showGoods" />
-    </scroll>
+    <tab-control v-show="isTabFixed" ref="tabControl1" class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
+    <keep-alive>
+      <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
+        <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
+        <recommend-view :recommends="recommends" />
+        <feature-view></feature-view>
+        <tab-control ref="tabControl2" class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
+        <goods-list :goods="showGoods" />
+      </scroll>
+    </keep-alive>
     <back-top @click.native="backClick" v-show="isShowBackTop" />
   </div>
 </template>
@@ -40,7 +42,9 @@ export default {
       },
       currentType: "pop",
       isShowBackTop: false,
-      tabOffsetTop: 0
+      tabOffsetTop: 0,
+      isTabFixed: false,
+      currentPosition: 0
     }
   },
   created() {
@@ -63,14 +67,23 @@ export default {
     
   },
   methods: {
+    activated() {
+      
+    },
+    deactivated() {
+      
+    },
     swiperImageLoad() {
-      console.log(this.$refs.tabControl.$el.offsetTop); 
+      this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
     },
     loadMore() {
       this.getHomeGoods(this.currentType)
     },
     contentScroll(position) {
       this.isShowBackTop = (-position.y) > 1000
+      console.log((-position.y) >= this.tabOffsetTop);
+      this.isTabFixed = ((-position.y) >= this.tabOffsetTop)
+      this.currentPosition = (-position.y)
     },
     backClick() {
       this.$refs.scroll.scrollTo(0,0)
@@ -87,6 +100,8 @@ export default {
           this.currentType = "sell";
           break;
       }
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
     },
     getHomeMultidata() {
       getHomeMultidata().then(res => {
@@ -118,22 +133,27 @@ export default {
 </script>
 <style scoped>
   #home {
-    padding-top: 44px;
+    /* padding-top: 44px; */
     height: 100vh;
     position: relative;
   }
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;
-    position: fixed;
+
+    /* position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9;
+    z-index: 9; */
   }
   .tab-control {
-    position: sticky;
-    top: 44px;
+    /* 原生吸顶 */
+    /* position: sticky; */
+    /* top: 44px;
+    z-index: 9; */
+
+    position: relative;
     z-index: 9;
   }
   .content {
@@ -149,4 +169,11 @@ export default {
     overflow: hidden;
     margin-top: 44px;
   } */
+
+  .fixed {
+    position: fixed;
+    top: 44px;
+    left: 0;
+    right: 0;
+  }
 </style>
