@@ -35,7 +35,6 @@ export default {
     // 监听滚动位置
     if(this.probeType == 2 || this.probeType == 3){
       this.scroll.on("scroll", (position) => {
-        // console.log(position);
         this.$emit('scroll', position)
       })
     }
@@ -54,8 +53,10 @@ export default {
       this.scroll.finishPullUp();
     },
     refresh() {
-      console.log(1);
       this.scroll && this.scroll.refresh()
+    },
+    getScrollY() {
+      return this.scroll.y ? this.scroll.y : 0
     }
   },
 

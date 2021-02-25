@@ -2,15 +2,13 @@
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
     <tab-control v-show="isTabFixed" ref="tabControl1" class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
-    <keep-alive>
-      <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
-        <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
-        <recommend-view :recommends="recommends" />
-        <feature-view></feature-view>
-        <tab-control ref="tabControl2" class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
-        <goods-list :goods="showGoods" />
-      </scroll>
-    </keep-alive>
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
+      <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
+      <recommend-view :recommends="recommends" />
+      <feature-view></feature-view>
+      <tab-control ref="tabControl2" class="tab-control" :titles="['流行', '新款', '精选']" @tabClick="tabClick" />
+      <goods-list :goods="showGoods" />
+    </scroll>
     <back-top @click.native="backClick" v-show="isShowBackTop" />
   </div>
 </template>
@@ -44,7 +42,7 @@ export default {
       isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      currentPosition: 0
+      saveY: 0
     }
   },
   created() {
@@ -66,13 +64,14 @@ export default {
     }
     
   },
+  activated() {
+    this.$refs.scroll.scrollTo(0, this.saveY, 0)
+    this.$refs.scroll.refresh()
+  },
+  deactivated() {
+    this.saveY = this.$refs.scroll.getScrollY()
+  },
   methods: {
-    activated() {
-      
-    },
-    deactivated() {
-      
-    },
     swiperImageLoad() {
       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
     },
@@ -81,9 +80,7 @@ export default {
     },
     contentScroll(position) {
       this.isShowBackTop = (-position.y) > 1000
-      console.log((-position.y) >= this.tabOffsetTop);
       this.isTabFixed = ((-position.y) >= this.tabOffsetTop)
-      this.currentPosition = (-position.y)
     },
     backClick() {
       this.$refs.scroll.scrollTo(0,0)
