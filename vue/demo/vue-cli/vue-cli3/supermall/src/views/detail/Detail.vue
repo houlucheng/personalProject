@@ -7,6 +7,7 @@
       <detail-shop-info :shop="shop" />
       <detail-goods-info :detail-info="detailInfo" />
       <detail-param-info :paramInfo="paramInfo" />
+      <detail-comment-info :comment-info="commentInfo"/>
     </scroll>
   </div>
 </template>
@@ -17,6 +18,7 @@ import DetailBaseInfo from './childComps/DetailBaseInfo'
 import DetailShopInfo from './childComps/DetailShopInfo'
 import DetailGoodsInfo from './childComps/DetailGoodsInfo'
 import DetailParamInfo from './childComps/DetailParamInfo'
+import DetailCommentInfo from './childComps/DetailCommentInfo'
 
 import Scroll from 'components/common/scroll/Scroll'
 import {debounce} from "common/utils"
@@ -33,6 +35,7 @@ export default {
       shop: {},
       detailInfo: {},
       paramInfo: {},
+      commentInfo: {}
     }
   },
   created() {
@@ -55,6 +58,9 @@ export default {
         this.shop = new Shop(data.shopInfo)
         this.detailInfo = data.detailInfo
         this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
+        if(data.rate.cRate != 0){
+          this.commentInfo = data.rate.list[0]
+        }
       })
     }
   },
@@ -65,7 +71,8 @@ export default {
     DetailShopInfo,
     Scroll,
     DetailGoodsInfo,
-    DetailParamInfo
+    DetailParamInfo,
+    DetailCommentInfo
   }
 }
 </script>
