@@ -8,6 +8,7 @@
       <detail-goods-info :detail-info="detailInfo" />
       <detail-param-info :paramInfo="paramInfo" />
       <detail-comment-info :comment-info="commentInfo"/>
+      <goods-list :goods="recommends" />
     </scroll>
   </div>
 </template>
@@ -22,8 +23,9 @@ import DetailCommentInfo from './childComps/DetailCommentInfo'
 
 import Scroll from 'components/common/scroll/Scroll'
 import {debounce} from "common/utils"
+import GoodsList from 'components/content/goods/GoodsList'
 
-import {getDetail, Goods, Shop, GoodsParam} from "network/detail"
+import {getDetail,getRecommend, Goods, Shop, GoodsParam} from "network/detail"
 
 export default {
   name: 'Detail',
@@ -35,12 +37,14 @@ export default {
       shop: {},
       detailInfo: {},
       paramInfo: {},
-      commentInfo: {}
+      commentInfo: {},
+      recommends: []
     }
   },
   created() {
     this.iid = this.$route.params.iid
     this.getDetail()
+    this.getRecommend()
   },
   mounted() {
     const refresh = debounce(this.$refs.scroll.refresh, 300)
@@ -51,7 +55,6 @@ export default {
   methods: {
     getDetail() {
       getDetail(this.iid).then((res) => {
-        console.log(res.result);
         const data = res.result
         this.topImages = data.itemInfo.topImages;
         this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services)
@@ -61,6 +64,12 @@ export default {
         if(data.rate.cRate != 0){
           this.commentInfo = data.rate.list[0]
         }
+      })
+    },
+    getRecommend() {
+      getRecommend().then( (res) => {
+        console.log(res);
+        this.recommends = res.data.list
       })
     }
   },
@@ -72,7 +81,8 @@ export default {
     Scroll,
     DetailGoodsInfo,
     DetailParamInfo,
-    DetailCommentInfo
+    DetailCommentInfo,
+    GoodsList,
   }
 }
 </script>
