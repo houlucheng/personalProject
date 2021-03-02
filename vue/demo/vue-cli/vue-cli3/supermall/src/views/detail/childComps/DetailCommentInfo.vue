@@ -14,8 +14,8 @@
       <div class="info-detail">
         <p>{{commentInfo.content}}</p>
         <div class="info-other">
-          <span class="data">{{commentInfo.created | showDate}}</span>
-          <span>{{commentInfo.style}}</span>
+          <span class="data">{{commentInfo.created | showDate}}  </span>
+          <span> {{commentInfo.style}}</span>
         </div>
         <div class="info-imgs">
           <img :src="item" v-for="(item, index) in commentInfo.images" :key="index" alt="">

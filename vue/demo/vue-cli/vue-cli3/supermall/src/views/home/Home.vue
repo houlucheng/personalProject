@@ -23,7 +23,7 @@ import TabControl from "components/content/tabControl/TabControl"
 import GoodsList from "components/content/goods/GoodsList"
 import Scroll from "components/common/scroll/Scroll"
 import BackTop from "components/content/backTop/BackTop"
-import {debounce} from "common/utils"
+import {itemListenerMixin} from 'common/mixin'
 
 import {getHomeMultidata, getHomeGoods} from "network/home";
 
@@ -42,7 +42,7 @@ export default {
       isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY: 0
+      saveY: 0,
     }
   },
   created() {
@@ -52,12 +52,7 @@ export default {
     this.getHomeGoods("sell")
 
   },
-  mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 300)
-    this.$bus.$on('itemImageLoad', () => {
-      refresh()
-    })
-  },
+  mixins: [itemListenerMixin],
   computed: {
     showGoods() {
       return this.goods[this.currentType].list
@@ -70,6 +65,7 @@ export default {
   },
   deactivated() {
     this.saveY = this.$refs.scroll.getScrollY()
+    this.$bus.$off('itemImageLoad', this.itemImageListener)
   },
   methods: {
     swiperImageLoad() {
