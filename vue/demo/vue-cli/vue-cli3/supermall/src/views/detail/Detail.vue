@@ -69,6 +69,7 @@ export default {
       product.desc = this.detailInfo.desc
       product.price = this.goods.realPrice
       product.iid = this.iid
+      this.$store.commit("addCart", product)
     },
     contentScroll(position) {
       const positionY = -position.y
