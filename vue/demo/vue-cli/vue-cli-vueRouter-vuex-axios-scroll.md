@@ -69,7 +69,7 @@
   ```
 
 ## vue-router
-  1. 路由的安装、使用 和 重定向 和 mode 和 设置默认路由
+  1. 路由的安装、使用、 重定向、 mode、 设置默认路由
   ```
     npm install vue-router --save
     import vueRouter from "vue-router"
@@ -82,7 +82,8 @@
           redirect: "/Home" //重定向
         }
       ],
-      mode: "history" // 模式
+      mode: "history", // 模式
+      base: "/hlc" // 配置的路由名称之前加一层
     })
     import router from './router/index.js'
     new Vue({

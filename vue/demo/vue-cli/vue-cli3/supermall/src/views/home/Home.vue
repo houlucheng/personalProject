@@ -22,8 +22,7 @@ import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl"
 import GoodsList from "components/content/goods/GoodsList"
 import Scroll from "components/common/scroll/Scroll"
-import BackTop from "components/content/backTop/BackTop"
-import {itemListenerMixin} from 'common/mixin'
+import {itemListenerMixin, backTopMinxin} from 'common/mixin'
 
 import {getHomeMultidata, getHomeGoods} from "network/home";
 
@@ -39,7 +38,6 @@ export default {
         sell: {page: 0, list: []}
       },
       currentType: "pop",
-      isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
@@ -52,7 +50,7 @@ export default {
     this.getHomeGoods("sell")
 
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin, backTopMinxin],
   computed: {
     showGoods() {
       return this.goods[this.currentType].list
@@ -76,10 +74,8 @@ export default {
     },
     contentScroll(position) {
       this.isShowBackTop = (-position.y) > 1000
+      // 吸顶效果
       this.isTabFixed = ((-position.y) >= this.tabOffsetTop)
-    },
-    backClick() {
-      this.$refs.scroll.scrollTo(0,0)
     },
     tabClick(index) {
       switch(index) {
@@ -120,7 +116,6 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop
   }
 }
 </script>
