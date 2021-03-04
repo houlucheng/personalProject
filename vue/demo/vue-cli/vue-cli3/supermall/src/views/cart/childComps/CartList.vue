@@ -1,107 +1,7 @@
 <template>
   <div class="cart-list">
-    <scroll class="content">
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <li>sdf</li>
-      <!-- <cart-list-item v-for="(item,index) in cartList" :product="item" :key="index"/> -->
+    <scroll class="content" ref="scroll">
+      <cart-list-item v-for="(item,index) in cartList" :item-info="item" :key="index"/>
     </scroll>
   </div>
 </template>
@@ -121,14 +21,13 @@ export default {
     Scroll,
   },
   activated() {
-    
+    this.$refs.scroll.refresh()
   },
 }
 </script>
 <style scoped>
   .cart-list {
-    height: calc(100% - 44px -49px);
-    overflow: hidden;
+    height: calc(100% - 44px - 49px - 40px);
   }
   .content {
     height: 100%;
