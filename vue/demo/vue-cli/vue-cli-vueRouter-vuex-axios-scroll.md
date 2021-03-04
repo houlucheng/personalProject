@@ -278,12 +278,34 @@
       }
     }
 ```  
-###### Vuex的五大核心  
-  > state 单一状态树 (一个项目里面只有一个store)
+#### Vuex的五大核心  (并且都有对应的辅助函数)
+  >1、state 单一状态树 (一个项目里面只有一个store)  
+  + 辅助函数(mapState)  
+  ```
+
+  ```
   - 如果你的状态信息保存到多个store里面，那么对于之后的管理和维护来说比较困难 所以vuex使用了单一状态树来管理应用层级的全部状态
   - 单一状态树能让我们用最直接的方式找到某个状态的片段，也让然后的管理和维护变的简单方便   
+  
 
-  > getters (一般当 state 里面的数据对外提供时需要改变的时候使用)
+  >2、getters (一般当 state 里面的数据对外提供时需要改变的时候使用)  
+  + 辅助函数(mapGetters)
+  ```
+    mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性
+
+    例：
+      computed: {
+        // 第一种写法 数组形式
+        ...mapGetters(["store 中 getters 里定义的方法名称", "getUser"])
+        
+        // 第二种写法 对象形式 针对自定义名称
+        ...mapGetters({
+          "自己想要的名字": "getters 中定义的方法名",
+          "length": "getCartLength"
+        })
+      }
+  ``` 
+  + 用例
   ```
     例如：state 中定义了一个 a:"hello", b:"word!"。 在某些组件中用的时候需要把 a 和 b 拼接起来 这时候就用到getters 和计算属性相似
       getters: {
@@ -317,8 +339,8 @@
         }
       }
   ```
-  > mutations (payload负载)
-
+  >3、mutations (payload负载)  
+    辅助函数(mapMutations)
   - vuex的store状态的唯一更改方式就是提交 mutations  
   - mutations主要包括两部分  
     。字符串的事件类型(type) //(方法名)
@@ -358,7 +380,8 @@
       }
     }
     ```
-  > actions (执行异步操作)  
+  >4、actions (执行异步操作)  
+    辅助函数(mapActions)
   - 如果异步操作也在 mutations 中执行，那么数据源和页面上也会改，但是在 devtools 中将检测不到 还是会显示上次的值 就会让你无法再调试
   - actions 中定义的方法也会默认有一个参数 context(上下文) 这个参数可以理解为是当前的store对象
   - 在actions中异步修改state中定义的变量时也必须要经过mutations用commit提交进行修改
@@ -393,7 +416,7 @@
       }
     } 
     ```
-> modules (模块化)
+>5、modules (模块化)
   ```
     const moduleA = {
             state: {},
