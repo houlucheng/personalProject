@@ -28,7 +28,9 @@ import Scroll from 'components/common/scroll/Scroll'
 import GoodsList from 'components/content/goods/GoodsList'
 import {itemListenerMixin, backTopMinxin} from 'common/mixin'
 
-import {getDetail,getRecommend, Goods, Shop, GoodsParam} from "network/detail"
+import {getDetail, getRecommend, Goods, Shop, GoodsParam} from "network/detail"
+
+import { mapActions } from "vuex"
 
 export default {
   name: 'Detail',
@@ -62,6 +64,7 @@ export default {
     this.$bus.$off('itemImageLoad', this.itemImageListener)
   },
   methods: {
+    ...mapActions(["addCart"]),
     addToCart() {
       const product = {}
       product.image = this.topImages[0]
@@ -69,7 +72,14 @@ export default {
       product.desc = this.detailInfo.desc
       product.price = this.goods.realPrice
       product.iid = this.iid
-      this.$store.dispatch("addCart", product)
+
+      this.addCart(product).then(res => {
+        this.$toast.show(res)
+      })
+
+      // this.$store.dispatch("addCart", product).then(res => {
+      //   console.log(res);
+      // })
     },
     contentScroll(position) {
       const positionY = -position.y

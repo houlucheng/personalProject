@@ -47,6 +47,7 @@ export default {
   },
   methods: {
     scrollTo(x, y, time=300) {
+      debugger
       this.scroll && this.scroll.scrollTo(x, y, time)
     },
     finishPullUp() {

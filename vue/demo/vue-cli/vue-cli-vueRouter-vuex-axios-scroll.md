@@ -297,7 +297,7 @@
       computed: {
         // 第一种写法 数组形式
         ...mapGetters(["store 中 getters 里定义的方法名称", "getUser"])
-        
+
         // 第二种写法 对象形式 针对自定义名称
         ...mapGetters({
           "自己想要的名字": "getters 中定义的方法名",
@@ -381,7 +381,22 @@
     }
     ```
   >4、actions (执行异步操作)  
-    辅助函数(mapActions)
+  + 辅助函数(mapActions)
+  ```
+    mapActions 辅助函数仅仅是将 store 中的 actions 映射到局部的 methods
+
+    例：
+      methods: {
+        // 第一种写法 数组形式
+        ...mapActions(["store 中 actions 里定义的方法名称", "getUser"])
+        
+        // 第二种写法 对象形式 针对自定义名称
+        ...mapActions({
+          "自己想要的名字": "actions 中定义的方法名",
+          "length": "getCartLength"
+        })
+      }
+  ``` 
   - 如果异步操作也在 mutations 中执行，那么数据源和页面上也会改，但是在 devtools 中将检测不到 还是会显示上次的值 就会让你无法再调试
   - actions 中定义的方法也会默认有一个参数 context(上下文) 这个参数可以理解为是当前的store对象
   - 在actions中异步修改state中定义的变量时也必须要经过mutations用commit提交进行修改
