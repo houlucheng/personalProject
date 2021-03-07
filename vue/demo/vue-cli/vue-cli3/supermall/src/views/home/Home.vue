@@ -58,6 +58,7 @@ export default {
     
   },
   activated() {
+    console.log("回到上次位置"+ this.saveY)
     this.$refs.scroll.scrollTo(0, this.saveY, 0)
     this.$refs.scroll.refresh()
   },

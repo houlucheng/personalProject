@@ -595,7 +595,7 @@
     instance({url: "", method: ""})
     ```
 
-## better-scroll
+## better-scroll (滚动)
   > 安装  
 
       npm install better-scroll --save
@@ -652,3 +652,74 @@
       
 
   ```
+
+## fastclick (解决移动端300毫秒延迟)
+> 问题：
+  + 移动端用click的时候遇到第一次点击会等待300毫秒，这是为了看是不是双击
+> 解决方案：
+  + fastclick
+  ```
+    安装：
+      npm install fastclick --save
+    使用：
+      import fastClick from "fastclick"
+      fastClick.attach(document.body)
+  ```
+
+## vue-lazyload (图片懒加载)
+```
+安装：
+  npm install vue-lazyload --save  
+使用：
+   import VueLazyLoad from "vue-lazyload"
+   Vue.use(VueLazyLoad, {
+     loading: require("assets/img/aa.png") // 图片加载中时显示的图片
+     // ... 还有更多参数
+   })
+   
+   // 把 src 换 v-lazy
+   <img v-lazy="url" />
+```
+
+## px2vw (px 转 vw)
+```
+  安装：
+    npm install postcss-px-to-viewport --save-dev 
+    
+  使用：
+    在 postcss.config.js 文件中进行相关配置
+
+    module.exports = {
+        plugins: {
+            autoprefixer: {},
+            "postcss-px-to-viewport": {
+                viewportWidth: 375, // 视窗的宽度，对应的是我们设计稿的宽度
+                viewportHeight: 667, // 视窗的高度，对应的是我们设计稿的高度.(也可以不配置)
+                unitprecision: 5, // 制定“px"转换为视窗单位值的小数位数(很多时候无法整除)
+                viewportUnit: 'vw', // 制定需要转换成的视窗单位，建议使用vw
+                selectorBlackList: ['ignore', 'tab-bar', 'tab-bar-item'], // 制定不需要转换的类 元素的class名
+                mainPixelValue: 1, // 小于或等于‘1px’不转换为视窗单位
+                mediaQuery: false, // 允许在媒体查询中转换px
+                exclude: [/TabBar/]
+            }
+        }
+    }
+```
+
+## Nginx(可以部署项目)
+> 官网地址：https://nginx.org
+- nginx包含很多版本，大致可以分为三类
+  1. Mainline version： Mainline 是 Nginx 目前主力做的版本，可以说是开发版
+  2. Stable version: 最新稳定版，生产环境上建议使用的版本
+  3. Legacy versions: 遗留的老版本的稳定版
+ 
+## 原理分析
+ > 响应式原理
+  + 核心：
+    1. Object.defineProperty({}, "name", { set(){}, get(){} })
+    2. 发布者订阅者模式
+  + 流程：
+    * new Vue() **=>** data数据 **=>** 
+    Observer(监听劫持数据 defineProperty 监听变化并通知) **&&** Compile(解析el模版中的指令)   **=>** 
+    Dep(订阅者 一个属性一个dep dep里面会记录所有订阅此属性的Watcher 有 addSub添加 和 notify更新) **=>** 
+    Watcher(观察者)

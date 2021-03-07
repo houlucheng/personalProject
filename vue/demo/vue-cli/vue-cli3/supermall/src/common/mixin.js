@@ -24,6 +24,7 @@ export const backTopMinxin = {
   },
   methods: {
     backClick() {
+      console.log("回到顶部")
       this.$refs.scroll.scrollTo(0,0)
     },
   },
