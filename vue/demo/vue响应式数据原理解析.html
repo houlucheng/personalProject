@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./vue-cli/vue-cli2/tabbar/node_modules/vue/dist/vue.js"></script>
+  <script>
+    class Observer {
+      constructor(obj) {
+        Object.keys(obj).forEach((key) => {
+          let value = obj[key]
+          Object.defineProperty(obj, key, {
+            set(newVal) {
+              console.log("监听到"+ key + "改变");
+              value = newVal // 把新的值更新到对象里
+
+              // 当数据发生改变的时候就会通知 张三 李四 
+              dep.notify()
+            },
+            get() {
+              // 每写一次{{}}获取属性就会触发一下get
+              // 比如  张三 用了一次 
+              //       李四 用了一次
+              console.log('正在获取'+ key + '的值');
+              return value
+            }
+          })
+        })
+      }
+      
+    }
+
+    // 发布订阅模式
+    class Dep { // 订阅者
+      constructor() {
+        this.subscribes = []
+      }
+      addSub(Watcher) {
+        this.subscribes.push(Watcher)
+      }
+      notify() {
+        this.subscribes.forEach((item) => {
+          item.update()
+        })
+      }
+    }
+
+    // 观察者 相当于用这个属性的地方也就是写{{}}的地方
+    class Watcher {
+      constructor(name) {
+        this.name = name
+      }
+      update() {
+        console.log(this.name + "update"); 
+      }
+    }
+
+    let obj = {name: "张三", age: 21}
+    new Observer(obj)
+    const dep = new Dep();
+
+    // const w1 = new Watcher("张三");
+    // dep.addSub(w1)
+
+    // const w2 = new Watcher("李四");
+    // dep.addSub(w2)
+
+  </script>
+</body>
+</html>
