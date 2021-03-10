@@ -11,6 +11,10 @@ const Detail = () => import("views/detail/Detail")
 
 const routes = [
   {
+    path: "/index.html",
+    redirect: "/home"
+  },
+  {
     path: "",
     redirect: "/home"
   },
@@ -36,6 +40,7 @@ const routes = [
   }
 ]
 export default new VueRouter({
+  base: "/hlc/dist/",
   routes,
   mode: "history"
 })
