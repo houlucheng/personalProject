@@ -40,5 +40,13 @@
         }
       }
     });
+
+    window.aa= "nihao"
+onmessage=function(e){
+  e=e||event;
+  console.log(e);
+  document.write("my name is ",e.data);
+   document.body.style.background = 'red';
+}
   </script>
 </html>

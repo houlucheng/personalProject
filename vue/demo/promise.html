@@ -3,11 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title></title>
 </head>
 <body>
+  <div id="app"><h2>nihao</h2><p>你好</p></div>
+  <div id="box"><h3>hello</h3><p>走你</p></div>
   
-  <script>
+
+<iframe src="http://127.0.0.1:5500/vue/demo/slot.html" id="child" style="display: block; border: 1px dashed #ccc; height: 300px;"></iframe>
+<script>
+// var app = document.getElementById("app")
+//     var box = document.getElementById("box")
+//     console.log(app.lastChild);
+//     box.append(app.lastChild)
+// var aa = window.open("http://127.0.0.1:5500/vue/demo/slot.html")
+// console.log("999",aa);
+// aa.postMessage("谢霆锋2","http://127.0.0.1:5500/")
+    var f=document.getElementById("child");
+ 	setTimeout(function(){
+     console.log(f.contentWindow);
+ 	 f.contentWindow.postMessage("谢霆锋","http://127.0.0.1:5500/");
+ 	},3000)
+
     Promise.all([
       new Promise((resolve,reject) => {
         setTimeout(()=> {
