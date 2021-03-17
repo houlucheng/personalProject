@@ -40,7 +40,7 @@ const routes = [
   }
 ]
 export default new VueRouter({
-  base: "/hlc/dist/",
+  base: "/market/lc/dist/",
   routes,
   mode: "history"
 })

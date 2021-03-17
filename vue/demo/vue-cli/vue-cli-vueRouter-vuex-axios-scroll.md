@@ -278,6 +278,27 @@
       }
     }
 ```  
+#### vue-persistedState (vuex 持久化储存数据)
+> vuex-persistedstate默认使用localStorage来固化数据,也可使用其他存储方式
+```
+  安装： npm install vuex-persistedState --save
+
+  使用：
+    import persisted from "vuex-persistedState"
+    const stoer = Vuex.Store({
+      // plugins: [persisted()], // localStorage
+      // plugins: [{storage: window.sessionStorage}], // sessionStorage
+      plugins: [{storage: { // cookie
+        getItem: key => Cookies.get(key),
+        setItem: (key, val) => Cookies.set(key, val, {expires: 7}),
+        removeItem: key => Cookies.remove(key)
+      }}]
+      state: {
+
+      }
+    })
+```
+
 #### Vuex的五大核心  (并且都有对应的辅助函数)
   >1、state 单一状态树 (一个项目里面只有一个store)  
   + 辅助函数(mapState)  
@@ -697,7 +718,7 @@
 ## px2vw (px 转 vw)
 ```
   安装：
-    npm install postcss-px-to-viewport --save-dev 
+    npm install postcss-px-to-viewport --save
     
   使用：
     在 postcss.config.js 文件中进行相关配置
