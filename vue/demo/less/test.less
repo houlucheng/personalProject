@@ -1,0 +1,74 @@
+@wrapWidth: 100%;
+@width: 100px;
+@height: @width + 20px;
+@backColor: red;
+@textColor: blue;
+@color: #224488 / 2;
+
+.textCenter { // 混合
+  text-align: center;
+  margin: 20px;
+  float: left;
+}
+#bundle() { // 命名空间
+  primary: blue;
+  .button {
+    display: block;
+    border: 1px solid black;
+    background-color: grey;
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  background-color: #223355 + #111;
+}
+
+.anniu {
+  // #bundle.button()
+  #bundle > .button();
+  color: #bundle[primary];
+}
+.box-ul {
+  list-style: none;
+}
+#box {
+  width: @wrapWidth;
+}
+
+.box-li {
+  width: @width;
+  height: @height;
+  background-color: @backColor;
+  .textCenter();
+  .img {
+    width: @wrapWidth;
+    height: 80%;
+    background-color: #666
+  }
+  p {
+    width: @wrapWidth;
+    height: 20%;
+    background-color: aqua
+  }
+  &:after {
+    content: " * ";
+    display: block;
+    font-size: 50px;
+    height: 2px;
+    clear: both;
+    color: blueviolet;
+  }
+}
+
+.box-li1, .box-li2, .box-li3{
+  .box-li();
+}
+
+
+
+

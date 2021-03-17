@@ -8,6 +8,10 @@ import VueLazyLoad from "vue-lazyload"
 
 import toast from "components/common/toast"
 
+import aa from "./components/aa"
+
+Vue.use(aa)
+
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()
 Vue.use(toast)

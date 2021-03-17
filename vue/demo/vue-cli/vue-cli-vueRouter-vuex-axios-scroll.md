@@ -476,14 +476,27 @@
       }
   ```
 
+## 一次性注册多个组件
+> a.js
+```
+  /* 一次性注册多个组件 */
+  const obj = {}
 
-  
-    
+  obj.install = function() {
+    let requireAll = require.context("components/content/goods", true, /\.vue$/)
+    // console.log(requireAll.keys());
+    requireAll.keys().forEach((item)=> {
+      console.log(requireAll(item));
+    })
+  }
 
-  
-
-
-
+  export default obj
+```
+> main.js
+```
+  import a from "./a.js"
+  Vue.use(a)
+```
 
 ## axios
 > axios参数  
