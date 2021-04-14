@@ -286,15 +286,23 @@
   使用：
     import persisted from "vuex-persistedState"
     const stoer = Vuex.Store({
-      // plugins: [persisted()], // localStorage
-      // plugins: [{storage: window.sessionStorage}], // sessionStorage
-      plugins: [{storage: { // cookie
-        getItem: key => Cookies.get(key),
-        setItem: (key, val) => Cookies.set(key, val, {expires: 7}),
-        removeItem: key => Cookies.remove(key)
-      }}]
-      state: {
+      plugins: [createPersistedState({
+        // storage: window.sessionStorage,
 
+        storage: { // cookie
+          getItem: key => Cookies.get(key),
+          setItem: (key, val) => Cookies.set(key, val, {expires: 7}),
+          removeItem: key => Cookies.remove(key)
+        }
+
+        reducer(val) {
+          return {
+            cartList: val.cartList
+          }
+        }
+      })],
+      state: {
+        cartList: []
       }
     })
 ```
@@ -505,6 +513,7 @@
 
   obj.install = function() {
     let requireAll = require.context("components/content/goods", true, /\.vue$/)
+    // 第一个参数要查找的文件路径  第二个参数是否查找子目录 第三个参数要匹配文件的正则
     // console.log(requireAll.keys());
     requireAll.keys().forEach((item)=> {
       console.log(requireAll(item));
