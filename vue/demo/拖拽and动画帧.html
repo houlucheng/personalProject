@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  @keyframes aa {
+    /* from {
+      
+    }
+    to {
+      
+    } */
+    0% {
+      margin-left: 0px;
+    }
+    100% {
+      margin-left: 400px;
+    }
+  }
+
+  body {
+    background-color: darksalmon;
+  }
+  .draggable {
+  background-image: url('http://source.unsplash.com/random/150x150');
+  position: relative;
+  height: 150px;
+  width: 150px;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
+}
+
+.droppable {
+  display: inline-block;
+  height: 160px;
+  width: 160px;
+  margin: 10px;
+  border: 3px salmon solid;
+  background-color: white;
+}
+
+.dragging {
+  border: 4px yellow solid;
+}
+
+.drag-over {
+  background-color: #30e03f;
+  border-style: dashed;
+}
+
+.invisible {
+  display: none;
+}
+</style>
+<body>
+  <!-- <div id="box"></div> -->
+
+  <div class="droppable">
+    <div class="draggable" draggable="true"></div>
+  </div>
+  <div class="droppable"></div>
+  <div class="droppable"></div>
+  <div class="droppable"></div>
+  <div class="droppable"></div>
+</body>
+</html>
+<script>
+  const draggable = document.querySelector('.draggable');
+    const droppables = document.querySelectorAll('.droppable');
+
+    draggable.addEventListener('dragstart', dragStart);
+    draggable.addEventListener('dragend', dragEnd);
+    function dragStart() {
+      this.className += ' dragging';
+      setTimeout(() => {
+        this.className = 'invisible';
+      }, 0);
+    }
+
+    function dragEnd() {
+      this.className = 'draggable';
+    }
+
+    for (const droppable of droppables) {
+      droppable.addEventListener('dragover', dragOver);
+      droppable.addEventListener('dragleave', dragLeave);
+      droppable.addEventListener('dragenter', dragEnter);
+      droppable.addEventListener('drop', dragDrop);
+    }
+    function dragOver(e) {
+      e.preventDefault();
+    }
+
+    function dragEnter(e) {
+      e.preventDefault();
+      this.className += ' drag-over';
+    }
+
+    function dragLeave(e) {
+      this.className = 'droppable';
+    }
+
+    function dragDrop(e) {
+      this.className = 'droppable';
+      this.append(draggable);
+    }
+
+</script>
