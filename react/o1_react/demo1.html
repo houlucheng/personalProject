@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<style>
+  .wrap {
+    padding: 20px 40px;
+    background-color: antiquewhite;
+  }
+</style>
 <body>
   <div id="test"></div>
   
@@ -20,9 +26,15 @@
   // const VDOM = React.createElement('h1', {id: 'title'}, React.createElement('span', {}, 'hello,React'))
   
   //1.创建虚拟DOM jsx语法（最终也会编译成js创建DOM的的方式）
+  let data = ['Angular', 'React', 'Vue']
   const VDOM = (
     <h1>
-      <span>Hello,React</span>
+      <span className="wrap" style={{color: 'red', fontSize: '25px'}} >Hello,React</span>
+      {
+        data.map((item,index) => {
+          return <p key={index}>{item}</p>
+        })
+      }
     </h1>
   )
   //2.写、渲染虚拟DOM

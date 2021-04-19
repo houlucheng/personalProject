@@ -58,7 +58,7 @@ npx create-react-app demo
    ```
 5. 只能有一个根标签。
 6. 标签必须闭合
-7. 标签名小写的时候，编译时会和html标签作比较转化为html标签
+7. 标签名小写的时候，编译时会和html标签作比较转化为同名html标签
    ```
     <good></good> // html找不到此标签会报错，但是还是会正常显示
    ```
@@ -67,5 +67,14 @@ npx create-react-app demo
     <Good> hello,react </Good> // 不定义这个组件就会报错
    ```
 9. jsx中只能写js表达式不能写js语句
+  ```
+    表达式：可以用变量接收的都叫表达式
+      const ary = arr.map()
+      const fn1 = function () {}
+
+    语句：不能用变量接收的叫语句
+      for(let i=0; i<5; i++){}
+      if(){}
+  ```
   
 
