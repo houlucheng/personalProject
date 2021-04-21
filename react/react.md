@@ -3,6 +3,7 @@
 2. react是单向数据流
 3. react默认使用sass，但是直接使用还会报错，还需要安装一个包
 4. 创建react项目node必须是  ^10.12.0 || >=12.0.0
+5. react调试工具 React Developer Tools
 
 ## react脚手架
 > create-react-app
@@ -75,6 +76,65 @@ npx create-react-app demo
     语句：不能用变量接收的叫语句
       for(let i=0; i<5; i++){}
       if(){}
+  ```  
+
+### 组件
+>函数式(简单)组件  
+```
+  function Mycomponent () {
+    return <h2>函数式组件</h2>
+  }
+
+  ReactDOM.render(<Mycomponent/>, document.getElementById('test'))
+```
+
+>类式(复杂)组件  
+```
+  class Mycomponent extends React.Component {
+    render() {
+      console.log(this) //组件的实例
+      return (
+        <h2>我是类式组件</h2>
+      )
+    }
+  }
+
+  ReactDOM.render(<Mycomponent/>, document.getElementById('test'))
+```
+- 类式组件实力的三大核心属性1：**state**
   ```
+    /* state的简写 */
+
+    class Weather extends React.Component {
+      // 在类里面写赋值语句就是在构造函数的实例上定义东西
+      
+      state = {isHot: true}
+
+      render() {
+        const {isHot} = this.state
+        return (
+          // 事件必须要以驼峰方式写
+          <h2 onClick={this.changeWeather} >今天天气很{isHot ? "炎热" : '凉爽'}</h2>
+        )
+      }
+
+      // 这里必须要用赋值 加 箭头函数 写，不然会丢失this
+      changeWeather = ()=> {
+        // 状态必须通过setState去修改，且是与原有的state合并，不是替换（这个方法在React.Component身上）
+        this.setState({isHot: !this.state.isHot})
+      }
+    }
+
+    ReactDOM.render(<Weather/>, document.getElementById('test'))
+
+    /* state的繁琐写法 */
+
+    。。。。。。请看具体事例：类式组件三大属性1_state.html
+
+  ```
+- 类式组件实力的三大核心属性2：**props**
+  
+- 类式组件实力的三大核心属性3：**refs**
+  
   
 

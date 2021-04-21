@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- jsx转移为js -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+  <!-- 必须写type为babel -->
+  <script type="text/babel">
+    // state的简写
+
+    class Weather extends React.Component {
+      // 在类里面写赋值语句就是在构造函数的实例上定义东西
+      
+      state = {isHot: true}
+
+      render() {
+        const {isHot} = this.state
+        return (
+          // 事件必须要以驼峰方式写
+          <h2 onClick={this.changeWeather} >今天天气很{isHot ? "炎热" : '凉爽'}</h2>
+        )
+      }
+
+      // 这里必须要用赋值 加 箭头函数 写，不然会丢失this
+      changeWeather = ()=> {
+        this.setState({isHot: !this.state.isHot})
+      }
+    }
+
+    ReactDOM.render(<Weather/>, document.getElementById('test'))
+  </script>
+
+
+
+
+
+
+  <!-- 必须写type为babel -->
+  <script type="text/babel">
+  /*
+    // state的繁琐写法 
+    class Weather extends React.Component {
+      constructor(props) {
+        super(props)
+        // 初始化状态
+        this.state = {isHot: true}
+        // 解决changeWeather中this指向问题
+        this.changeWeather = this.changeWeather.bind(this)
+      }
+      render() {
+        const {isHot} = this.state
+        return (
+          // 事件必须要以驼峰方式写
+          <h2 onClick={this.changeWeather} >今天天气很{isHot ? "炎热" : '凉爽'}</h2>
+        )
+      }
+      changeWeather() {
+        // changeWeather放在Weather的原型对象上
+        // 由于changeWeather是作为onClick的回调，所以不是通过实例调用的，是直接调用
+        // 类中的方法默认开启了局部严格模式，所以changeWeather中的this为undefined
+
+        // 状态必须通过setState去修改，且是与原有的state合并，不是替换（这个方法在React.Component身上）
+        // this.setState({isHot: !this.state.isHot})
+
+        // 状态不可直接更改
+        // this.state.isHot = !this.state.isHot // 错误事例
+      }
+    }
+
+    ReactDOM.render(<Weather/>, document.getElementById('test'))
+  */
+  </script>
+  
+</body>
+</html>

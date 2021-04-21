@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  <div id="test1"></div>
+  
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- jsx转移为js -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+  <!-- 必须写type为babel -->
+  <script type="text/babel">
+    class Person extends React.Component {
+      render() {
+        const {name, age, sex} = this.props
+        return (
+          <ul>
+            <li>名字：{name}</li>
+            <li>年龄：{age}</li>
+            <li>性别：{sex}</li>
+          </ul>
+        )
+      }
+    }
+
+    let arr = {name: "张三", age: 20, sex: '男'}
+    ReactDOM.render(<Person {...arr} />, document.getElementById('test'))
+
+    // ReactDOM.render(<Person name="张三" age="20" sex="男" />, document.getElementById('test'))
+    // ReactDOM.render(<Person name="李四" age="25" sex="女" />, document.getElementById('test1'))
+  </script>
+  
+</body>
+</html>
