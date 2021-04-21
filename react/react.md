@@ -4,6 +4,7 @@
 3. react默认使用sass，但是直接使用还会报错，还需要安装一个包
 4. 创建react项目node必须是  ^10.12.0 || >=12.0.0
 5. react调试工具 React Developer Tools
+6. react16版本开始弃用了React.PropTypes  (因为React包变大，所以用了prop-types.js)
 
 ## react脚手架
 > create-react-app
