@@ -79,8 +79,8 @@ npx create-react-app demo
       if(){}
   ```  
 
-### 组件
->函数式(简单)组件  
+## 组件
+> 函数式(简单)组件  
 ```
   function Mycomponent () {
     return <h2>函数式组件</h2>
@@ -89,7 +89,7 @@ npx create-react-app demo
   ReactDOM.render(<Mycomponent/>, document.getElementById('test'))
 ```
 
->类式(复杂)组件  
+> 类式(复杂)组件  
 ```
   class Mycomponent extends React.Component {
     render() {
@@ -102,118 +102,240 @@ npx create-react-app demo
 
   ReactDOM.render(<Mycomponent/>, document.getElementById('test'))
 ```
-- 类式组件实力的三大核心属性1：**state**
-  ```
-    /* state的简写 */
 
-    class Weather extends React.Component {
-      // 在类里面写赋值语句就是在构造函数的实例上定义东西
+> 类式组件的三大属性
+1. 类式组件实力的三大核心属性1：**state**
+    ```
+      /* state的简写 */
+
+      class Weather extends React.Component {
+        // 在类里面写赋值语句就是在构造函数的实例上定义东西
+        
+        state = {isHot: true}
+
+        render() {
+          const {isHot} = this.state
+          return (
+            // 事件必须要以驼峰方式写
+            <h2 onClick={this.changeWeather} >今天天气很{isHot ? "炎热" : '凉爽'}</h2>
+          )
+        }
+
+        // 这里必须要用赋值 加 箭头函数 写，不然会丢失this
+        changeWeather = ()=> {
+          // 状态必须通过setState去修改，且是与原有的state合并，不是替换（这个方法在React.Component身上）
+          this.setState({isHot: !this.state.isHot})
+        }
+      }
+
+      ReactDOM.render(<Weather/>, document.getElementById('test'))
+
+      /* state的繁琐写法 */
+
+      。。。。。。请看具体事例：类式组件三大属性1_state.html
+
+    ```
+
+2. 类式组件实力的三大核心属性2：**props**
+    ```
+      /* props简写 */
+      class Person extends React.Component {
+        constructor(props) {
+          // 构造器中传props的作用是可以在构造器中访问实例的props
+          super(props)
+          console.log(this.props);
+        }
+        render() {
+          // this.props.name = "nihao" // 会报错 因为props是只读的
+          const {name, age, sex} = this.props
+          return (
+            <ul>
+              <li>名字：{name}</li>
+              <li>年龄：{age}</li>
+              <li>性别：{sex}</li>
+            </ul>
+          )
+        }
+        // 加上static就相当于给Person类本身添加方法
+        static propTypes = {
+          name: PropTypes.string.isRequired, // 名字必须传，而且必须是string类型
+          age: PropTypes.number, // 限制年龄必须是数字
+          speak: PropTypes.func // 限制speak必须是函数
+        }
+        static defaultProps = {
+          sex: "不男不女", // 可不传有设置默认值
+          age: 18
+        }
+      }
+      let arr = {name: "张三", age: 20, sex: '男', speak: function(){}}
+      ReactDOM.render(<Person {...arr} />, document.getElementById('test'))
+
+      // ReactDOM.render(<Person name="张三" age={20} sex="男" />, document.getElementById('test'))
+      // ReactDOM.render(<Person name="李四" age={25} sex="女" />, document.getElementById('test1'))
+    ```
+    
+3. 类式组件实力的三大核心属性3：**refs**
+    ```
+      1. 字符串形式的ref 官方不建议使用 因为使用多了有效率问题 将来有可能会废弃这种方式
+        class Demo extends React.Component {
+          showDate = () => {
+            alert(this.refs.inp1.value)
+          }
+          showDate2 = () => {
+            alert(this.refs.inp2.value)
+          }
+          render() {
+            return (
+              <div>
+                <input ref="inp1" type="text" placeholder="点击按钮提示数据" />&nbsp;
+                <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+                <input ref="inp2" onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+              </div>
+            )
+          }
+        }
+        ReactDOM.render(<Demo/>, document.getElementById('test'))
+
+      2. 回调形式的ref（内联函数 与 类中定义函数）
+        class Demo extends React.Component {
+          showDate = () => {
+            alert(this.input1.value)
+          }
+          showDate2 = () => {
+            alert(this.input2.value)
+          }
+          saveInput = (c)=> {
+            this.input2 = c
+          }
+          render() {
+            return (
+              <div>
+                {/* 如果ref是内联函数，组件有更新时这个函数会执行两次，第一次返回null，第二次才返回DOM 因为render再次被调用时会销毁上次的DOM这时候会调一次*/}
+                <input ref={c => this.input1 = c} type="text" placeholder="点击按钮提示数据" />&nbsp;
+                <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+                {/* 在类中定义函数 */}
+                <input ref={this.saveInput} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+              </div>
+            )
+          }
+        }
+        ReactDOM.render(<Demo/>, document.getElementById('test'))
+
+      3. React.createRef() 形式
+        class Demo extends React.Component {
+          // “专人专用”，一个ref只能用一个React.createRef创建出来的容器
+          myRef = React.createRef()
+          myRef2 = React.createRef()
+          showDate = () => {
+            alert(this.myRef.current.value);
+          }
+          showDate2 = () => {
+            alert(this.myRef2.current.value)
+          }
+          render() {
+            return (
+              <div>
+                <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />&nbsp;
+                <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+                <input ref={this.myRef2} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+              </div>
+            )
+          }
+        }
+        ReactDOM.render(<Demo/>, document.getElementById('test'))
       
-      state = {isHot: true}
+      4. react中的事件处理
+        (1). 通过onXxx属性指定事件处理函数(注意大小写)
+            a. React使用的是自定义(合成)事件，而不是使用的原生DOM事件 ---- 为了更好的兼容
+            b. React中的事件是通过事件委托方式处理的(委托给组件最外层的元素) ---- 为了高效
+        (2). 通过event.target得到发生事件的DOM元素对象 ---- 不要过度的使用ref
 
-      render() {
-        const {isHot} = this.state
-        return (
-          // 事件必须要以驼峰方式写
-          <h2 onClick={this.changeWeather} >今天天气很{isHot ? "炎热" : '凉爽'}</h2>
-        )
-      }
-
-      // 这里必须要用赋值 加 箭头函数 写，不然会丢失this
-      changeWeather = ()=> {
-        // 状态必须通过setState去修改，且是与原有的state合并，不是替换（这个方法在React.Component身上）
-        this.setState({isHot: !this.state.isHot})
-      }
-    }
-
-    ReactDOM.render(<Weather/>, document.getElementById('test'))
-
-    /* state的繁琐写法 */
-
-    。。。。。。请看具体事例：类式组件三大属性1_state.html
-
-  ```
-- 类式组件实力的三大核心属性2：**props**
-  ```
-    /* props简写 */
-    class Person extends React.Component {
-      constructor(props) {
-        // 构造器中传props的作用是可以在构造器中访问实例的props
-        super(props)
-        console.log(this.props);
-      }
-      render() {
-        // this.props.name = "nihao" // 会报错 因为props是只读的
-        const {name, age, sex} = this.props
-        return (
-          <ul>
-            <li>名字：{name}</li>
-            <li>年龄：{age}</li>
-            <li>性别：{sex}</li>
-          </ul>
-        )
-      }
-      // 加上static就相当于给Person类本身添加方法
-      static propTypes = {
-        name: PropTypes.string.isRequired, // 名字必须传，而且必须是string类型
-        age: PropTypes.number, // 限制年龄必须是数字
-        speak: PropTypes.func // 限制speak必须是函数
-      }
-      static defaultProps = {
-        sex: "不男不女", // 可不传有设置默认值
-        age: 18
-      }
-    }
-    let arr = {name: "张三", age: 20, sex: '男', speak: function(){}}
-    ReactDOM.render(<Person {...arr} />, document.getElementById('test'))
-
-    // ReactDOM.render(<Person name="张三" age={20} sex="男" />, document.getElementById('test'))
-    // ReactDOM.render(<Person name="李四" age={25} sex="女" />, document.getElementById('test1'))
-  ```
-  
-- 类式组件实力的三大核心属性3：**refs**
-  ```
-    1. 字符串形式的ref 官方不建议使用 因为使用多了有效率问题 将来有可能会废弃这种方式
-      class Demo extends React.Component {
-        showDate = () => {
-          alert(this.refs.inp1.value)
+        class Demo extends React.Component {
+          showDate = () => {
+            alert(this.myRef2.current.value)
+          }
+          showDate2 = (event) => {
+            alert(event.target.value);
+          }
+          render() {
+            return (
+              <div>
+                <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />&nbsp;
+                <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+                <input onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+              </div>
+            )
+          }
         }
-        showDate2 = () => {
-          alert(this.refs.inp2.value)
+        ReactDOM.render(<Demo/>, document.getElementById('test'))
+
+    ```
+
+> 收集表单数据之**受控**与**非受控**组件
+  1. 非受控组件
+    ```
+      // 页面内的输入类DOM 现用现取 的就叫非受控组件
+      class Login extends React.Component {
+          handleSubmit = (event)=> {
+            event.preventDefault();
+            alert(`用户名：${this.username.value}，密码：${this.password.value}`)
+          }
+          render() {
+            return (
+              <form action="http://www.atguigu.com" onSubmit={this.handleSubmit}>
+                用户名：<input ref={c => this.username = c} type="text" name="userName" />
+                密码：<input ref={c => this.password = c} type="password" name="password" />
+                <button>登录</button>
+              </form>
+            )
+          }
+        }
+      ReactDOM.render(<Login/>, document.getElementById('test'))
+    ```
+  2. 受控组件
+    ```
+      class Login extends React.Component {
+        state = {
+          username: "",
+          password: ""
+        }
+        saveUserName = (event) => {
+          this.state.username = event.target.value
+        }
+        savePassword = (event) => {
+          this.state.password = event.target.value
+        }
+        handleSubmit = (event)=> {
+          event.preventDefault();
+          alert(`用户名：${this.state.username}，密码：${this.state.password}`)
         }
         render() {
           return (
-            <div>
-              <input ref="inp1" type="text" placeholder="点击按钮提示数据" />&nbsp;
-              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
-              <input ref="inp2" onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
-            </div>
+            <form onSubmit={this.handleSubmit}>
+              用户名：<input onInput={this.saveUserName} type="text" name="userName" />
+              密码：<input onInput={this.savePassword} type="password" name="password" />
+              <button>登录</button>
+            </form>
           )
         }
       }
-      ReactDOM.render(<Demo/>, document.getElementById('test'))
+      ReactDOM.render(<Login/>, document.getElementById('test'))
+    ```
+  3. 高阶函数 与 函数柯里化
+    ```
+      a. 高阶函数
+        * 若函数a，接收的参数是一个函数，那么a就是高阶函数
+        * 若函数a，调用的返回值依然是一个函数，那么a就是高阶函数
+        如：Promise、setTimeout、arr.map()等等
 
-    2. 回调形式的ref
-      class Demo extends React.Component {
-        showDate = () => {
-          alert(this.input1.value)
-        }
-        showDate2 = () => {
-          alert(this.input2.value)
-        }
-        render() {
-          return (
-            <div>
-              <input ref={c => this.input1 = c} type="text" placeholder="点击按钮提示数据" />&nbsp;
-              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
-              <input ref={c => this.input2 = c} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
-            </div>
-          )
-        }
-      }
-      ReactDOM.render(<Demo/>, document.getElementById('test'))
-
-  ```
-  
-  
-
+      b. 函数柯里化
+        * 通过函数调用继续返回函数的方式，实现多次接受参数最后统一处理的函数编码形式
+        如：function fn(a){
+              return b => {
+                return c => {
+                  return a + b + c
+                }
+              }
+            }
+          fn(1)(2)(3)
+    ```

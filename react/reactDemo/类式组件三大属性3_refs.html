@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- jsx转移为js -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+  <!-- 必须写type为babel -->
+  <script type="text/babel">
+    /*
+      // 不要过度使用ref，可以用事件委托代替*/
+  
+      class Demo extends React.Component {
+        showDate = () => {
+          alert(this.myRef2.current.value)
+        }
+        showDate2 = (event) => {
+          alert(event.target.value);
+        }
+        render() {
+          return (
+            <div>
+              <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />&nbsp;
+              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+              <input onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
+    
+  </script>
+
+
+
+
+  <!-- 必须写type为babel -->
+  <script type="text/babel">
+    /*
+      // React.createRef形式的ref
+  
+      class Demo extends React.Component {
+        // “专人专用”，一个ref只能用一个React.createRef创建出来的容器
+        myRef = React.createRef()
+        myRef2 = React.createRef()
+        showDate = () => {
+          alert(this.myRef.current.value);
+        }
+        showDate2 = () => {
+          alert(this.myRef2.current.value)
+        }
+        render() {
+          return (
+            <div>
+              <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />&nbsp;
+              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+              <input ref={this.myRef2} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
+    */
+  </script>
+
+
+
+  <!-- 必须写type为babel -->
+  <script type="text/babel">
+    /*
+      // 回调形式的ref
+  
+      class Demo extends React.Component {
+        showDate = () => {
+          alert(this.input1.value)
+        }
+        showDate2 = () => {
+          alert(this.input2.value)
+        }
+        saveInput = (c)=> {
+          this.input2 = c
+        }
+        render() {
+          return (
+            <div>
+              {// 如果ref是内联函数，组件有更新时这个函数会执行两次，第一次返回null，第二次才返回DOM 因为render再次被调用时会销毁上次的DOM这时候会调一次}
+              <input ref={c => this.input1 = c} type="text" placeholder="点击按钮提示数据" />&nbsp;
+              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+              {// 在类中定义函数 }
+              <input ref={this.saveInput} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
+    */
+  </script>
+
+
+
+
+  <!-- 必须写type为babel -->
+  <script type="text/babel">
+  /*
+    // 字符串形式的ref 官方不建议使用 因为使用多了有效率问题 将来有可能会废弃这种方式
+
+    class Demo extends React.Component {
+      showDate = () => {
+        alert(this.refs.inp1.value)
+      }
+      showDate2 = () => {
+        alert(this.refs.inp2.value)
+      }
+      render() {
+        return (
+          <div>
+            <input ref="inp1" type="text" placeholder="点击按钮提示数据" />&nbsp;
+            <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+            <input ref="inp2" onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Demo/>, document.getElementById('test'))
+  */
+  </script>
+  
+</body>
+</html>
