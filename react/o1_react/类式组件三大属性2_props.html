@@ -21,6 +21,11 @@
   /* props简写 */
 
     class Person extends React.Component {
+      constructor(props) {
+        // 构造器中传props的作用是可以在构造器中访问实例的props
+        super(props)
+        console.log(this.props);
+      }
       render() {
         // this.props.name = "nihao" // 会报错 因为props是只读的
         const {name, age, sex} = this.props

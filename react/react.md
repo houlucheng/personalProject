@@ -4,7 +4,7 @@
 3. react默认使用sass，但是直接使用还会报错，还需要安装一个包
 4. 创建react项目node必须是  ^10.12.0 || >=12.0.0
 5. react调试工具 React Developer Tools
-6. react16版本开始弃用了React.PropTypes  (因为React包变大，所以用了prop-types.js)
+6. react 15.5 以后版本开始弃用了React.PropTypes  (因为React包变大，所以用了prop-types.js)
 
 ## react脚手架
 > create-react-app
@@ -134,8 +134,86 @@ npx create-react-app demo
 
   ```
 - 类式组件实力的三大核心属性2：**props**
+  ```
+    /* props简写 */
+    class Person extends React.Component {
+      constructor(props) {
+        // 构造器中传props的作用是可以在构造器中访问实例的props
+        super(props)
+        console.log(this.props);
+      }
+      render() {
+        // this.props.name = "nihao" // 会报错 因为props是只读的
+        const {name, age, sex} = this.props
+        return (
+          <ul>
+            <li>名字：{name}</li>
+            <li>年龄：{age}</li>
+            <li>性别：{sex}</li>
+          </ul>
+        )
+      }
+      // 加上static就相当于给Person类本身添加方法
+      static propTypes = {
+        name: PropTypes.string.isRequired, // 名字必须传，而且必须是string类型
+        age: PropTypes.number, // 限制年龄必须是数字
+        speak: PropTypes.func // 限制speak必须是函数
+      }
+      static defaultProps = {
+        sex: "不男不女", // 可不传有设置默认值
+        age: 18
+      }
+    }
+    let arr = {name: "张三", age: 20, sex: '男', speak: function(){}}
+    ReactDOM.render(<Person {...arr} />, document.getElementById('test'))
+
+    // ReactDOM.render(<Person name="张三" age={20} sex="男" />, document.getElementById('test'))
+    // ReactDOM.render(<Person name="李四" age={25} sex="女" />, document.getElementById('test1'))
+  ```
   
 - 类式组件实力的三大核心属性3：**refs**
+  ```
+    1. 字符串形式的ref 官方不建议使用 因为使用多了有效率问题 将来有可能会废弃这种方式
+      class Demo extends React.Component {
+        showDate = () => {
+          alert(this.refs.inp1.value)
+        }
+        showDate2 = () => {
+          alert(this.refs.inp2.value)
+        }
+        render() {
+          return (
+            <div>
+              <input ref="inp1" type="text" placeholder="点击按钮提示数据" />&nbsp;
+              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+              <input ref="inp2" onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
+
+    2. 回调形式的ref
+      class Demo extends React.Component {
+        showDate = () => {
+          alert(this.input1.value)
+        }
+        showDate2 = () => {
+          alert(this.input2.value)
+        }
+        render() {
+          return (
+            <div>
+              <input ref={c => this.input1 = c} type="text" placeholder="点击按钮提示数据" />&nbsp;
+              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+              <input ref={c => this.input2 = c} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
+
+  ```
   
   
 
