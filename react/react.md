@@ -341,10 +341,22 @@ npx create-react-app demo
           fn(1)(2)(3)
     ```
 
-## 生命周期（旧）
+## 生命周期
+#### 旧版生命周期
 > 卸载组件 ReactDOM.unmountComponentAtNode()  
-> 组件挂载完后 componentDidMount  
-> 组件将要卸载 componentWillUnmount  
+> 组件将要挂载 componentWillMount
+> 组件挂载完毕 componentDidMount  (常用)
+> 父组件传新的值给子组件 componentWillReceiveProps
+> 修改状态时的阀门钩子 shouldComponentUpdate
+> 状态被更新之前 componentWillUpdate
+> 状态更新后 componentDidUpdate
+> 组件将要卸载 componentWillUnmount  (常用)
+
+#### 新版生命周期
+> 组件将要挂载 UNSAFE_componentWillMount
+> 状态被更新之前 UNSAFE_componentWillUpdate
+> 父组件传新的值给子组件 UNSAFE_componentWillReceiveProps
+  
 ```
   class Life extends React.Component {
     state = {
