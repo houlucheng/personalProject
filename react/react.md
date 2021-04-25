@@ -271,8 +271,8 @@ npx create-react-app demo
 
     ```
 
-> 收集表单数据之**受控**与**非受控**组件
-  1. 非受控组件
+> 收集表单数据之**受控**与**非受控**组件  
+1. 非受控组件   
     ```
       // 页面内的输入类DOM 现用现取 的就叫非受控组件
       class Login extends React.Component {
@@ -292,8 +292,9 @@ npx create-react-app demo
         }
       ReactDOM.render(<Login/>, document.getElementById('test'))
     ```
-  2. 受控组件
+2. 受控组件
     ```
+      // 
       class Login extends React.Component {
         state = {
           username: "",
@@ -321,7 +322,7 @@ npx create-react-app demo
       }
       ReactDOM.render(<Login/>, document.getElementById('test'))
     ```
-  3. 高阶函数 与 函数柯里化
+3. 高阶函数 与 函数柯里化
     ```
       a. 高阶函数
         * 若函数a，接收的参数是一个函数，那么a就是高阶函数
@@ -339,3 +340,40 @@ npx create-react-app demo
             }
           fn(1)(2)(3)
     ```
+
+## 生命周期（旧）
+> 卸载组件 ReactDOM.unmountComponentAtNode()  
+> 组件挂载完后 componentDidMount  
+> 组件将要卸载 componentWillUnmount  
+```
+  class Life extends React.Component {
+    state = {
+      opacity: 1
+    }
+    death = () => { 
+      // 卸载组件
+      ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+    }
+    // 组件挂载完毕
+    componentDidMount() {
+      this.timer = setInterval(()=> {
+        let opacity = this.state.opacity - 0.1
+        if(opacity <= 0) opacity = 1
+        this.setState({opacity})
+      },200)
+    }
+    // 组件将要卸载
+    componentWillUnmount() {
+      clearInterval(this.timer)
+    }
+    render() {
+      return (
+        <div>
+            <h2 style={{opacity: this.state.opacity}} >React学不会怎么办</h2>
+            <button onClick={this.death} >不活了</button>
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(<Life/>, document.getElementById('test'))
+```

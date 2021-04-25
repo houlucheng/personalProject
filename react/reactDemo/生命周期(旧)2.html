@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- jsx转移为js -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+  <!-- 必须写type为babel -->
+  <script type="text/babel">
+    class Count extends React.Component {
+      constructor(props) {
+        super(props)
+        console.log('Count --- constructor');
+        this.state = {count: 0}
+      }
+      
+      add = () => {
+        let {count} = this.state
+        this.setState({count: count+1})
+      }
+      // 组件挂载之前
+      componentWillMount() {
+        console.log('Count --- componentWillMount');
+      }
+      // 组件挂载完毕
+      componentDidMount() {
+        console.log('Count --- componentWillMount');
+      }
+      
+      render() {
+        console.log('Count --- render');
+        return (
+          <div>
+              <h2>当前求和为{this.state.count}</h2>
+              <button onClick={this.add} >点我加</button>
+          </div>
+        )
+      }
+    }
+    ReactDOM.render(<Count/>, document.getElementById('test'))
+  </script>
+  
+</body>
+</html>
