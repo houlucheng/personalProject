@@ -353,9 +353,13 @@ npx create-react-app demo
 > 组件将要卸载 componentWillUnmount  (常用)
 
 #### 新版生命周期
+>将要废弃：
 > 组件将要挂载 UNSAFE_componentWillMount
 > 状态被更新之前 UNSAFE_componentWillUpdate
 > 父组件传新的值给子组件 UNSAFE_componentWillReceiveProps
+新增：
+> 第一个钩子，必须使用static定义在类本身 getDerivedStateFromProps
+> 在更新之前获取快照 getSnapshotBeforeUpdate 用例：元素里面的内容不断增加 但是你看到的永远是你想看的某一块
   
 ```
   class Life extends React.Component {
@@ -365,6 +369,18 @@ npx create-react-app demo
     death = () => { 
       // 卸载组件
       ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+    }
+    // 若state的值在任何时候都取决于props，那么可以使用此钩子
+    static getDerivedStateFromProps(props,state) {
+      return null // 返回状态(state)里面的对象 {opacity: 1} 或者null
+    }
+    // 在更新之前获取快照
+    getSnapshotBeforeUpdate() {
+      return this.refs.list.scrollHeight //这个返回值会给componentDidUpdate
+    }
+    // 在状态更新后调用 preProps(旧的props) preState(旧的state) snapshot(上面钩子传过来的快照)
+    componentDidUpdate(preProps, preState, snapshot) {
+      this.refs.list.scrollTop += this.refs.list.scrollHeight -  snapshot
     }
     // 组件挂载完毕
     componentDidMount() {
