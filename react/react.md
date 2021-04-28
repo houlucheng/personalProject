@@ -5,6 +5,7 @@
 4. 创建react项目node必须是  ^10.12.0 || >=12.0.0
 5. react调试工具 React Developer Tools
 6. react 15.5 以后版本开始弃用了React.PropTypes  (因为React包变大，所以用了prop-types.js)
+7. pubsub-js 实现兄弟组建之间的传值（发布订阅）
 
 ## react脚手架
 > create-react-app
