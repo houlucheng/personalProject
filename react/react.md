@@ -406,3 +406,22 @@ npx create-react-app demo
   }
   ReactDOM.render(<Life/>, document.getElementById('test'))
 ```
+
+## 兄弟组件传值(pubsub-js)
+  ```
+    // 订阅
+      componentDidMount() {
+        // “_” 参数是订阅的名称（hello）
+        PubSub.subscribe('hello', (_,data)=> {
+          console.log(data); //  {name: 'react'}
+        })
+      }
+      // 删除订阅
+      componentWillUnmount() {
+        PubSub.unsubscribe(this.token)
+      }
+    // 发布
+      Pubsub.publish('hello', {name: 'react'})
+     
+     
+  ```
