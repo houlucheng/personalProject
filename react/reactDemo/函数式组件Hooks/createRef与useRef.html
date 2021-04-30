@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>函数式组件</title>
+</head>
+<body>
+  <div id="test"></div>
+
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<!-- jsx转移为js -->
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<!-- 必须写type为babel -->
+<script type="text/babel">
+  const {useState, useEffect, useReducer, createRef, useRef, memo, useMemo} = React
+  function Demo () {
+    let [name, setName] = useState('你好')
+    let [age, setAge] = useState(0)
+
+    const ele2 = createRef(age) // 每次渲染都会返回一个新的引用
+    ele2.current = name
+    const ele = useRef(name) // 每次都会返回相同的引用
+
+    // useState
+    const changeHandel = ()=> {
+        setAge(age = age + 2)
+        setName((prevVal)=>{
+            return name = "我不好" + age
+        })
+    }
+
+    useEffect(()=>{
+        console.log('ww',ele.current);
+        console.log('ee',ele2.current);
+    })
+
+    return (
+      <div>
+        <h2>{name}{'useState'+ ele.current}</h2>
+        <h2>{name}{'createRef'+ ele2.current}</h2>
+        {
+            // <h2 ref={ele}>{name}{'@@@'+ name}</h2>
+            // <h2 ref={el2}>{name}{'@@@'+ name}</h2>
+        }
+       
+        <button onClick={changeHandel} >点我</button>
+      </div>
+    )
+  }
+
+  ReactDOM.render(<Demo/>, document.getElementById('test'))
+</script>
+</body>
+</html>
