@@ -6,6 +6,7 @@
 5. react调试工具 React Developer Tools
 6. react 15.5 以后版本开始弃用了React.PropTypes  (因为React包变大，所以用了prop-types.js)
 7. pubsub-js 实现兄弟组建之间的传值（发布订阅）
+8. querystring url参数转对象以及对象转url参数 qs.stringify()  qs.parse()
 
 ## react脚手架
 > create-react-app
@@ -424,4 +425,138 @@ npx create-react-app demo
       Pubsub.publish('hello', {name: 'react'})
      
      
+  ```
+
+## Hooks
+> useState
+  ```
+    import React,{useState} from 'react'
+
+    function Person (props) {
+      // count为定义的变量 setCount为改变count的方法
+      const [count, setCount] = useState(1)
+      return (
+        <button onClick={()=> setCount( count++ ) } >点我加加</button>
+      )
+    }
+  ```
+> useEffect
+  ```
+    import React,{useEffect} from 'react'
+
+    function Person (props) {
+      const [count, setCount] = useState(1)
+      useEffect(()=> {
+        console.log(count)
+        return ()=> {
+
+        }
+      },[count])
+      return (
+        <button onClick={()=>{ setCount( count++ ) }} >点我加加</button>
+      )
+    }
+  ```
+> useContext
+
+> useReducer
+
+> useMemo
+
+> useRef
+
+> 自定义Hook
+
+## 路由(react-router-dom)
+> 导航区
+  ```
+    <Link to="/home" >Home</Link>
+  ```
+> 展示区
+  ```
+    <route path="/home" component={Home} />
+  ```
+> 路由作用域
+  ```
+    <App>的最外侧包裹一层 <BrowserRouter> 或 <HashRouter>
+  ```
+> 路由组件 与 一般组件
+  ```
+    1. 存放位置不同：
+      一般组件： components
+      路由组件： pages
+    2. 接收props不同
+      一般组件：看组件标签上传递了什么
+      路由组件：接收三个固定的组件
+        history
+          go
+          goBack
+          goForward
+          push
+          replace
+        location
+          pathname: "/home",
+          search: "",
+          state: ""
+        match
+          params: {},
+          path: "/home",
+          url: "/home"
+  ```
+> Switch组件的使用
+  ```
+    /* 
+      * Switch组件是确保匹配到对应的路由后不会再往下匹配 
+      * 不加 Switch /About路由将匹配两个组件 加上 Switch 只匹配 About组件
+    */
+    <Switch>
+      <Route path="/home" component={Home} />
+      <Route path="/About" component={About} />
+      <Route path="/About" component={Test} />
+    </Switch>
+  ```
+> 严格匹配 与 模糊匹配
+  ```
+    /* 
+      * exact 开启精准匹配 默认模糊匹配 
+      * 如果是模糊匹配则 /home/a/b 也能匹配到 Home组件
+    */
+
+    <NavLink className="list-group-item" to="/home/a/b" >Home</NavLink>
+    <Route exact path="/home" component={Home} />
+  ```
+> redirect 重定向
+  ```
+    <Redirect to="/home" />
+  ```
+> 路由传参
+  1. params参数
+  ```
+    传参：<Link to={`/home/message/detail/${item.id}/${item.title}`}>{item.title}</Link>
+    路由接收：<Route path="/home/message/detail/:id/:title" component={Detail} />
+    输出参数：const {id, title} = props.match.params
+  ```
+  2. search参数
+  ```
+    传参：<Link to={`/home/message/detail/?id=${item.id}&title=${item.title}`}>{item.title}</Link>
+    输出参数：
+      // url参数转对象以及对象转url参数 qs.stringify()  qs.parse()
+      import qs from 'querystring' // 脚手架自带的库
+      const {search} = props.location;   
+      const {id, title} = qs.parse(search.slice(1))
+  ```
+  3. state参数
+  ```
+    传参：<Link to={{pathname: '/home/message/detail', state: {id: item.id, title: item.title}}}>{item.title}</Link>
+    输出参数：props.location.state
+  ```
+> 编程式路由跳转
+  ```
+    props.history.push(`/home/message/detail/${item.id}/${item.title}`) // params
+    props.history.replace('/home/message/detail', {id, title}) // state
+  ```
+> 路由的replace模式
+  ```
+    // Link 标签加 replace 属性
+    <Link replace to='/home/message/detail' >{item.title}</Link>
   ```

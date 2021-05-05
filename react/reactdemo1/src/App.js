@@ -3,7 +3,6 @@ import './App.css';
 import Header from './components/Header'
 import List from './components/List'
 import Footer from './components/Footer'
-import Timer from './components/Timer'
 
 class App extends Component {
   state = {
@@ -59,7 +58,6 @@ class App extends Component {
           <List todos={this.state.todos} updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} />
           <Footer todos={this.state.todos} checkAllTodo={this.checkAllTodo} clearAllDone={this.clearAllDone}/>
         </div>
-        <Timer/>
       </div>
     )
     
