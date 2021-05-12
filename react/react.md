@@ -515,6 +515,22 @@ npx create-react-app demo
       <Route path="/About" component={Test} />
     </Switch>
   ```
+> withRouter组件使用
+  ```
+    // 一般组件如果想访问 history location match 就需要在导出时包裹一层 withRouter
+
+    import {withRouter} from 'react-router-dom'
+
+    const Test = function(props) {
+      //{history: {…}, location: {…}, match: {…}, staticContext: undefined}
+      console.log(props)
+
+      return (
+        <div></div>
+      )
+    }
+    export default withRouter(Test)
+  ```
 > 严格匹配 与 模糊匹配
   ```
     /* 

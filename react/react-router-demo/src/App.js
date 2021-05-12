@@ -2,6 +2,7 @@ import {NavLink, Route, Switch, Redirect} from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
 import About from './pages/About'
+import Test from './componens/Test'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <div className="row">
           <div className="col-xs-offset-2 col-xs-8">
             <div className="page-header"><h2>React Router Demo</h2></div>
+            <Test a='你好' />
           </div>
         </div>
         <div className="row">

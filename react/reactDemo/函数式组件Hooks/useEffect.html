@@ -25,9 +25,16 @@
             return name = '我不好'
         })
     }
-
+    /*
+    * 不传第二个参数，一但组件状态有变更就会执行useEffect函数，组件状态变更之前执行里面return的函数
+    * 第二个参数传空数组，useEffect函数在组件挂载之后执行，里面return的函数在组件卸载之前执行
+    * 第二个参数传如参数，useEffect函数在 组件挂载之后 以及 更新之后 执行，里面return的函数在 组件卸载之前 以及 更新之前执行
+    */
     useEffect(()=>{
         console.log(name);
+        return()=> {
+          console.log("走你");
+        }
     },[name])
 
 
