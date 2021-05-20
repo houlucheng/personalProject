@@ -1,0 +1,21 @@
+{
+  "name": "hlc_project4",
+  "version": "1.4.0",
+  "description": "js常用工具函数",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "prepublish": "webpack"
+  },
+  "keywords": ["webpack-build-tools"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "devDependencies": {
+    "terser-webpack-plugin": "^5.1.2"
+  }
+}

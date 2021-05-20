@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
+import hlc, {transferDefectParams} from 'hlc_project4'
 import './App.css';
 import Header from './components/Header'
 import List from './components/List'
 import Footer from './components/Footer'
-
+console.log(hlc);
+console.log(transferDefectParams);
 class App extends Component {
   state = {
     todos: [
