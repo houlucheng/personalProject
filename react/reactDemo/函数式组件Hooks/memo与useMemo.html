@@ -23,11 +23,22 @@
     // useMemo 是 React 推出用于优化函数式组件性能的 hooks，它可以传入两个参数：
       // const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
 
-    let [name, setName] = useState('你好')
+      let [num, setNum]  = useState(1)
+
+      const numResult = useMemo(()=> {
+        return '现在的总数是' + num
+      }, [num])
+
+      function changeHandel() {
+        setNum((prevValue)=> {
+          return prevValue += 1
+        })
+      }
 
     return (
       <div>
-        <h2>{name}</h2> 
+        <h2>{num}</h2> 
+        <h2>{numResult}</h2>
         <button onClick={changeHandel} >点我</button>
       </div>
     )

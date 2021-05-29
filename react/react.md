@@ -431,37 +431,91 @@ npx create-react-app demo
 > useState
   ```
     import React,{useState} from 'react'
+    
+    function Count() {
+        // 用法一
+        const [num, setNum] = useState(0) // 参数0 代表 num 的初始值
 
-    function Person (props) {
-      // count为定义的变量 setCount为改变count的方法
-      const [count, setCount] = useState(1)
-      return (
-        <button onClick={()=> setCount( count++ ) } >点我加加</button>
-      )
+        // 用法二
+        const [num, setNum] = useState(()=> {
+          return 666
+        })
+
+        // 更新值
+          1. setNum('hello') // 改变值
+          2. setNum((prevNum)=> { // 该函数接收先前的state
+                return prevNum + "揍你"
+            })
     }
+
   ```
+
 > useEffect
   ```
     import React,{useEffect} from 'react'
 
-    function Person (props) {
-      const [count, setCount] = useState(1)
-      useEffect(()=> {
-        console.log(count)
-        return ()=> {
+    function Person() {
+        /*
+        * 不传第二个参数，一但组件状态有变更就会执行useEffect函数，组件状态变更之前执行里面return的函数
+        * 第二个参数传空数组，useEffect函数在组件挂载之后执行，里面return的函数在组件卸载之前执行
+        * 第二个参数传参数，useEffect函数在 组件挂载之后 以及 更新之后 执行，里面return的函数在 组件卸载之前 以及 更新之前执行
+        */
 
-        }
-      },[count])
-      return (
-        <button onClick={()=>{ setCount( count++ ) }} >点我加加</button>
-      )
+        const [count, setCount] = useState(1)
+
+        useEffect(()=> {
+          console.log(count)
+
+          return ()=> {
+            // 副作用处理函数
+          }
+
+        }, [count])
     }
   ```
+
+> useMemo 与 memo （优化性能）
+  ```
+    import React, { useState, useMemo, memo } from 'react'
+
+    function Count() {
+      let [num, setNum]  = useState(1)
+
+      const numResult = useMemo(()=> {
+          return '现在的总数是' + num
+        }, [num])
+
+      function changeHandel() {
+        setNum((prevValue)=> {
+          return prevValue += 1
+        })
+      }
+
+      return (
+        <div>
+          <h2>{num}</h2> 
+          <h2>{numResult}</h2>
+          <button onClick={changeHandel} >点我</button>
+        </div>
+      )
+    }
+
+    // 优化性能 （只有在props变化时渲染，但只针对基本数据类型）
+    Count = memo(Count)
+  ```
+
+> useCallback
+  ```
+
+  ```
+
 > useContext
+  ```
+    
+  ```
 
 > useReducer
 
-> useMemo
 
 > useRef
 
