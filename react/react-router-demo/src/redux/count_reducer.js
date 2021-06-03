@@ -3,7 +3,7 @@
 * reducer函数会接收两个参数，分别为：之前的状态（preState）, 动作对象（action）
 */
 
-const initState = 0
+const initState = 6
 export default function countReducer(preState = initState, action) {
   const {type, data} = action
   switch (type){

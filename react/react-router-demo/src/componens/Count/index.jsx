@@ -1,31 +1,30 @@
 import React, {Component} from 'react'
+import store from '../../redux/store'
 
 class Count extends Component {
-  constructor() {
-    super()
-    this.state = {
-      count: 1
-    }
-  }
+
+  // 解决改变store里的值之后组件不更新（也可直接写在根组件index.js里）
+  // componentDidMount(){
+  //   store.subscribe(()=> {
+  //     this.setState({})
+  //   })
+  // }
 
   addHandel = ()=> {
-    const {count} = this.state
-    this.setState({count: count + this.eleVal.value * 1})
+    store.dispatch({type: "add", data: this.eleVal.value * 1})
   }
   cutHandel = ()=> {
-    const {count} = this.state
-    this.setState({count: count - this.eleVal.value * 1})
+    store.dispatch({type: "cur", data: this.eleVal.value * 1})
   }
   oddHandel = ()=> {
-    const {count} = this.state
+    const count = store.getState()
     if(count % 2 !== 0){
-      this.setState({count: count + this.eleVal.value * 1})
+      store.dispatch({type: "add", data: this.eleVal.value * 1})
     }
   }
   asyncHandel = ()=> {
-    const {count} = this.state
     setTimeout(()=> {
-      this.setState({count: count + this.eleVal.value * 1})
+      store.dispatch({type: "add", data: this.eleVal.value * 1})
     },1000)
     
   }
@@ -33,7 +32,7 @@ class Count extends Component {
   render() {
     return (
       <>
-        <h2>当前求和为{this.state.count}</h2> <br/>&nbsp;&nbsp;
+        <h2>当前求和为{store.getState()}</h2> <br/>&nbsp;&nbsp;
         <select ref={e => this.eleVal = e}>
           <option value="1">1</option>
           <option value="2">2</option>
