@@ -82,7 +82,7 @@ npx create-react-app demo
   ```  
 
 ## 组件
-> 函数式(简单)组件  
+### 函数式(简单)组件  
 ```
   function Mycomponent () {
     return <h2>函数式组件</h2>
@@ -91,7 +91,7 @@ npx create-react-app demo
   ReactDOM.render(<Mycomponent/>, document.getElementById('test'))
 ```
 
-> 类式(复杂)组件  
+### 类式(复杂)组件  
 ```
   class Mycomponent extends React.Component {
     render() {
@@ -105,8 +105,8 @@ npx create-react-app demo
   ReactDOM.render(<Mycomponent/>, document.getElementById('test'))
 ```
 
-> 类式组件的三大属性
-1. 类式组件实力的三大核心属性1：**state**
+### 类式组件的三大属性
+#### state
     ```
       /* state的简写 */
 
@@ -138,7 +138,7 @@ npx create-react-app demo
 
     ```
 
-2. 类式组件实力的三大核心属性2：**props**
+#### props
     ```
       /* props简写 */
       class Person extends React.Component {
@@ -176,7 +176,7 @@ npx create-react-app demo
       // ReactDOM.render(<Person name="李四" age={25} sex="女" />, document.getElementById('test1'))
     ```
     
-3. 类式组件实力的三大核心属性3：**refs**
+#### refs
     ```
       1. 字符串形式的ref 官方不建议使用 因为使用多了有效率问题 将来有可能会废弃这种方式
         class Demo extends React.Component {
@@ -273,7 +273,7 @@ npx create-react-app demo
 
     ```
 
-> 收集表单数据之**受控**与**非受控**组件  
+#### 受控 与 非受控 组件  
 1. 非受控组件   
     ```
       // 页面内的输入类DOM 现用现取 的就叫非受控组件
@@ -456,6 +456,7 @@ npx create-react-app demo
 
     function Person() {
         /*
+        * useEffect是异步更新的
         * 不传第二个参数，一但组件状态有变更就会执行useEffect函数，组件状态变更之前执行里面return的函数
         * 第二个参数传空数组，useEffect函数在组件挂载之后执行，里面return的函数在组件卸载之前执行
         * 第二个参数传参数，useEffect函数在 组件挂载之后 以及 更新之后 执行，里面return的函数在 组件卸载之前 以及 更新之前执行
@@ -481,6 +482,7 @@ npx create-react-app demo
     function Count() {
       let [num, setNum]  = useState(1)
 
+      // 返回执行后的结果
       const numResult = useMemo(()=> {
           return '现在的总数是' + num
         }, [num])
@@ -500,26 +502,166 @@ npx create-react-app demo
       )
     }
 
-    // 优化性能 （只有在props变化时渲染，但只针对基本数据类型）
-    Count = memo(Count)
+    // 优化性能 （是通过比较前后的值去更新的，只有在props变化时渲染，但只针对基本数据类型, ）
+      function compare(prevProps, nextProps) {
+        console.log(prevProps, nextProps);
+        return true;
+        /*
+        true 表示不重新渲染
+        false 标识重新渲染
+        */
+      }
+
+      // 第二个参数是自定义比较的函数
+      Count = memo(Count, compare)
   ```
 
 > useCallback
   ```
+    const {useState, useEffect, useCallback} = React
+    function Demo () {
+
+        let [num, setNum]  = useState(1)
+
+        // 返回的是函数 不执行里面的代码
+        const numResult = useCallback(()=> {
+          return '现在的总数是' + num
+        }, [num])
+
+        function changeHandel() {
+          setNum((prevValue)=> {
+            return prevValue += 1
+          })
+        }
+
+      return (
+        <div>
+          <h2>{num}</h2> 
+          <h2>{numResult()}</h2> {/*需要执行*/}
+          <button onClick={changeHandel} >点我</button>
+        </div>
+      )
+    }
+
+    ReactDOM.render(<Demo/>, document.getElementById('test'))
+  ```
+
+> createContext 与 useContext
+  ```
+    // 如果需要在组件之间共享状态可以使用useContext
+
+    // 父组件
+    import React, {createContext} from 'react'
+
+    // 写在全局 不可写在父组件内部
+    const TestContext = createContext()
+
+    function Demo() {
+
+      return (
+        <div>
+          <TestContext.provider value= {{ name: '小明'}}>
+            <Navbar /> // 子组件一
+            <Message /> // 子组件二
+          </TestContext.provider>
+        </div>
+      )
+    }
+
+    // 子组件
+    import React, { useContext } from 'react'
+
+    function Navbar() {
+      const { name } = useContext(TestContext)
+      
+      return (
+        <div>
+          <h2>{ name }</h2>
+        </div>
+      )
+    }
+
 
   ```
 
-> useContext
+> createRef 与 useRef
   ```
-    
+    const {useState, createRef, useRef} = React
+
+    /* 使用ref存储变量的方式 */
+    function Demo () {
+      const [renderIndex, setRenderIndex] = useState(1)
+
+      const fromCreateRef = createRef() // 每次渲染都会返回一个新的引用
+      const fromUseRef = useRef() // 每次都会返回相同的引用 永远是初始赋的值
+
+      if(!fromCreateRef.current) {
+        fromCreateRef.current = renderIndex
+      }
+
+      if(!fromUseRef.current) {
+        fromUseRef.current = renderIndex
+      }
+
+      return (
+        <div>
+          <h2> { renderIndex } </h2>
+          {/* useRef永远是初始值 1 */}
+          <h2>fromUseRef=== { fromUseRef.current } </h2>
+          {/* createRef会随着增加而增加 */}
+          <h2>fromCreateRef=== { fromCreateRef.current } </h2>
+          <button onClick={()=> setRenderIndex(prev => prev + 1)} >点我</button>
+        </div>
+      )
+    }
+
+
+
+    /* 使用ref获取DOM方式 */
+    function Demo () {
+      const ele1 = createRef()
+      const ele2 = useRef()
+
+      const changeHandel = ()=> {
+          ele1.current.focus()
+          ele2.current.value = "你在害怕什么"
+      }
+
+      return (
+        <div>
+          <input ref= {ele1} type="text" placeholder="看什么看" />
+          <input ref= {ele2} type="text" placeholder="瞅神么瞅" />
+          <button onClick={changeHandel} >点我</button>
+        </div>
+      )
+    }
+
+    ReactDOM.render(<Demo/>, document.getElementById('test'))
   ```
 
 > useReducer
+  ```
+    import React, {useReducer} from 'react'
 
+    function Demo() {
+      const [count, dispath] = useReducer((state, action)=> {
+        if(action === 'add') {
+          return state + 1
+        }
+      }, 0)
 
-> useRef
+      return (
+        <div>
+          <h2> { count } </h2>
+          <button onClick={()=> dispath('add)}>点我加</button>
+        </div>
+      )
+    }
+    
 
-> 自定义Hook
+  ```
+
+### 自定义Hook
 
 ## 路由(react-router-dom)
 > 导航区
@@ -630,3 +772,66 @@ npx create-react-app demo
     // Link 标签加 replace 属性
     <Link replace to='/home/message/detail' >{item.title}</Link>
   ```
+
+## 顶级API
+
+### React.PureComponent() （class组件性能优化）
+  ```
+    import React from 'react'
+
+    class App extends React.PureComponent {
+      render() {
+      }
+    }
+    替换
+    class App extends React.Component {
+      render() {
+      }
+    }
+
+    区别：
+      React.Component 未实现 shouldComponentUpdate()，而 React.PureComponent 中以浅层对比 prop 和 state 的方式来实现了该函数
+  ```
+
+### React.createElement() （创建/克隆元素）
+  ```
+    import React from "react"
+    React.createElement( type, [props], [...children])
+    /*
+    * 第一个参数是必填，传入的是HTML标签名，p ul li ...
+    * 第二个参数是选填，表示的是属性，p: className
+    * 第三个参数是选填，子节点，p要显示的文本内容
+    * 在我们应用JSX进行开发的时候，其实它最终会转化成React.createElement…去创建元素 ********
+    */
+    
+    const child1 = React.createElement('li', null, 'one');
+    const child2 = React.createElement('li', null, 'one');
+    const content = React.createElement('ul', {className: 'test'}, child1, child2); // 第三个参数可以分开也可以写成一个数组
+    // const content = React.createElement('ul', { className: 'test' }, [child1, child2]);
+    ReactDOM.render(
+          content,
+        document.getElementById('example')
+      );
+
+  ```
+
+### React.isValidElement()（验证是否为React元素）
+  ```
+    React.isValidElement(Object)
+    // 验证对象是否为 React 元素，返回值为 true 或 false。
+  ```
+
+### React.Children （子集）
+  ```
+    
+  ```
+
+### React.Fragment （包裹元素）
+
+### React.forwardRef （转发ref）
+
+### React.lazy() （懒加载）
+
+### React.Suspense （懒加载，加载指示器）
+
+### forceUpdate()

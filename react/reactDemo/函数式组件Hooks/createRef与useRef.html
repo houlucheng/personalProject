@@ -16,41 +16,92 @@
 
 <!-- 必须写type为babel -->
 <script type="text/babel">
-  const {useState, useEffect, useReducer, createRef, useRef, memo, useMemo} = React
-  function Demo () {
-    let [name, setName] = useState('你好')
-    let [age, setAge] = useState(0)
 
-    const ele2 = createRef(age) // 每次渲染都会返回一个新的引用
-    ele2.current = name
-    const ele = useRef(name) // 每次都会返回相同的引用
+  const {useState, useEffect, createRef, useRef} = React
 
-    // useState
-    const changeHandel = ()=> {
-        setAge(age = age + 2)
-        setName((prevVal)=>{
-            return name = "我不好" + age
-        })
-    }
-
-    useEffect(()=>{
-        console.log('ww',ele.current);
-        console.log('ee',ele2.current);
+  /* 使用ref获取上一次的状态 */
+  function usePrevious(count) {
+    const ref = useRef()
+      console.log(1);
+    useEffect(()=> {
+      console.log(2);
+      ref.current = count
     })
+    return ref.current
+  }
 
+  function Demo () {
+    const [count, setCount] = useState(1)
+    const prevCount = usePrevious(count)
+    // 初始输出 1 undefined 2
+    console.log(prevCount);
     return (
       <div>
-        <h2>{name}{'useState'+ ele.current}</h2>
-        <h2>{name}{'createRef'+ ele2.current}</h2>
-        {
-            // <h2 ref={ele}>{name}{'@@@'+ name}</h2>
-            // <h2 ref={el2}>{name}{'@@@'+ name}</h2>
-        }
-       
-        <button onClick={changeHandel} >点我</button>
+        <h2> { count } </h2>
+        <h2>usePrevious=== { prevCount } </h2>
+        <button onClick={()=> setCount(prev => prev + 1)} >点我</button>
       </div>
     )
   }
+
+
+
+
+  
+  /* 使用ref存储变量的方式 */
+  // function Demo () {
+  //   const [renderIndex, setRenderIndex] = useState(1)
+
+  //   const fromCreateRef = createRef() // 每次渲染都会返回一个新的引用
+  //   const fromUseRef = useRef() // 每次都会返回相同的引用
+
+  //   if(!fromCreateRef.current) {
+  //     fromCreateRef.current = renderIndex
+  //   }
+
+  //   if(!fromUseRef.current) {
+  //     fromUseRef.current = renderIndex
+  //   }
+
+  //   console.log(fromUseRef.current);
+  //   return (
+  //     <div>
+  //       <h2> { renderIndex } </h2>
+  //       {/* useRef永远是初始值 1 */}
+  //       <h2>fromUseRef=== { fromUseRef.current } </h2>
+  //       {/* createRef会随着增加而增加 */}
+  //       <h2>fromCreateRef=== { fromCreateRef.current } </h2>
+  //       <button onClick={()=> setRenderIndex(prev => prev + 1)} >点我</button>
+  //     </div>
+  //   )
+  // }
+
+
+
+
+
+
+  /* 使用ref获取DOM方式 */
+
+  // function Demo () {
+
+  //   const ele1 = createRef()
+  //   const ele2 = useRef()
+
+  //   // useState
+  //   const changeHandel = ()=> {
+  //       ele1.current.focus()
+  //       ele2.current.value = "你在害怕什么"
+  //   }
+
+  //   return (
+  //     <div>
+  //       <input ref= {ele1} type="text" placeholder="看什么看" />
+  //       <input ref= {ele2} type="text" placeholder="瞅神么瞅" />
+  //       <button onClick={changeHandel} >点我</button>
+  //     </div>
+  //   )
+  // }
 
   ReactDOM.render(<Demo/>, document.getElementById('test'))
 </script>
