@@ -475,6 +475,32 @@ npx create-react-app demo
     }
   ```
 
+> useLayoutEffect
+  ```
+    /*
+    * useLayoutEffect总是比useEffect先执行
+    * useEffect在浏览器渲染完成后执行 （如果在此方法内移动某个元素位置会明显看到移动的过程）
+    * useLayoutEffect在浏览器渲染前执行 （如果在此方法内移动某个元素位置一进页面看到的就是你移动后的位置）
+    * useLayoutEffect在对DOM有操作时使用
+    */ 
+
+    import { useState, useEffect, useLayoutEffect } from 'react'
+
+    export default function App() {
+        const [count, setCount] = useState(0);
+        
+        useLayoutEffect(() => {
+            if (count === 0) {    
+                setCount(10 + Math.random() * 200);
+            }
+        }, [count]);
+      
+        return (
+            <div onClick={() => setCount(0)}>{count}</div>
+        );
+    }  
+  ```
+
 > useMemo 与 memo （优化性能）
   ```
     import React, { useState, useMemo, memo } from 'react'
