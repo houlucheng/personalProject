@@ -861,3 +861,108 @@ npx create-react-app demo
 ### React.Suspense （懒加载，加载指示器）
 
 ### forceUpdate()
+
+## redux 三大框架都可用
+> redux的三大核心是：action (同步/异步)、 store 、 reducer 
+
+### reduct-Api
+> store.getState()  获取store里面的状态  
+
+例：
+  ```
+    import store from "./store"
+
+    store.getState()
+  ```
+
+> store.dispatch()  修改store里面的状态
+
+例：
+  ```
+    import store from "./store"
+
+    store.dispatch({type: "add", 5})
+  ```
+
+> store.subscribe(()=> {})  解决修改完store里面的状态时，用到这个状态的组件不更新  
+
+例：
+  ```
+  index.js 根js
+
+    // 解决store里的状态更新后依赖的组件不更新
+      store.subscribe(()=> {
+        ReactDOM.render(
+          <BrowserRouter>
+            <React.StrictMode>
+              <App />
+            </React.StrictMode>
+          </BrowserRouter>,
+          document.getElementById('root')
+        );
+      })
+  ```
+
+### redux的实际运用
+
+store.js
+  ```
+    import {createStore, applyMiddleware} from 'redux' // applyMiddleware是用来支持异步action的
+    import thunk from 'redux-thunk' // 用于支持异步action
+    import reducer from './count_reducer'
+    
+    const store = createStore(reducer, applyMiddleware(thunk)) // 创建store
+  ```
+
+ count_reducer.js
+  ```
+    const initState = 6 // 设置默认值
+    export const reducer = (preState = initState, action) => {
+      const { type, data } = action;
+      switch(type) {
+        case "add" :
+          return preState + data
+        case "cur" : 
+          return preState - data
+        dafault :
+          return preState
+      }
+    }
+  ```
+
+createAction.js
+  ```
+  // 同步action 就是指action的值为Object类型的一般对象
+    export const createAddAction = data => ({type: "add", data})  // 加
+    export const createCurAction = data => ({type: "cur", data})  // 减
+
+  // 异步action， 就是指action的值为函数，异步action中异步都会调用同步action
+    export const createAddAsyncAction = (data, time) => {
+      return (dispatch) => { // 异步action默认带的dispatch方法
+        setTimeout(() => {
+          dispatch(createAddAction(data))
+        }, time)
+      }
+    }
+  ```
+
+Count.jsx 组件
+  ```
+    // 加
+      addHandel = ()=> {
+        store.dispatch(createAddAction(this.eleVal.value * 1))
+      }
+
+    // 减
+      cutHandel = ()=> {
+        store.dispatch(createCurAction(this.eleVal.value * 1))
+      }
+
+    // 异步加
+      asyncHandel = ()=> {
+        store.dispatch(createAddAsyncAction(this.eleVal.value * 1, 1000))
+      }
+
+  ```
+
+## react-redux 专门让react用的

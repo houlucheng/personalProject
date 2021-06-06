@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
 import store from '../../redux/store'
+import {
+  createAddAction,
+  createCurAction,
+  createAddAsyncAction
+} from '../../redux/createAction'
 
 class Count extends Component {
 
@@ -10,22 +15,34 @@ class Count extends Component {
   //   })
   // }
 
+  // 加
   addHandel = ()=> {
-    store.dispatch({type: "add", data: this.eleVal.value * 1})
+    store.dispatch(createAddAction(this.eleVal.value * 1))
+    // store.dispatch({type: "add", data: this.eleVal.value * 1})
   }
+
+  // 减
   cutHandel = ()=> {
-    store.dispatch({type: "cur", data: this.eleVal.value * 1})
+    store.dispatch(createCurAction(this.eleVal.value * 1))
+    // store.dispatch({type: "cur", data: this.eleVal.value * 1})
   }
+
+  // 奇数加
   oddHandel = ()=> {
     const count = store.getState()
     if(count % 2 !== 0){
-      store.dispatch({type: "add", data: this.eleVal.value * 1})
+      store.dispatch(createAddAction(this.eleVal.value * 1))
+      // store.dispatch({type: "add", data: this.eleVal.value * 1})
     }
   }
+
+  // 异步加
   asyncHandel = ()=> {
-    setTimeout(()=> {
-      store.dispatch({type: "add", data: this.eleVal.value * 1})
-    },1000)
+    store.dispatch(createAddAsyncAction(this.eleVal.value * 1, 1000))
+    
+    // setTimeout(()=> {
+    //   store.dispatch({type: "add", data: this.eleVal.value * 1})
+    // },1000)
     
   }
   
