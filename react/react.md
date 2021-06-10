@@ -862,7 +862,7 @@ npx create-react-app demo
 
 ### forceUpdate()
 
-## redux 三大框架都可用
+## redux 三大框架都可用 
 > redux的三大核心是：action (同步/异步)、 store 、 reducer 
 
 ### reduct-Api
@@ -966,3 +966,100 @@ Count.jsx 组件
   ```
 
 ## react-redux 专门让react用的
+1. ui组件(子组件) 容器组件(父组件)  store   
+2. 用了react-redux之后就不存在store里的状态改了但是用到状态的地方不更新的问题
+3. 所以就不需要在根目录下index.js里面写 store.subscribe(()=> {}) 
+
+`安装： npm install react-redux`
+> UI组件
+```
+Count.js
+
+  1. 就是一个普通的react组件 但是这个组件中不能写入一点关于redux API代码
+
+  function Count(props) {
+    console.log(props.n); // 999
+    props.jia(6)
+
+    return <div></div>
+  }
+  
+```
+> 容器组件 containers （左手ui组件 右手redux）
+```
+container.js 定义
+
+  1. 引入UI组件（最普通的react组件）
+    import CountUI from "../components/Count"
+  
+  3. 引入connect用于连接UI组件与redux
+    import { connect } from "react-redux"
+
+  4. 引入createAction.js 来创建Action对象
+    import { createAddAction } from "./createAction.js"
+
+  5. 定义传给UI组件的回调
+    // mapStateToProps函数返回的对象中的key就作为传递给UI组件props的key，value就作为传递给UI组件props的value
+    // redux帮你掉这个函数时默认给你传入state
+    function mapStateToProps(state) {
+      return {n: state}
+    }
+
+    // redux帮你掉这个函数时会默认传入dispatch
+    function mapDispatchToProps(dispatch) {
+      return {
+        // 通知redux加几 这里面的action对象通常需要引入createAction.js导出来的创建的action
+        jia: data => { dispatch( createAddAction(data) ) } // 第一种创建action的方式
+        jian: data => { dispatch( {type: "cur", data: data} ) } // 第二种创建action的方式
+      }
+    }
+
+
+  6. 使用connect()()创建并暴露一个Count的容器组件 
+    // 调用connect时需要传递两个函数 作为回调函数 传给ui组件作为props
+    // mapStateToProps, mapStateToProps这两个名是官方给出的 可以更换
+    export default connect(mapStateToProps, mapStateToProps)(CountUI)
+
+优化：
+  1. 能使用箭头函数的地方就使用箭头函数
+  2. export default connect( 
+      state => ( {n: state} ), 
+      dispatch => ( {
+        jia: data => { dispatch( createAddAction(data) ) },
+        jian: data => { dispatch( {type: "cur", data: data} ) }
+      } )
+     )(CountUI)
+  3. export default connect(
+      state => ( {n: state} ), 
+      {
+        // 原理是： UI组件在调用 props.jia(6) 时 相当于调用来 createAddAction 函数并传递了 6 然后返回了一个action对象 
+                  然后redux自动帮你调用了 dispatch 方法并且把action对象传了过去
+        jia: createAddAction  // 只有这种方式创建的action才可以这样简写
+      }
+     )(CountUI)
+
+
+```
+> 使用容器组件的组件
+```
+App.js 使用
+
+  1. 引入容器组件
+    import Count from "./container"
+
+  2. 引入store
+    import store from "../redux/store"
+
+  3. 使用组件
+    <Count store={store} /> // 必须把store传入容器组件 不能直接在容器中引入 规定是这样
+    
+    // 如果有多个容器组件，那么就需要每个都传入store 比较麻烦，优化方法如下
+    // 在根目录的index.js中使用Provide传递
+      ReactDOM.render(
+        <Provider store={store} >
+          <App />
+        </Provider>,
+        document.getElementById('root')
+      )
+
+```
