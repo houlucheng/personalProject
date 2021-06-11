@@ -791,6 +791,7 @@ npx create-react-app demo
 > 编程式路由跳转
   ```
     props.history.push(`/home/message/detail/${item.id}/${item.title}`) // params
+    props.history.push(`/home/message/detail?id=${item.id}&title=${item.title}`) // params
     props.history.replace('/home/message/detail', {id, title}) // state
   ```
 > 路由的replace模式

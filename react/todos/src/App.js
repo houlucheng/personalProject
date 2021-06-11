@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import hlc, {transferDefectParams} from 'hlc_project4'
 import './App.css';
 import Header from './components/Header'
 import List from './components/List'
 import Footer from './components/Footer'
-console.log(hlc);
-console.log(transferDefectParams);
+import FormList from './components/FormData/index'
+
+
 class App extends Component {
   state = {
     todos: [
@@ -60,6 +60,7 @@ class App extends Component {
           <List todos={this.state.todos} updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} />
           <Footer todos={this.state.todos} checkAllTodo={this.checkAllTodo} clearAllDone={this.clearAllDone}/>
         </div>
+        <FormList />
       </div>
     )
     
