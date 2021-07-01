@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 是否是parent的子孙节点
+        function isGrandChildren(parent, child) {
+            if (child.funcCode !== parent.funcCode && child.funcCode.startsWith(parent.funcCode)) {
+                return true;
+            }
+            return false;
+        }
+        function compare(before, after) {
+            const beforeCode = Number(before.funcCode);
+            const afterCode = Number(after.funcCode);
+            return beforeCode - afterCode;
+        }
+        function getLevelByCode(data) {
+            return 1 + Math.ceil((data.funcCode.length - 4) / 2)
+        }
+        function childToParent(data, childLevel, parentLevel) {
+            const parent = data.filter(item => item.level === parentLevel);
+            const child = data.filter(item => item.level === childLevel);
+            // console.log(parent, child)
+            parent.forEach(item => {
+                for (let index = 0; index < child.length; index++) {
+                    const element = child[index];
+                    if (isGrandChildren(item, element)) {
+                        if (item.children) {
+                            if (!item.children.includes(element)) {
+                                item.children.push(element)
+                            }
+                        } else {
+                            item.children = [element];
+                        }
+                    }
+                }
+            })
+            return parent;
+        }
+        function dataToTree(data) {
+            let result = [];
+            data = data.map(item => ({ ...item, level: getLevelByCode(item) })).sort(compare);
+            const maxLevel = Math.max(...data.map(item => item.level))
+            result = data.filter(item => item.level === 1);
+            for (let index = maxLevel; index > 0; index--) {
+                if (index > 1) {
+                    result = childToParent(data, index, index - 1);
+                }
+            }
+            return result;
+        }
+        data = [
+            {
+                "funcCode": "010703",
+                "funcName": "编辑",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "01070301",
+                "funcName": "编辑",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "01070302",
+                "funcName": "编辑",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010701",
+                "funcName": "新增",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010705",
+                "funcName": "重置密码",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "01070501",
+                "funcName": "重置密码",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "01070502",
+                "funcName": "重置密码",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010704",
+                "funcName": "注销",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "0109",
+                "funcName": "临时授权",
+                "englishFuncName": "",
+                "funcType": 0
+            },
+            {
+                "funcCode": "0107",
+                "funcName": "用户管理",
+                "englishFuncName": "",
+                "funcType": 0
+            },
+            {
+                "funcCode": "0104",
+                "funcName": "角色管理",
+                "englishFuncName": "",
+                "funcType": 0
+            },
+            {
+                "funcCode": "0101",
+                "funcName": "机构管理",
+                "englishFuncName": "",
+                "funcType": 0
+            },
+            {
+                "funcCode": "010404",
+                "funcName": "注销",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010403",
+                "funcName": "编辑",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "01040301",
+                "funcName": "编辑",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "01040302",
+                "funcName": "编辑",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010401",
+                "funcName": "新增",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010901",
+                "funcName": "新增",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010904",
+                "funcName": "取消",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010903",
+                "funcName": "复制",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010902",
+                "funcName": "编辑",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010101",
+                "funcName": "新增",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010104",
+                "funcName": "注销",
+                "englishFuncName": "",
+                "funcType": 2
+            },
+            {
+                "funcCode": "010103",
+                "funcName": "编辑",
+                "englishFuncName": "",
+                "funcType": 2
+            }
+        ]
+        console.log(dataToTree(data));
+    </script>
+</body>
+
+</html>

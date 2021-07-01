@@ -1053,7 +1053,7 @@ App.js 使用
 
   3. 使用组件
     <Count store={store} /> // 必须把store传入容器组件 不能直接在容器中引入 规定是这样
-    
+
     // 如果有多个容器组件，那么就需要每个都传入store 比较麻烦，优化方法如下
     // 在根目录的index.js中使用Provide传递
       ReactDOM.render(
@@ -1063,4 +1063,83 @@ App.js 使用
         document.getElementById('root')
       )
 
+```
+
+## react插槽
+
+```javascript
+  function Parent() {
+    return (
+      <div>
+        <h1>我是父组件<h1/>
+        // 在标签上定义一个方法，任意起名，在子组件中调用一下 不管传的是Grandchildren组件还是任何组件
+        <Children render={(name) => <Grandchildren name={"nihao"}/>}/>
+      </div>
+    )
+  }
+
+  function Children(props) {
+    return (
+      <div>
+        <h2>我是子组件<h2/>
+        {props.render(name)}
+      <div/>
+    )
+  }
+
+  function Grandchildren() {
+    return (
+      <div>
+        <h2>我是孙子组件<h2/>
+      <div/>
+    )
+  }
+```
+
+## 创建一个服务用来运行打包后的文件
+```
+  安装： npm i serve -g
+  使用： serve [输入文件夹或者文件]
+```
+
+## 错误边界
+```
+class Parent extends Component {
+  // 当parent的子组件出现报错时，会触发getDerivedStateFromError调用，并携带错误信息
+  static etDerivedStateFromError(error){
+    console.log(error)
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>我是Parent组件</h2>
+        <Child/>
+      </div>
+    )
+  }
+}
+```
+
+## 组件通讯方式总结
+### 组件间的关系
+- 父子组件
+- 兄弟组件（非嵌套组件）
+- 祖孙组件（跨级组件）
+### 几种通讯方式
+```
+  1. props:
+    (1) children props
+    (2) render props
+  2. 消息订阅发布
+    pubs-sub、event等等
+  3. context
+    生产者-消费者模式
+```
+
+### 比较好的搭配方式
+```
+  父子组件： props
+  兄弟组件：消息订阅-发布、集中式管理
+  祖孙组件(跨级组件)：消息订阅-发布、集中式管理、context(开发用的少，封装组件用的多)
 ```
