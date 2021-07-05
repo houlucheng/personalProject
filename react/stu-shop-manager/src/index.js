@@ -5,11 +5,12 @@ import './index.css';
 import App from './App';
 import { mainRoutes } from './routes'
 import reportWebVitals from './reportWebVitals';
+import 'antd/dist/antd.css'
 
 ReactDOM.render(
     <Router>
       <Switch>
-        <Router path="/admin" render={ routeProps => (<App {...routeProps} />)} />
+        <Route path="/admin" render={ routeProps => <App {...routeProps} />} />
         {
           mainRoutes.map(route => {
             return <Route key={route.path} {...route} />
