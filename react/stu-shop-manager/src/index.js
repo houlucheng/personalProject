@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
     <Router>
       <Switch>
-        <Router path="admin" render={ routeProps => <App {...routeProps} />} />
+        <Router path="/admin" render={ routeProps => (<App {...routeProps} />)} />
         {
           mainRoutes.map(route => {
             return <Route key={route.path} {...route} />
