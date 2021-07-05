@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Edit() {
+export default function PageNoFound() {
   return (
     <div>
-      <h1>编辑</h1>
+      <h1>404</h1>
     </div>
   )
 }
