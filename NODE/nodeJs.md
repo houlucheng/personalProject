@@ -97,7 +97,7 @@ path: 'c:\User\houlucheng\Dexktop\hello'
 - fs.writeFile 创建写入文件
   ```
   const fs = require('fs')
-  
+
   /**
   * @param {*} path 将创建的文件路径
   * @param {*} data 文件中要写的内容
@@ -105,6 +105,7 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   */
 
   fs.writeFile('./html/index.html', '你好nodejs', (err)=> {
+      // 如果此文件存在将会是替换操作
       if(err) {
           // 创建失败
           console.log(err);
@@ -114,9 +115,24 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   })
   ```
 
-- fs.appendFile 最佳文件
+- fs.appendFile 追加文件
   ```
+  const fs = require('fs')
 
+  /**
+  * @param {*} path 将创建的文件路径
+  * @param {*} data 文件中要写的内容
+  * @param {*} callback 回调，传递异常参数err
+  */
+
+  fs.appendFile('./html/index.html', '你好nodejs', (err)=> {
+      if(err) {
+          // 创建失败
+          console.log(err);
+          return
+      }
+      console.log("创建写入成功");
+  })
   ```
 
 - fs.readFile 读取文件

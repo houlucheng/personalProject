@@ -36,10 +36,15 @@ const fs = require('fs')
 /**
  * @param {*} path 将创建的文件路径
  * @param {*} data 文件中要写的内容
+ * @param {Object} options option数组对象，包含：
+ *  · encoding  (string) 可选值，默认‘utf-8’，当data使buffer时，该值应该为。。。
+ *  · mode （Number） 文件读写权限，默认值438
+ *  · flag  (string) 默认值‘w’
  * @param {*} callback 回调，传递异常参数err
  */
 fs.writeFile('./html/index.html', '你好nodejs', (err)=> {
-    if(err) {
+    // 如果此文件存在将会是替换操作
+    if(err) {6212260506003169949
         // 创建失败
         console.log(err);
         return
@@ -48,6 +53,12 @@ fs.writeFile('./html/index.html', '你好nodejs', (err)=> {
 })
 
 // fs.appendFile 最佳文件
+/**
+ * @param {*} path 将创建的文件路径
+ * @param {*} data 文件中要写的内容
+ * @param {*} callback 回调，传递异常参数err
+ */
+
 
 // fs.readFile 读取文件
 
