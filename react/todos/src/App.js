@@ -4,7 +4,7 @@ import Header from './components/Header'
 import List from './components/List'
 import Footer from './components/Footer'
 import FormList from './components/FormData/index'
-
+import MyForeardRef from './components/MyForeardRef'
 
 class App extends Component {
   state = {
@@ -61,6 +61,9 @@ class App extends Component {
           <Footer todos={this.state.todos} checkAllTodo={this.checkAllTodo} clearAllDone={this.clearAllDone}/>
         </div>
         <FormList />
+        <hr />
+        <MyForeardRef />
+
       </div>
     )
     

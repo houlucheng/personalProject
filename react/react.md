@@ -683,8 +683,53 @@ npx create-react-app demo
         </div>
       )
     }
-    
 
+  ```
+
+> useImperativeHandle
+- 可以让你在使用 ref 时自定义暴露给父组件的实例值。在大多数情况下，应当避免使用 ref 这样的命令式代码。useImperativeHandle 应当与 forwardRef 一起使用：
+  ```javascript
+    // useImperativeHandle(ref, createHandle, [deps])
+    // 第三个参数是 依赖值 只有当依赖的值发生变化时才会执行
+    import React, { forwardRef, useRef, useState, useCallback, useImperativeHandle } from 'react'
+    // 子组件输入值时父组件也跟着变
+    const TextInput = forwardRef((props, ref) => {
+        const [value, setValue] = useState('')
+        const inputRef = useRef();
+        useImperativeHandle(ref, () => ({
+                value: inputRef.current.value
+        }), [value]);// 第三个参数可省略
+        const changeValue = (e) => {
+            setValue(e.target.value);
+        }
+        return <input ref={inputRef} value={value} onChange={changeValue}></input>
+    })
+
+    export default function MyForeardRef() {
+        const [value, setValue] = useState("");
+
+        const inputEl = useCallback(node => {
+            if (node !== null) {
+                setValue(node.value);
+            }
+        }, []);
+
+        const onButtonClick = () => {
+            // `current` 指向已挂载到 DOM 上的文本输入元素
+            console.log("input值", inputEl.current.value);
+            setValue(inputEl.current.value);
+        };
+        return (
+            <>
+                <div>
+                    子组件: <TextInput ref={inputEl}></TextInput>
+                </div>
+                <div>
+                    父组件: <input type="text" value={value} onChange={() => { }} />
+                </div>
+            </>
+        );
+    }
   ```
 
 ### 自定义Hook
@@ -843,19 +888,38 @@ npx create-react-app demo
   ```
 
 ### React.isValidElement()（验证是否为React元素）
-  ```
+  ```javascript
     React.isValidElement(Object)
     // 验证对象是否为 React 元素，返回值为 true 或 false。
   ```
 
 ### React.Children （子集）
-  ```
+  ```javascript
     
   ```
 
 ### React.Fragment （包裹元素）
 
-### React.forwardRef （转发ref）
+### React.forwardRef （转发ref 引用传递）
+- React.forwardRef 会创建一个React组件，这个组件能够将其接受的 ref 属性转发到其组件树下的另一个组件中。这种技术并不常见
+  ```javascript
+    // 使用场景：引用传递（Ref forwading）是一种通过组件向子组件自动传递 引用ref 的技术。对于应用者的大多数组件来说没什么作用。但是对于有些重复使用的组件，可能有用。例如某些input组件，需要控制其focus，本来是可以使用ref来控制，但是因为该input已被包裹在组件中，这时就需要使用Ref forward来透过组件获得该input的引用。
+
+    const FancyButton = React.forwardRef((props, ref) => (
+      <button ref={ref} className="FancyButton">
+        {props.children}
+      </button>
+    ));
+
+    export default function Person() {
+      const ref = React.createRef();
+
+      return (
+        <FancyButton ref={ref}> 哈哈哈！！！ </FancyButton>;
+      )
+    }
+    
+  ```
 
 ### React.lazy() （懒加载）
 
