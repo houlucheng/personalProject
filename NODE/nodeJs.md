@@ -101,6 +101,10 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   /**
   * @param {*} path 将创建的文件路径
   * @param {*} data 文件中要写的内容
+  * @param {Object} options option数组对象，包含：
+  *  · encoding  (string) 可选值，默认‘utf-8’，当data使buffer时，该值应该为。。。
+  *  · mode （Number） 文件读写权限，默认值438
+  *  · flag  (string) 默认值‘w’
   * @param {*} callback 回调，传递异常参数err
   */
 
@@ -125,7 +129,27 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   * @param {*} callback 回调，传递异常参数err
   */
 
-  fs.appendFile('./html/index.html', '你好nodejs', (err)=> {
+  fs.appendFile("./css/index.css", 'html {background-color: blue}', (err) => {
+      // 如果没有此文件就创建，如果有就追加内容
+      if (err) {
+          console.log(err,'追加失败');
+          return
+      }
+      console.log('appendFile成功');
+  })
+  ```
+
+- fs.readFile 读取文件
+  ```
+  const fs = require('fs')
+
+  /**
+  * @param {*} path 将创建的文件路径
+  * @param {*} data 文件中要写的内容
+  * @param {*} callback 回调，传递异常参数err
+  */
+
+  fs.appendFile('./css/index.css', '你好nodejs', (err)=> {
       if(err) {
           // 创建失败
           console.log(err);
@@ -135,14 +159,24 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   })
   ```
 
-- fs.readFile 读取文件
-  ```
-
-  ```
-
 - fs.readdir 读取目录
   ```
+  const fs = require('fs')
 
+  /**
+  * @param {*} path 将创建的文件路径
+  * @param {*} data 文件中要写的内容
+  * @param {*} callback 回调，传递异常参数err
+  */
+
+  fs.appendFile('./css/index.css', '你好nodejs', (err)=> {
+      if(err) {
+          // 创建失败
+          console.log(err);
+          return
+      }
+      console.log("创建写入成功");
+  })
   ```
 
 - fs.rename 重命名

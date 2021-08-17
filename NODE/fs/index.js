@@ -42,26 +42,48 @@ const fs = require('fs')
  *  · flag  (string) 默认值‘w’
  * @param {*} callback 回调，传递异常参数err
  */
-fs.writeFile('./html/index.html', '你好nodejs', (err)=> {
-    // 如果此文件存在将会是替换操作
-    if(err) {6212260506003169949
-        // 创建失败
-        console.log(err);
-        return
-    }
-    console.log("创建写入成功");
-})
+// fs.writeFile('./html/index.html', '你好nodejs', (err)=> {
+//     // 如果此文件存在将会是替换操作
+//     if(err) {
+//         // 创建失败
+//         console.log(err);
+//         return
+//     }
+//     console.log("创建写入成功");
+// })
 
-// fs.appendFile 最佳文件
+// fs.appendFile 追加文件
 /**
  * @param {*} path 将创建的文件路径
  * @param {*} data 文件中要写的内容
  * @param {*} callback 回调，传递异常参数err
  */
 
+fs.appendFile("./css/index.css", 'html {background-color: blue}\n', (err) => {
+    // 如果没有此文件就创建，如果有就追加内容 "\n":换行
+    if (err) {
+        console.log(err,'追加失败');
+        return
+    }
+    console.log('appendFile成功');
+})
+
 
 // fs.readFile 读取文件
+/**
+ * @param {*} path 将创建的文件路径
+ * @param {*} data 文件中要写的内容
+ * @param {*} callback 回调，传递异常参数err
+ */
 
+//  fs.readFile("./css/index.css", (err, data) => {
+//     // 如果没有此文件就创建，如果有就追加内容
+//     if (err) {
+//         console.log(err,'追加失败');
+//         return
+//     }
+//     console.log('readFile成功', data);
+// })
 // fs.readdir 读取目录
 
 // fs.rename 重命名
