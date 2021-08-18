@@ -54,6 +54,7 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   ```
 
 ### fs
+> fs里面的方法都是异步的
 - fs.stat 检测是文件还是目录
   ```javascript
   const fs = require('fs')
@@ -306,4 +307,5 @@ path: 'c:\User\houlucheng\Dexktop\hello'
 - npm 安装依赖时新版node自动会在package.json中记录，不是必须加 --save
 ### cnpm
 - cnpm 安装依赖时不加 --save 不会自动记录在package.json中
+
 
