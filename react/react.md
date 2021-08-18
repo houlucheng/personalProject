@@ -12,14 +12,14 @@
 > create-react-app
 
 全局安装：
-```
+```javascript
 npm install create-react-app -g
 
 创建项目： create-react-app demo
 ```
 
 直接使用：
-```
+```javascript
 npx create-react-app demo
 ```
 
@@ -31,11 +31,11 @@ npx create-react-app demo
 
 ## jsx语法规则
 1. 定义虚拟DOM时不要写引号。
-   ```
+   ```javascript
    const VDOM = <div> <span></span> </div>
    ```
 2. 标签中混入js表达式时要用 {}。
-   ```
+   ```javascript
     const myData = ""hello,react
     const VDOM = (
       <div>
@@ -44,7 +44,7 @@ npx create-react-app demo
     )
    ```
 3. 样式的类名指定不要用calss，要用 className。
-   ```
+   ```javascript
     const myId = "wrap"
     const VDOM = (
       <div>
@@ -53,7 +53,7 @@ npx create-react-app demo
     )
    ```
 4. 内联样式要用 style={{key: val}} 的形式去写 (第一个花括号代表里面要写js，第二个花括号代表样式是对象形式)
-   ```
+   ```javascript
     const VDOM = (
       <div>
         <span style={{color: 'red', fontSize: '29px'}} > {myData} </span>
@@ -63,15 +63,15 @@ npx create-react-app demo
 5. 只能有一个根标签。
 6. 标签必须闭合
 7. 标签名小写的时候，编译时会和html标签作比较转化为同名html标签
-   ```
+   ```javascript
     <good></good> // html找不到此标签会报错，但是还是会正常显示
    ```
 8. 标签名首字母大写时认为是一个组件，按按组件解析
-   ```
+   ```javascript
     <Good> hello,react </Good> // 不定义这个组件就会报错
    ```
 9. jsx中只能写js表达式不能写js语句
-  ```
+  ```javascript
     表达式：可以用变量接收的都叫表达式
       const ary = arr.map()
       const fn1 = function () {}
@@ -83,7 +83,7 @@ npx create-react-app demo
 
 ## 组件
 ### 函数式(简单)组件  
-```
+```javascript
   function Mycomponent () {
     return <h2>函数式组件</h2>
   }
@@ -92,7 +92,7 @@ npx create-react-app demo
 ```
 
 ### 类式(复杂)组件  
-```
+```javascript
   class Mycomponent extends React.Component {
     render() {
       console.log(this) //组件的实例
@@ -107,175 +107,175 @@ npx create-react-app demo
 
 ### 类式组件的三大属性
 #### state
-    ```
-      /* state的简写 */
+  ```javascript
+    /* state的简写 */
 
-      class Weather extends React.Component {
-        // 在类里面写赋值语句就是在构造函数的实例上定义东西
-        
-        state = {isHot: true}
+    class Weather extends React.Component {
+      // 在类里面写赋值语句就是在构造函数的实例上定义东西
+      
+      state = {isHot: true}
 
-        render() {
-          const {isHot} = this.state
-          return (
-            // 事件必须要以驼峰方式写
-            <h2 onClick={this.changeWeather} >今天天气很{isHot ? "炎热" : '凉爽'}</h2>
-          )
-        }
-
-        // 这里必须要用赋值 加 箭头函数 写，不然会丢失this
-        changeWeather = ()=> {
-          // 状态必须通过setState去修改，且是与原有的state合并，不是替换（这个方法在React.Component身上）
-          this.setState({isHot: !this.state.isHot})
-        }
+      render() {
+        const {isHot} = this.state
+        return (
+          // 事件必须要以驼峰方式写
+          <h2 onClick={this.changeWeather} >今天天气很{isHot ? "炎热" : '凉爽'}</h2>
+        )
       }
 
-      ReactDOM.render(<Weather/>, document.getElementById('test'))
+      // 这里必须要用赋值 加 箭头函数 写，不然会丢失this
+      changeWeather = ()=> {
+        // 状态必须通过setState去修改，且是与原有的state合并，不是替换（这个方法在React.Component身上）
+        this.setState({isHot: !this.state.isHot})
+      }
+    }
 
-      /* state的繁琐写法 */
+    ReactDOM.render(<Weather/>, document.getElementById('test'))
 
-      。。。。。。请看具体事例：类式组件三大属性1_state.html
+    /* state的繁琐写法 */
 
-    ```
+    // 。。。。。。请看具体事例：类式组件三大属性1_state.html
+
+  ```
 
 #### props
-    ```
-      /* props简写 */
-      class Person extends React.Component {
-        constructor(props) {
-          // 构造器中传props的作用是可以在构造器中访问实例的props
-          super(props)
-          console.log(this.props);
-        }
-        render() {
-          // this.props.name = "nihao" // 会报错 因为props是只读的
-          const {name, age, sex} = this.props
-          return (
-            <ul>
-              <li>名字：{name}</li>
-              <li>年龄：{age}</li>
-              <li>性别：{sex}</li>
-            </ul>
-          )
-        }
-        // 加上static就相当于给Person类本身添加方法
-        static propTypes = {
-          name: PropTypes.string.isRequired, // 名字必须传，而且必须是string类型
-          age: PropTypes.number, // 限制年龄必须是数字
-          speak: PropTypes.func // 限制speak必须是函数
-        }
-        static defaultProps = {
-          sex: "不男不女", // 可不传有设置默认值
-          age: 18
-        }
+  ```javascript
+    /* props简写 */
+    class Person extends React.Component {
+      constructor(props) {
+        // 构造器中传props的作用是可以在构造器中访问实例的props
+        super(props)
+        console.log(this.props);
       }
-      let arr = {name: "张三", age: 20, sex: '男', speak: function(){}}
-      ReactDOM.render(<Person {...arr} />, document.getElementById('test'))
+      render() {
+        // this.props.name = "nihao" // 会报错 因为props是只读的
+        const {name, age, sex} = this.props
+        return (
+          <ul>
+            <li>名字：{name}</li>
+            <li>年龄：{age}</li>
+            <li>性别：{sex}</li>
+          </ul>
+        )
+      }
+      // 加上static就相当于给Person类本身添加方法
+      static propTypes = {
+        name: PropTypes.string.isRequired, // 名字必须传，而且必须是string类型
+        age: PropTypes.number, // 限制年龄必须是数字
+        speak: PropTypes.func // 限制speak必须是函数
+      }
+      static defaultProps = {
+        sex: "不男不女", // 可不传有设置默认值
+        age: 18
+      }
+    }
+    let arr = {name: "张三", age: 20, sex: '男', speak: function(){}}
+    ReactDOM.render(<Person {...arr} />, document.getElementById('test'))
 
-      // ReactDOM.render(<Person name="张三" age={20} sex="男" />, document.getElementById('test'))
-      // ReactDOM.render(<Person name="李四" age={25} sex="女" />, document.getElementById('test1'))
-    ```
+    // ReactDOM.render(<Person name="张三" age={20} sex="男" />, document.getElementById('test'))
+    // ReactDOM.render(<Person name="李四" age={25} sex="女" />, document.getElementById('test1'))
+  ```
     
 #### refs
-    ```
-      1. 字符串形式的ref 官方不建议使用 因为使用多了有效率问题 将来有可能会废弃这种方式
-        class Demo extends React.Component {
-          showDate = () => {
-            alert(this.refs.inp1.value)
-          }
-          showDate2 = () => {
-            alert(this.refs.inp2.value)
-          }
-          render() {
-            return (
-              <div>
-                <input ref="inp1" type="text" placeholder="点击按钮提示数据" />&nbsp;
-                <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
-                <input ref="inp2" onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
-              </div>
-            )
-          }
+  ```javascript
+    1. 字符串形式的ref 官方不建议使用 因为使用多了有效率问题 将来有可能会废弃这种方式
+      class Demo extends React.Component {
+        showDate = () => {
+          alert(this.refs.inp1.value)
         }
-        ReactDOM.render(<Demo/>, document.getElementById('test'))
-
-      2. 回调形式的ref（内联函数 与 类中定义函数）
-        class Demo extends React.Component {
-          showDate = () => {
-            alert(this.input1.value)
-          }
-          showDate2 = () => {
-            alert(this.input2.value)
-          }
-          saveInput = (c)=> {
-            this.input2 = c
-          }
-          render() {
-            return (
-              <div>
-                {/* 如果ref是内联函数，组件有更新时这个函数会执行两次，第一次返回null，第二次才返回DOM 因为render再次被调用时会销毁上次的DOM这时候会调一次*/}
-                <input ref={c => this.input1 = c} type="text" placeholder="点击按钮提示数据" />&nbsp;
-                <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
-                {/* 在类中定义函数 */}
-                <input ref={this.saveInput} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
-              </div>
-            )
-          }
+        showDate2 = () => {
+          alert(this.refs.inp2.value)
         }
-        ReactDOM.render(<Demo/>, document.getElementById('test'))
-
-      3. React.createRef() 形式
-        class Demo extends React.Component {
-          // “专人专用”，一个ref只能用一个React.createRef创建出来的容器
-          myRef = React.createRef()
-          myRef2 = React.createRef()
-          showDate = () => {
-            alert(this.myRef.current.value);
-          }
-          showDate2 = () => {
-            alert(this.myRef2.current.value)
-          }
-          render() {
-            return (
-              <div>
-                <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />&nbsp;
-                <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
-                <input ref={this.myRef2} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
-              </div>
-            )
-          }
+        render() {
+          return (
+            <div>
+              <input ref="inp1" type="text" placeholder="点击按钮提示数据" />&nbsp;
+              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+              <input ref="inp2" onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+            </div>
+          )
         }
-        ReactDOM.render(<Demo/>, document.getElementById('test'))
-      
-      4. react中的事件处理
-        (1). 通过onXxx属性指定事件处理函数(注意大小写)
-            a. React使用的是自定义(合成)事件，而不是使用的原生DOM事件 ---- 为了更好的兼容
-            b. React中的事件是通过事件委托方式处理的(委托给组件最外层的元素) ---- 为了高效
-        (2). 通过event.target得到发生事件的DOM元素对象 ---- 不要过度的使用ref
+      }
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
 
-        class Demo extends React.Component {
-          showDate = () => {
-            alert(this.myRef2.current.value)
-          }
-          showDate2 = (event) => {
-            alert(event.target.value);
-          }
-          render() {
-            return (
-              <div>
-                <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />&nbsp;
-                <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
-                <input onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
-              </div>
-            )
-          }
+    2. 回调形式的ref（内联函数 与 类中定义函数）
+      class Demo extends React.Component {
+        showDate = () => {
+          alert(this.input1.value)
         }
-        ReactDOM.render(<Demo/>, document.getElementById('test'))
+        showDate2 = () => {
+          alert(this.input2.value)
+        }
+        saveInput = (c)=> {
+          this.input2 = c
+        }
+        render() {
+          return (
+            <div>
+              {/* 如果ref是内联函数，组件有更新时这个函数会执行两次，第一次返回null，第二次才返回DOM 因为render再次被调用时会销毁上次的DOM这时候会调一次*/}
+              <input ref={c => this.input1 = c} type="text" placeholder="点击按钮提示数据" />&nbsp;
+              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+              {/* 在类中定义函数 */}
+              <input ref={this.saveInput} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
 
-    ```
+    3. React.createRef() 形式
+      class Demo extends React.Component {
+        // “专人专用”，一个ref只能用一个React.createRef创建出来的容器
+        myRef = React.createRef()
+        myRef2 = React.createRef()
+        showDate = () => {
+          alert(this.myRef.current.value);
+        }
+        showDate2 = () => {
+          alert(this.myRef2.current.value)
+        }
+        render() {
+          return (
+            <div>
+              <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />&nbsp;
+              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+              <input ref={this.myRef2} onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
+    
+    4. react中的事件处理
+      (1). 通过onXxx属性指定事件处理函数(注意大小写)
+          a. React使用的是自定义(合成)事件，而不是使用的原生DOM事件 ---- 为了更好的兼容
+          b. React中的事件是通过事件委托方式处理的(委托给组件最外层的元素) ---- 为了高效
+      (2). 通过event.target得到发生事件的DOM元素对象 ---- 不要过度的使用ref
+
+      class Demo extends React.Component {
+        showDate = () => {
+          alert(this.myRef2.current.value)
+        }
+        showDate2 = (event) => {
+          alert(event.target.value);
+        }
+        render() {
+          return (
+            <div>
+              <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />&nbsp;
+              <button onClick={this.showDate}>点我提示左侧的数据</button>&nbsp;
+              <input onBlur={this.showDate2} type="text" placeholder="失去焦点提示数据" />
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<Demo/>, document.getElementById('test'))
+
+  ```
 
 #### 受控 与 非受控 组件  
 1. 非受控组件   
-    ```
+    ```javascript
       // 页面内的输入类DOM 现用现取 的就叫非受控组件
       class Login extends React.Component {
           handleSubmit = (event)=> {
@@ -295,7 +295,7 @@ npx create-react-app demo
       ReactDOM.render(<Login/>, document.getElementById('test'))
     ```
 2. 受控组件
-    ```
+    ```javascript
       // 
       class Login extends React.Component {
         state = {
@@ -325,7 +325,7 @@ npx create-react-app demo
       ReactDOM.render(<Login/>, document.getElementById('test'))
     ```
 3. 高阶函数 与 函数柯里化
-    ```
+    ```javascript
       a. 高阶函数
         * 若函数a，接收的参数是一个函数，那么a就是高阶函数
         * 若函数a，调用的返回值依然是一个函数，那么a就是高阶函数
@@ -363,7 +363,7 @@ npx create-react-app demo
 > 第一个钩子，必须使用static定义在类本身 getDerivedStateFromProps
 > 在更新之前获取快照 getSnapshotBeforeUpdate 用例：元素里面的内容不断增加 但是你看到的永远是你想看的某一块
   
-```
+```javascript
   class Life extends React.Component {
     state = {
       opacity: 1
@@ -409,7 +409,7 @@ npx create-react-app demo
 ```
 
 ## 兄弟组件传值(pubsub-js)
-  ```
+  ```javascript
     // 订阅
       componentDidMount() {
         // “_” 参数是订阅的名称（hello）
@@ -429,7 +429,7 @@ npx create-react-app demo
 
 ## Hooks
 > useState
-  ```
+  ```javascript
     import React,{useState} from 'react'
     
     function Count() {
@@ -451,7 +451,7 @@ npx create-react-app demo
   ```
 
 > useEffect
-  ```
+  ```javascript
     import React,{useEffect} from 'react'
 
     function Person() {
@@ -476,7 +476,7 @@ npx create-react-app demo
   ```
 
 > useLayoutEffect
-  ```
+  ```javascript
     /*
     * useLayoutEffect总是比useEffect先执行
     * useEffect在浏览器渲染完成后执行 （如果在此方法内移动某个元素位置会明显看到移动的过程）
@@ -502,7 +502,7 @@ npx create-react-app demo
   ```
 
 > useMemo 与 memo （优化性能）
-  ```
+  ```javascript
     import React, { useState, useMemo, memo } from 'react'
 
     function Count() {
@@ -543,7 +543,7 @@ npx create-react-app demo
   ```
 
 > useCallback
-  ```
+  ```javascript
     const {useState, useEffect, useCallback} = React
     function Demo () {
 
@@ -573,7 +573,7 @@ npx create-react-app demo
   ```
 
 > createContext 与 useContext
-  ```
+  ```javascript
     // 如果需要在组件之间共享状态可以使用useContext
 
     // 父组件
@@ -611,7 +611,7 @@ npx create-react-app demo
   ```
 
 > createRef 与 useRef
-  ```
+  ```javascript
     const {useState, createRef, useRef} = React
 
     /* 使用ref存储变量的方式 */
@@ -666,7 +666,7 @@ npx create-react-app demo
   ```
 
 > useReducer
-  ```
+  ```javascript
     import React, {useReducer} from 'react'
 
     function Demo() {
@@ -736,19 +736,19 @@ npx create-react-app demo
 
 ## 路由(react-router-dom)
 > 导航区
-  ```
+  ```javascript
     <Link to="/home" >Home</Link>
   ```
 > 展示区
-  ```
+  ```javascript
     <route path="/home" component={Home} />
   ```
 > 路由作用域
-  ```
+  ```javascript
     <App>的最外侧包裹一层 <BrowserRouter> 或 <HashRouter>
   ```
 > 路由组件 与 一般组件
-  ```
+  ```javascript
     1. 存放位置不同：
       一般组件： components
       路由组件： pages
@@ -771,7 +771,7 @@ npx create-react-app demo
           url: "/home"
   ```
 > Switch组件的使用
-  ```
+  ```javascript
     /* 
       * Switch组件是确保匹配到对应的路由后不会再往下匹配 
       * 不加 Switch /About路由将匹配两个组件 加上 Switch 只匹配 About组件
@@ -783,7 +783,7 @@ npx create-react-app demo
     </Switch>
   ```
 > withRouter组件使用
-  ```
+  ```javascript
     // 一般组件如果想访问 history location match 就需要在导出时包裹一层 withRouter
 
     import {withRouter} from 'react-router-dom'
@@ -799,7 +799,7 @@ npx create-react-app demo
     export default withRouter(Test)
   ```
 > 严格匹配 与 模糊匹配
-  ```
+  ```javascript
     /* 
       * exact 开启精准匹配 默认模糊匹配 
       * 如果是模糊匹配则 /home/a/b 也能匹配到 Home组件
@@ -809,18 +809,20 @@ npx create-react-app demo
     <Route exact path="/home" component={Home} />
   ```
 > redirect 重定向
-  ```
+  ```javascript
     <Redirect to="/home" />
   ```
 > 路由传参
   1. params参数
-  ```
+  ```javascript
+  /*
     传参：<Link to={`/home/message/detail/${item.id}/${item.title}`}>{item.title}</Link>
     路由接收：<Route path="/home/message/detail/:id/:title" component={Detail} />
     输出参数：const {id, title} = props.match.params
+  */
   ```
   2. search参数
-  ```
+  ```javascript
     传参：<Link to={`/home/message/detail/?id=${item.id}&title=${item.title}`}>{item.title}</Link>
     输出参数：
       // url参数转对象以及对象转url参数 qs.stringify()  qs.parse()
@@ -829,18 +831,18 @@ npx create-react-app demo
       const {id, title} = qs.parse(search.slice(1))
   ```
   3. state参数
-  ```
-    传参：<Link to={{pathname: '/home/message/detail', state: {id: item.id, title: item.title}}}>{item.title}</Link>
-    输出参数：props.location.state
+  ```javascript
+    // 传参：<Link to={{pathname: '/home/message/detail', state: {id: item.id, title: item.title}}}>{item.title}</Link>
+    // 输出参数：props.location.state
   ```
 > 编程式路由跳转
-  ```
+  ```javascript
     props.history.push(`/home/message/detail/${item.id}/${item.title}`) // params
     props.history.push(`/home/message/detail?id=${item.id}&title=${item.title}`) // params
     props.history.replace('/home/message/detail', {id, title}) // state
   ```
 > 路由的replace模式
-  ```
+  ```javascript
     // Link 标签加 replace 属性
     <Link replace to='/home/message/detail' >{item.title}</Link>
   ```
@@ -848,7 +850,7 @@ npx create-react-app demo
 ## 顶级API
 
 ### React.PureComponent() （class组件性能优化）
-  ```
+  ```javascript
     import React from 'react'
 
     class App extends React.PureComponent {
@@ -866,7 +868,7 @@ npx create-react-app demo
   ```
 
 ### React.createElement() （创建/克隆元素）
-  ```
+  ```javascript
     import React from "react"
     React.createElement( type, [props], [...children])
     /*
@@ -934,7 +936,7 @@ npx create-react-app demo
 > store.getState()  获取store里面的状态  
 
 例：
-  ```
+  ```javascript
     import store from "./store"
 
     store.getState()
@@ -943,7 +945,7 @@ npx create-react-app demo
 > store.dispatch()  修改store里面的状态
 
 例：
-  ```
+  ```javascript
     import store from "./store"
 
     store.dispatch({type: "add", 5})
@@ -952,7 +954,7 @@ npx create-react-app demo
 > store.subscribe(()=> {})  解决修改完store里面的状态时，用到这个状态的组件不更新  
 
 例：
-  ```
+  ```javascript
   index.js 根js
 
     // 解决store里的状态更新后依赖的组件不更新
@@ -971,7 +973,7 @@ npx create-react-app demo
 ### redux的实际运用
 
 store.js
-  ```
+  ```javascript
     import {createStore, applyMiddleware} from 'redux' // applyMiddleware是用来支持异步action的
     import thunk from 'redux-thunk' // 用于支持异步action
     import reducer from './count_reducer'
@@ -980,7 +982,7 @@ store.js
   ```
 
  count_reducer.js
-  ```
+  ```javascript
     const initState = 6 // 设置默认值
     export const reducer = (preState = initState, action) => {
       const { type, data } = action;
@@ -996,7 +998,7 @@ store.js
   ```
 
 createAction.js
-  ```
+  ```javascript
   // 同步action 就是指action的值为Object类型的一般对象
     export const createAddAction = data => ({type: "add", data})  // 加
     export const createCurAction = data => ({type: "cur", data})  // 减
@@ -1012,7 +1014,7 @@ createAction.js
   ```
 
 Count.jsx 组件
-  ```
+  ```javascript
     // 加
       addHandel = ()=> {
         store.dispatch(createAddAction(this.eleVal.value * 1))
@@ -1037,7 +1039,7 @@ Count.jsx 组件
 
 `安装： npm install react-redux`
 > UI组件
-```
+```javascript
 Count.js
 
   1. 就是一个普通的react组件 但是这个组件中不能写入一点关于redux API代码
@@ -1051,7 +1053,7 @@ Count.js
   
 ```
 > 容器组件 containers （左手ui组件 右手redux）
-```
+```javascript
 container.js 定义
 
   1. 引入UI组件（最普通的react组件）
@@ -1106,7 +1108,7 @@ container.js 定义
 
 ```
 > 使用容器组件的组件
-```
+```javascript
 App.js 使用
 
   1. 引入容器组件
@@ -1161,13 +1163,13 @@ App.js 使用
 ```
 
 ## 创建一个服务用来运行打包后的文件
-```
-  安装： npm i serve -g
-  使用： serve [输入文件夹或者文件]
+```javascript
+  // 安装： npm i serve -g
+  // 使用： serve [输入文件夹或者文件]
 ```
 
 ## 错误边界
-```
+```javascript
 class Parent extends Component {
   // 当parent的子组件出现报错时，会触发getDerivedStateFromError调用，并携带错误信息
   static etDerivedStateFromError(error){
@@ -1191,19 +1193,23 @@ class Parent extends Component {
 - 兄弟组件（非嵌套组件）
 - 祖孙组件（跨级组件）
 ### 几种通讯方式
-```
-  1. props:
-    (1) children props
-    (2) render props
-  2. 消息订阅发布
-    pubs-sub、event等等
-  3. context
-    生产者-消费者模式
+```javascript
+  /*
+    1. props:
+      (1) children props
+      (2) render props
+    2. 消息订阅发布
+      pubs-sub、event等等
+    3. context
+      生产者-消费者模式
+  */
 ```
 
 ### 比较好的搭配方式
-```
-  父子组件： props
-  兄弟组件：消息订阅-发布、集中式管理
-  祖孙组件(跨级组件)：消息订阅-发布、集中式管理、context(开发用的少，封装组件用的多)
+```javascript
+  /*
+    父子组件： props
+    兄弟组件：消息订阅-发布、集中式管理
+    祖孙组件(跨级组件)：消息订阅-发布、集中式管理、context(开发用的少，封装组件用的多)
+  */
 ```

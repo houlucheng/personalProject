@@ -59,37 +59,89 @@ const fs = require('fs')
  * @param {*} callback 回调，传递异常参数err
  */
 
-fs.appendFile("./css/index.css", 'html {background-color: blue}\n', (err) => {
-    // 如果没有此文件就创建，如果有就追加内容 "\n":换行
-    if (err) {
-        console.log(err,'追加失败');
-        return
-    }
-    console.log('appendFile成功');
-})
+// fs.appendFile("./css/index.css", 'html {background-color: blue}\n', (err) => {
+//     // 如果没有此文件就创建，如果有就追加内容 "\n":换行
+//     if (err) {
+//         console.log(err,'追加失败');
+//         return
+//     }
+//     console.log('appendFile成功');
+// })
 
 
 // fs.readFile 读取文件
 /**
  * @param {*} path 将创建的文件路径
- * @param {*} data 文件中要写的内容
+ * @param {*} callback 回调，传递异常参数err，读取出来的数据data
+ */
+
+// fs.readFile("./css/index.css", (err, data) => {
+//     // 如果没有此文件就创建，如果有就追加内容
+//     if (err) {
+//         console.log(err, '追加失败');
+//         return
+//     }
+//     console.log('readFile成功', data); // 16进制的buffer数据
+//     console.log(data.toString()); // 把buffer转换为string类型
+// })
+
+
+// fs.readdir 读取目录
+/**
+ * @param {*} path 将创建的文件路径
+ * @param {*} callback 回调，传递异常参数err，读取出来的数据data
+ */
+
+// fs.readdir("../fs", (err, data) => {
+//     if (err) {
+//         console.log('读取失败');
+//         return
+//     }
+//     console.log('readdir成功', data);
+// })
+
+
+// fs.rename 重命名/移动文件
+/**
+ * @param {*} path 重命名的文件或目录路径
+ * @param {*} data 要修改的名称或要移动到了目录
  * @param {*} callback 回调，传递异常参数err
  */
 
-//  fs.readFile("./css/index.css", (err, data) => {
-//     // 如果没有此文件就创建，如果有就追加内容
+//  fs.rename("./html", "./html1", (err) => {
 //     if (err) {
-//         console.log(err,'追加失败');
+//         console.log('失败');
 //         return
 //     }
-//     console.log('readFile成功', data);
+//     console.log('rename成功');
 // })
-// fs.readdir 读取目录
-
-// fs.rename 重命名
 
 // fs.rmdir 删除目录
+/**
+ * @param {*} path 删除目录路径
+ * @param {*} callback 回调，传递异常参数err
+ */
+
+ fs.rmdir("./css/aaa", (err) => {
+    if (err) {
+        console.log('失败');
+        return
+    }
+    console.log('rmdir成功');
+})
+
 
 // fs.unlink 删除文件
+/**
+ * @param {*} path 删除文件路径
+ * @param {*} callback 回调，传递异常参数err
+ */
 
+ fs.unlink("./css/a.css", (err) => {
+    if (err) {
+        console.log('失败');
+        return
+    }
+    console.log('unlink成功');
+})
 

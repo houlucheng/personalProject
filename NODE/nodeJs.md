@@ -55,7 +55,7 @@ path: 'c:\User\houlucheng\Dexktop\hello'
 
 ### fs
 - fs.stat 检测是文件还是目录
-  ```
+  ```javascript
   const fs = require('fs')
 
   /**
@@ -75,7 +75,7 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   ```
 
 - fs.mkdir 创建目录
-  ```
+  ```javascript
   const fs = require('fs')
 
   /**
@@ -94,8 +94,26 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   })
   ```
 
-- fs.writeFile 创建写入文件
+- fs.rmdir 删除目录
+  ```javascript
+    const fs = require('fs')
+
+    /**
+      * @param {*} path 删除目录路径
+      * @param {*} callback 回调，传递异常参数err
+      */
+
+    fs.rmdir("./css/aaa", (err) => {
+        if (err) {
+            console.log('失败');
+            return
+        }
+        console.log('rmdir成功');
+    })
   ```
+
+- fs.writeFile 创建写入文件
+  ```javascript
   const fs = require('fs')
 
   /**
@@ -119,8 +137,26 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   })
   ```
 
-- fs.appendFile 追加文件
+- fs.unlink 删除文件
+  ```javascript
+    const fs = require('fs')
+
+    /**
+      * @param {*} path 删除文件路径
+      * @param {*} callback 回调，传递异常参数err
+      */
+
+    fs.unlink("./css/a.css", (err) => {
+        if (err) {
+            console.log('失败');
+            return
+        }
+        console.log('unlink成功');
+    })
   ```
+
+- fs.appendFile 追加文件
+  ```javascript
   const fs = require('fs')
 
   /**
@@ -129,8 +165,8 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   * @param {*} callback 回调，传递异常参数err
   */
 
-  fs.appendFile("./css/index.css", 'html {background-color: blue}', (err) => {
-      // 如果没有此文件就创建，如果有就追加内容
+  fs.appendFile("./css/index.css", 'html {background-color: blue}\n', (err) => {
+      // 如果没有此文件就创建，如果有就追加内容 "\n":换行
       if (err) {
           console.log(err,'追加失败');
           return
@@ -140,59 +176,65 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   ```
 
 - fs.readFile 读取文件
-  ```
+  ```javascript
   const fs = require('fs')
-
+  
   /**
-  * @param {*} path 将创建的文件路径
-  * @param {*} data 文件中要写的内容
-  * @param {*} callback 回调，传递异常参数err
+  * @param {*} path  将读取的文件路径
+  * @param {*} callback 回调，传递异常参数err，读取出来的数据data
   */
 
-  fs.appendFile('./css/index.css', '你好nodejs', (err)=> {
-      if(err) {
-          // 创建失败
-          console.log(err);
-          return
-      }
-      console.log("创建写入成功");
-  })
+  fs.readFile("./css/index.css", (err, data) => {
+        // 如果没有此文件就创建，如果有就追加内容
+        if (err) {
+            console.log(err,'追加失败');
+            return
+        }
+        console.log('readFile成功', data); // 16进制的buffer数据
+        console.log(data.toString()); // 把buffer转换为string类型
+    })
   ```
 
 - fs.readdir 读取目录
-  ```
+  ```javascript
   const fs = require('fs')
 
   /**
-  * @param {*} path 将创建的文件路径
-  * @param {*} data 文件中要写的内容
-  * @param {*} callback 回调，传递异常参数err
-  */
+    * @param {*} path 将读取的目录路径
+    * @param {*} callback 回调，传递异常参数err，读取出来的数据data
+    */
 
-  fs.appendFile('./css/index.css', '你好nodejs', (err)=> {
+  fs.readdir('./css', (err, data)=> {
       if(err) {
           // 创建失败
           console.log(err);
           return
       }
-      console.log("创建写入成功");
+      console.log("读取目录成功", data);
   })
   ```
 
-- fs.rename 重命名
+- fs.rename 重命名/移动文件 
+  ```javascript
+    const fs = require('fs')
+
+    // rename有两个功能： 1. 重命名； 2. 移动文件
+    /**
+      * @param {*} path 重命名的文件或目录路径
+      * @param {*} data 要修改的名称或要移动到了目录
+      * @param {*} callback 回调，传递异常参数err
+      */
+
+    fs.rename("./html", "./html1", (err) => {
+        if (err) {
+            console.log('失败');
+            return
+        }
+        console.log('rename成功');
+    })
   ```
 
-  ```
 
-- fs.rmdir 删除目录
-  ```
-
-  ```
-
-- fs.unlink 删除文件
-  ```
-
-  ```
 
 
 ### 模块化
