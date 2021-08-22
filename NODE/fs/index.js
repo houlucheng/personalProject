@@ -122,13 +122,13 @@ const fs = require('fs')
  * @param {*} callback 回调，传递异常参数err
  */
 
- fs.rmdir("./css/aaa", (err) => {
-    if (err) {
-        console.log('失败');
-        return
-    }
-    console.log('rmdir成功');
-})
+//  fs.rmdir("./css/aaa", (err) => {
+//     if (err) {
+//         console.log('失败');
+//         return
+//     }
+//     console.log('rmdir成功');
+// })
 
 
 // fs.unlink 删除文件
@@ -137,12 +137,63 @@ const fs = require('fs')
  * @param {*} callback 回调，传递异常参数err
  */
 
- fs.unlink("./css/a.css", (err) => {
-    if (err) {
-        console.log('失败');
-        return
-    }
-    console.log('unlink成功');
-})
+//  fs.unlink("./css/a.css", (err) => {
+//     if (err) {
+//         console.log('失败');
+//         return
+//     }
+//     console.log('unlink成功');
+// })
+
+// fs.createReadStream() 从文件流中读取数据
+
+// const readStream = fs.createReadStream('./data.txt')
+// let count = 0
+// let str = ''
+// readStream.on('data', data => {
+//     str+= data
+//     count++
+// })
+
+// readStream.on('end', () => {
+//     console.log('count----', count);
+//     console.log('str----', str);
+// })
+
+// readStream.on('error', err => {
+//     console.log('err', err);
+// })
+
+// fs.readFile('./data.txt', (err, data) => {
+//     if(err) {
+//         console.log(err);
+//         return
+//     }
+//     console.log(data.toString());
+// })
+
+// fs.createWriteStream 写入文件
+
+// const writeStream = fs.createWriteStream('data1.txt')
+// const data = '你好啊nodejs呵呵\n'
+// writeStream.write(data, 'utf-8')
+// writeStream.end()
+// writeStream.on('finish', () => {
+//     console.log('写入完成');
+// })
+// writeStream.on('error', err => {
+//     console.log(err);
+// })
+
+// fs.createReadStream 管道流
+// const readStream = fs.createReadStream('./data1.txt')
+
+// const writeStream = fs.createWriteStream('./data2.txt')
+
+// readStream.pipe(writeStream);
+
+// console.log('执行完毕');
+
+
 
    

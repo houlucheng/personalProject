@@ -238,6 +238,61 @@ path: 'c:\User\houlucheng\Dexktop\hello'
 
 
 
+- fs.createReadStream 从文件流中读取数据
+  ```javascript
+    // createReadStream
+    const readStream = fs.createReadStream('./data.txt')
+    let count = 0
+    let str = ''
+    readStream.on('data', data => {
+        str+= data
+        count++
+    })
+
+    readStream.on('end', () => {
+        console.log('count----', count);
+        console.log('str----', str);
+    })
+
+    readStream.on('error', err => {
+        console.log('err', err);
+    })
+
+    // readFile
+    fs.readFile('./data.txt', (err, data) => {
+        if(err) {
+            console.log(err);
+            return
+        }
+        console.log(data.toString());
+    })
+  ```
+
+- fs.createWriteStream 写入文件
+  ```javascript
+    const writeStream = fs.createWriteStream('data1.txt')
+    const data = '你好啊nodejs呵呵\n'
+    writeStream.write(data, 'utf-8')
+    // 不加 .end 无法监听写入完成，因为是异步的
+    writeStream.end()
+    writeStream.on('finish', () => {
+        console.log('写入完成');
+    })
+    writeStream.on('error', err => {
+        console.log(err);
+    })
+  ```
+
+- fs.createReadStream 管道流,一个文件中的内容读取出来后放入到另一个文件里
+  ```javascript
+    const readStream = fs.createReadStream('./data1.txt')
+
+    const writeStream = fs.createWriteStream('./data2.txt')
+
+    readStream.pipe(writeStream);
+
+    console.log('执行完毕');
+  ```
 ### 模块化
 
 - 导出
