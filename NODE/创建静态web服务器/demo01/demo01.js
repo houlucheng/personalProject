@@ -23,9 +23,14 @@ http.createServer(function (request, response) {
         response.end('err');
         return
       }
-      let mime = common.getMime(pathName)
-      response.writeHead(200, {'Content-Type': mime + ';charset="utf-8"'});
-      response.end(data);
+
+      let mime = common.getMime(extname)
+      
+      common.getMimeType(extname).then( res => {
+        response.writeHead(200, {'Content-Type': res + ';charset="utf-8"'});
+        response.end(data);
+      })
+     
     })
   }
 

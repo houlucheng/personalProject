@@ -57,22 +57,22 @@ path: 'c:\User\houlucheng\Dexktop\hello'
 > fs里面的方法都是异步的
 - fs.stat 检测是文件还是目录
   ```javascript
-  const fs = require('fs')
+    const fs = require('fs')
 
-  /**
-  * @param {*} path 检测的文件或目录的路径
-  * @param {*} callback 回调，传递异常参数err 和 data对象
-  */
-  
-  fs.stat('./html', (err, data)=> {
-      if(err) {
-          // 路径错误时
-          console.log(err);
-          return
-      }
-      console.log(`是文件${data.isFile()}`); // 是文件false
-      console.log(`是目录${data.isDirectory()}`); // 是目录true
-  })
+    /**
+    * @param {*} path 检测的文件或目录的路径
+    * @param {*} callback 回调，传递异常参数err 和 data对象
+    */
+    
+    fs.stat('./html', (err, data)=> {
+        if(err) {
+            // 路径错误时
+            console.log(err);
+            return
+        }
+        console.log(`是文件${data.isFile()}`); // 是文件false
+        console.log(`是目录${data.isDirectory()}`); // 是目录true
+    })
   ```
 
 - fs.mkdir 创建目录
@@ -293,6 +293,11 @@ path: 'c:\User\houlucheng\Dexktop\hello'
 
     console.log('执行完毕');
   ```
+
+
+### EJS\GET\POST
+
+
 ### 模块化
 
 - 导出
