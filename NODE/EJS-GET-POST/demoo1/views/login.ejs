@@ -9,10 +9,9 @@
 <body>
     <h2>EJS模板引擎</h2>
     <h3><%=msg%></h3>
-    <br>
-
+    <br/>
     <ul>
-        <%for(let i=0; i<=list.length; i++;){%>
+        <%for(let i=0;i<list.length;i++){%>
             <li><%=list[i].title%></li>
         <%}%>
     </ul>
