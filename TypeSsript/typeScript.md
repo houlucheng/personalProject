@@ -1,6 +1,6 @@
 # TypeScript
 ## 安装/编译
-```javascript
+```jsx
   npm install -g typescript
   // 编译ts代码
   tsc xxx.ts
@@ -12,7 +12,7 @@
   - 指定类型后，当为变量赋值时，TS编译器会自动检查值是否符合类型声明，符合则赋值，否则报错
   - 简而言之，类型声明给变量设置了类型，使得变量只能存储某种类型的值
   - 语法：
-      - ```javascript
+      - ```jsx
           let 变量：类型；
 
           let 变量：类型 = 值；
@@ -42,7 +42,121 @@
     tuple|[4,5]|元素，TS新增类型，固定长度数组
     enum|enum{A,B}|枚举ts中新增类型
 
+- 类型中的 “或|” 语法
+  - ```tsx
+      let a: number | string | boolean // a的值可以是这三种类型
+    ```
+
 - number
-  - ```
-    let decimal: number = 6
+  - ```jsx
+      let num: number
+      num = 10
+      num = "nihao" // 不能将类型“string”分配给类型“number”。
+
+      function Handel(a: number, b: number): number{
+        // 参数以及返回值均为number类型
+        return 1 + 1
+        // return "hello" // 不能将类型“string”分配给类型“number”。
+      }
+      Handel(6,8)
+      // Handel() // 应有 2 个参数，但获得 0 个
+      // Handel("q", 'w') // 不能将类型“string”分配给类型“number”。
+    ```
+
+- string
+  - ```jsx
+      let str: string
+      str = "hello!"
+      str = true // 不能将类型“boolean”分配给类型“string”。
+    ```
+
+- boolean
+  - ```jsx
+      let str: boolean
+      str = true
+      str = "true" // 不能将类型“string”分配给类型“boolean”。
+
+- 字面量
+  - ```jsx
+      let str: 10 | 20 | 'hello' // 只可以是这三种值
+      str = 10 // 有点类似常量， 定义了一个值就只能成为这个值了
+      str = "hello" // 不能将类型“"hello"”分配给类型“10”。
+    ```
+
+- any（任意值）
+  - ```jsx
+      // 设置any后相当于关闭了ts的类型检测，不建议使用
+      let str: any = 10 
+      str = "hello"
+      str = true
+      let str1 // 隐式any
+      str1 = "hello"
+      str1 = true
+    ```
+
+- unknown（未知类型，类型安全的any）
+  - ```jsx
+      let str: unknown = 10 
+      str = "hello"
+      str = true
+    ```
+
+- void（空值）
+  - ```jsx
+      let str: void = 10 
+      str = "hello"
+      str = true
+    ```
+
+- never（没有值）
+  - ```jsx
+      let str: void = 10 
+      str = "hello"
+      str = true
+    ```
+
+- object
+  - ```jsx
+      let str: object
+      str = {}
+      str = 888 // 不能将类型“number”分配给类型“object”。
+    ```
+
+- array
+  - ```jsx
+      let str: array
+      str = []
+      str = 888 // 不能将类型“number”分配给类型“array”。
+    ```
+
+- tuple（固定长度类型）
+  - ```jsx
+      let str: void = 10 
+      str = "hello"
+      str = true
+    ```
+
+- enum（枚举）
+  - ```jsx
+      let str: void = 10 
+      str = "hello"
+      str = true
+    ```
+
+- any 与 unknown 的区别
+  - unknown 实际上就是一个类型安全的any
+  - unknown 类型的变量，不能直接赋值给其他变量
+  - ```tsx
+      let a: any = 10
+      let b: unknown = 10
+      let s: string = "hello"
+      s = a // 正常赋值
+      s = b // 不能将类型“unknown”分配给类型“string”。
+      // 可通过两种方式赋值
+      // 1. 
+      if(typeof b === "string") {
+          s = b
+      }
+      // 2.
+      s = b as string
     ```
