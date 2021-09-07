@@ -1,3 +1,23 @@
+// let obj: {name: '孙悟空'}
+// obj = {name: '孙悟空'}
+// obj = {name: '你好'}
+// obj = {name: '孙悟空', a: '你好'}
+
+// let obj1: {name: "hello", [propName: string]: any};
+// obj1 = {name: 'hello', a: 111, b: "你好"}
+
+// let d: (a: number, b: number) =>number
+// d = function (n1, n2) {
+//   return n1 + n2
+// }
+
+// let str: string[]
+// str = ['1', '2', '3']
+// str = [1, 2, 3] // 不能将类型“number”分配给类型“array”。
+
+
+
+
 // let a: any = 10
 // let b: unknown = 10
 // let s: string = "hello"

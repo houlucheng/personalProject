@@ -103,30 +103,65 @@
 
 - void（空值）
   - ```jsx
-      let str: void = 10 
-      str = "hello"
-      str = true
+      // 用来表示空，以函数为例，就表示没有返回值当函数
+      function handel(): boolean | number {
+        // 没有return默认会解析成为void
+        // 有return就会解析成你return的值的类型，这里是boolean
+        return true
+      }
+      function fn(): void{
+        // 表示没有返回值
+        // return
+        return undefined
+      }
     ```
 
 - never（没有值）
   - ```jsx
-      let str: void = 10 
-      str = "hello"
-      str = true
+      // 表示永远不反悔类型
+      function fn(): nerver{
+        throw new Error('报错了')
+      }
     ```
 
-- object
+- object/Function
   - ```jsx
       let str: object
       str = {}
+      str = function a(){} // 也是正确的
       str = 888 // 不能将类型“number”分配给类型“object”。
+
+      // 用来表示对象中是否包含哪些属性,加个问号表示这个属性可选的
+      let obj: {name: '孙悟空', age?: string}
+      obj = {name: '孙悟空'}
+      obj = {name: '你好'} //不能将类型“"你好"”分配给类型“"孙悟空"”。
+      // 不能将类型“{ name: "孙悟空"; a: string; }”分配给类型“{ name: "孙悟空"; }”。
+      // 对象文字可以只指定已知属性，并且“a”不在类型“{ name: "孙悟空"; }”中。
+      obj = {name: "孙悟空", a: '你好'}
+
+      // [propName: string]: any 表示任意类型的属性
+      let obj1: {name: "hello", [propName: string]: any}
+      obj1 = {name: 'hello', a: 111, b: "你好"}
+
+
+      // Function 设置函数结构的类型声明
+      // 语法：（形参：类型, 形参: 类型 ...）=> 返回值
+      let d: (a: number, b: number) =>number
+      d = function (n1, n2): number {
+        return n1 + n2
+      }
+
     ```
 
 - array
   - ```jsx
-      let str: array
-      str = []
-      str = 888 // 不能将类型“number”分配给类型“array”。
+      // 1. string[]
+      let str: string[]
+      // 2. Array<number>
+      let str1: Array<number>
+
+      str = ['1', '2', '3']
+      str = [1, 2, 3] // 不能将类型“number”分配给类型“string”。
     ```
 
 - tuple（固定长度类型）
@@ -157,6 +192,7 @@
       if(typeof b === "string") {
           s = b
       }
-      // 2.
+      // 2.类型断言，可以用来告诉解析器变量的实际类型
       s = b as string
+      s = <string>b
     ```

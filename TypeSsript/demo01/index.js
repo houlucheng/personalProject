@@ -1,12 +1,13 @@
-var a = 10;
-var b = 10;
-var s = "hello";
-s = a;
-// s = b //不能将类型“unknown”分配给类型“string”。
-if (typeof b === "string") {
-    s = b;
-}
-s = b;
+var obj;
+// let a: any = 10
+// let b: unknown = 10
+// let s: string = "hello"
+// s = a
+// // s = b //不能将类型“unknown”分配给类型“string”。
+// if(typeof b === "string") {
+//     s = b
+// }
+// s = b as string
 // let str: object
 // str = {}
 // str = 888 // 
