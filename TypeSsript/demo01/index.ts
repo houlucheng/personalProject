@@ -1,3 +1,14 @@
+// enum Gender{
+//   Male = 0,
+//   Female = 1
+// }
+// let str: {name: string, gender: Gender}
+// str = {
+//   name: "孙悟空",
+//   gender: Gender.Male
+// }
+// console.log(str.gender === Gender.Male) // true
+
 // let obj: {name: '孙悟空'}
 // obj = {name: '孙悟空'}
 // obj = {name: '你好'}

@@ -42,9 +42,18 @@
     tuple|[4,5]|元素，TS新增类型，固定长度数组
     enum|enum{A,B}|枚举ts中新增类型
 
-- 类型中的 “或|” 语法
+- 类型中的 “或|” “且&” 语法 及 类型别名
   - ```tsx
       let a: number | string | boolean // a的值可以是这三种类型
+      // &表示同时
+      let b: { name: string } & { name: string }
+      b = {name: "孙悟空", age: 18}
+      // 类型的别名
+      type myType = 1 | 2 | 3 | 4
+      let k: myType
+      let l: myType
+      k = 2
+      l = 4
     ```
 
 - number
@@ -139,7 +148,7 @@
       // 对象文字可以只指定已知属性，并且“a”不在类型“{ name: "孙悟空"; }”中。
       obj = {name: "孙悟空", a: '你好'}
 
-      // [propName: string]: any 表示任意类型的属性
+      // [propName: string]: any 表示任意类型的属性,propName可任意起名
       let obj1: {name: "hello", [propName: string]: any}
       obj1 = {name: 'hello', a: 111, b: "你好"}
 
@@ -162,20 +171,29 @@
 
       str = ['1', '2', '3']
       str = [1, 2, 3] // 不能将类型“number”分配给类型“string”。
+
+      
     ```
 
 - tuple（固定长度类型）
   - ```jsx
-      let str: void = 10 
-      str = "hello"
-      str = true
+      // 元祖，元祖就是固定长度的数组
+      let h: [string, number];
+      h = ['hello', 123]
     ```
 
 - enum（枚举）
   - ```jsx
-      let str: void = 10 
-      str = "hello"
-      str = true
+      enum Gender{
+        Male = 0, // 男
+        Female = 1 // 女
+      }
+      let str: {name: string, gender: Gender}
+      str = {
+        name: "孙悟空"，
+        gender: Gender.Male
+      }
+      console.log(str.gender === Gender.Male) // true
     ```
 
 - any 与 unknown 的区别
@@ -196,3 +214,11 @@
       s = b as string
       s = <string>b
     ```
+
+## 编译选项
+- 自动编译文件
+  - 编译文件时，使用 -w 指令后，TS编译器会自动监视文件对变化，并在文件发生变化时对文件进行重新编译。
+  - 示例：
+    - ```
+        tsc xxx.ts -w
+      ```
