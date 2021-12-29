@@ -1,0 +1,1 @@
+let b: Number = 2

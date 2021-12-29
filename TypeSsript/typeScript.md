@@ -215,6 +215,69 @@
       s = <string>b
     ```
 
+## 接口implements (就是定义一个规范)
+### type
+- type 描述一个对象的类型，不可以重复声明
+  ```
+    type myType = {
+      name: string,
+      age: number
+    }
+
+    // 不可以重复声明，会报错
+    type myType = {}
+  ```
+### interface 和 implements
+- 接口用来定义一个类结构，用来定义一个类中应该包含那些属性和方法，同时接口也可以当成类型声明去使用，可以重复声明，接口里都是抽象方法
+  ```
+    interface myInterface {
+      name: string,
+      age: number
+    }
+
+    // 可以重复声明，两个会合并
+    interface myInterface {
+      name: string,
+      age: number
+    }
+
+    // 接口可以在定义类的时候去限制类的结构
+    // 接口中所有的属性都不能有实际值
+    // 接口只定义对象的结构，而不考虑实际值
+    // 在接口中所有的方法都是抽象方法
+    interface myInter {
+      name: string;
+
+      sayHello():void;
+    }
+
+    // 定义类时，可以使类去实现一个接口
+    // 实现接口就是使类满足接口的要求
+    class myClass implements myInter {
+      name: string;
+      constructor(name: string) {
+        this.name = name
+      }
+
+      sayHello(){
+        console.log("大家好")
+      };
+    }
+  ```
+
+## 泛型
+  ```
+    // 形参和返回值的类型相同，不知道形参的类型，也不知道返回值的类型，就可以用如下写法
+    // T 可以是任何值
+    function fn<T>(a: T): T{
+
+    }
+    fn(10); // 不指定泛型，Ts可以自动对类型进行推断
+    fn<string>('hello')
+
+    inter
+  ```
+
 ## 编译选项
 - 自动编译某个ts文件
   - 编译文件时，使用 -w 指令后，TS编译器会自动监视文件对变化，并在文件发生变化时对文件进行重新编译。
@@ -230,3 +293,129 @@
         或 
         tsc -w // 实时监听自动编译
       ```
+- tsconfig.json 配置项
+  ```tsx
+    {
+        /*
+            用来指定哪些ts文件需要被编译(包含)
+            * 一个 星 表示的是任意文件
+            ** 两个 星 表示的是任意目录
+        */
+        "include": [
+            "./src/**/*"
+        ],
+        /*
+            用来指定哪些ts文件不被编译(不包含)
+            默认值：["node_modules", "bower_components", "hspm_packages"]
+            * 一个 星 表示的是任意文件
+            ** 两个 星 表示的是任意目录
+        */
+        "exclude": [
+            "./src/02/**/*"
+        ],
+        /*
+            继承 某个配置文件
+        */
+        "extends": "./configs/base",
+        /*
+            指定被编译文件的列表，只有需要编译的文件少时才会用到
+        */
+        "files": [
+            "core.ts",
+            "app.ts",
+            "index.ts",
+        ],
+        /*
+            编译器的选项
+        */
+        "compilerOptions": {
+            // 用来指定ts被编译为的ES版本
+            // 'es3'(默认), 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'es2021', 'esnext'(最新)
+            "target": "es3",
+
+            // 指定使用的模块化的规范
+            // es6和es2015一样
+            // "CommonJS", "AMD", "System", "UMD", "ES6", "ES2015"(推荐), "ES2020", "ESNext", "None", "es2022", "node12", "nodenext"
+            "module": "ES2015",
+
+            // 用来指定项目中要使用的库
+            // 正常情况下用不到，除非说ts不是在浏览器中运行的是在node中运行的，用不到DOM那么可以动一下
+            // 默认就是在浏览器中运行所需要的一些库
+            // "ES5", "ES6", "ES2015", "ES2015.Collection", "ES2015.Core", "ES2015.Generator", "ES2015.Iterable", "ES2015.Promise", "ES2015.Proxy", "ES2015.Reflect", 
+            // "ES2015.Symbol.WellKnown", "ES2015.Symbol", "ES2016", "ES2016.Array.Include", "ES2017", "ES2017.Intl", "ES2017.Object", "ES2017.SharedMemory", 
+            // "ES2017.String", "ES2017.TypedArrays", "ES2018", "ES2018.AsyncGenerator", "ES2018.AsyncIterable", "ES2018.Intl", "ES2018.Promise", "ES2018.Regexp", 
+            // "ES2019", "ES2019.Array", "ES2019.Object", "ES2019.String", "ES2019.Symbol", "ES2020", "ES2020.BigInt", "ES2020.Promise", "ES2020.String", 
+            // "ES2020.Symbol.WellKnown", "ESNext", "ESNext.Array", "ESNext.AsyncIterable", "ESNext.BigInt", "ESNext.Intl", "ESNext.Promise", "ESNext.String", 
+            // "ESNext.Symbol", "DOM", "DOM.Iterable", "ScriptHost", "WebWorker", "WebWorker.ImportScripts", "Webworker.Iterable", "ES7", "ES2021", "ES2020.SharedMemory", 
+            // "ES2020.Intl", "ES2021.Promise", "ES2021.String", "ES2021.WeakRef", "ESNext.WeakRef", "es2021.intl"
+            // "lib": [
+            //     "DOM"
+            // ],
+            
+            // 指定编译后文件的所在目录
+            "outDir": "./dist",
+
+            // 将编译后的代码合并为一个文件
+            "outFile": "./dist/app.js",
+
+            // 是否对js文件进行编译，默认是false
+            "allowJs": false,
+
+            // 是否检查js代码是否符合语法规范，默认是false
+            "checkJs": false,
+            
+            // 是否移除注释
+            "removeComments": false,
+
+            // 不生成编译后的文件,只想检查语法时使用
+            "noEmit": false,
+                
+            // 有错误时不生成编译文件，把编译变的比较严格
+            "noEmitOnError": false,
+
+            // 所有严格检查的总开关，建议设为true
+            "strict": false,
+
+            // 用来设置编译后的文件是否使用严格模式
+            // 在编译后的文件开头加 'use strict'
+            // 如果使用的es6的导入导出模块的方法，就会自动进入严格模式
+            "alwaysStrict": false,
+
+            // 不允许隐式的any类型
+            "noImplicitAny": false,
+
+            // 不允许不明确类型的this
+            // function a() { console.log(this)}
+            "noImplicitThis": false,
+
+            // 严格的检查空值（比如用document获取一个元素有可能没有这个元素）
+            "strictNullChecks": false,
+        }
+    }
+  ```
+
+## 用webpack编译ts
+- 安装
+  ```
+    // ts-loader 把 webpack 和 typescript 进行整合变成一体，必须用他才能让typescript在webpack中使用
+    npm i -D webpack webpack-cli typescript ts-loader
+
+    // 为了使打包后的文件兼容性好
+    // core-js 模拟js运行环境
+    npm i -D @babel/core @babel/preset-env babel-loader core-js
+  ```
+
+
+## 类的私有属性
+- 静态方法
+  - 要添加静态方法，在方法前加关键字static
+- ES6 中的子类
+  - 我们使用super和extends关键字扩展类，super必须在this之前被调用！
+- public
+  - 在属性或方法前加上 public，不加public默认也是public，在任何地方都可以使用
+- private
+  - 私有属性，当成员被标记成private时，它就不能在声明它的类的外部访问，要获取或者修改可以调用内部的一个方法然后在方法内改变
+- protected
+  - protected修饰符与private修饰符的行为很相似，但有一点不同，protected成员在派生类（子类）中仍然可以访问
+- readonly修饰符
+  - 你可以使用 readonly 关键字将属性设置为只读的。 只读属性必须在声明时或构造函数里被初始化。

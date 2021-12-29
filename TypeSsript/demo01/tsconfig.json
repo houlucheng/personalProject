@@ -1,3 +1,98 @@
 {
-  
+    /*
+        用来指定哪些ts文件需要被编译(包含)
+        * 一个 星 表示的是任意文件
+        ** 两个 星 表示的是任意目录
+    */
+    "include": [
+        "./src/**/*"
+    ],
+    /*
+        用来指定哪些ts文件不被编译(不包含)
+        默认值：["node_modules", "bower_components", "hspm_packages"]
+        * 一个 星 表示的是任意文件
+        ** 两个 星 表示的是任意目录
+    */
+    "exclude": [
+        "./src/02/**/*"
+    ],
+    /*
+        继承 某个配置文件
+    */
+    "extends": "./configs/base",
+    /*
+        指定被编译文件的列表，只有需要编译的文件少时才会用到
+    */
+    "files": [
+        "core.ts",
+        "app.ts",
+        "index2.ts",
+    ],
+    /*
+        编译器的选项
+    */
+    "compilerOptions": {
+        // 用来指定ts被编译为的ES版本
+        // 'es3'(默认), 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'es2021', 'esnext'(最新)
+        "target": "es3",
+
+        // 指定使用的模块化的规范
+        // es6和es2015一样
+        // "CommonJS", "AMD", "System", "UMD", "ES6", "ES2015"(推荐), "ES2020", "ESNext", "None", "es2022", "node12", "nodenext"
+        "module": "ES2015",
+
+        // 用来指定项目中要使用的库
+        // 正常情况下用不到，除非说ts不是在浏览器中运行的是在node中运行的，用不到DOM那么可以动一下
+        // 默认就是在浏览器中运行所需要的一些库
+        // "ES5", "ES6", "ES2015", "ES2015.Collection", "ES2015.Core", "ES2015.Generator", "ES2015.Iterable", "ES2015.Promise", "ES2015.Proxy", "ES2015.Reflect", 
+        // "ES2015.Symbol.WellKnown", "ES2015.Symbol", "ES2016", "ES2016.Array.Include", "ES2017", "ES2017.Intl", "ES2017.Object", "ES2017.SharedMemory", 
+        // "ES2017.String", "ES2017.TypedArrays", "ES2018", "ES2018.AsyncGenerator", "ES2018.AsyncIterable", "ES2018.Intl", "ES2018.Promise", "ES2018.Regexp", 
+        // "ES2019", "ES2019.Array", "ES2019.Object", "ES2019.String", "ES2019.Symbol", "ES2020", "ES2020.BigInt", "ES2020.Promise", "ES2020.String", 
+        // "ES2020.Symbol.WellKnown", "ESNext", "ESNext.Array", "ESNext.AsyncIterable", "ESNext.BigInt", "ESNext.Intl", "ESNext.Promise", "ESNext.String", 
+        // "ESNext.Symbol", "DOM", "DOM.Iterable", "ScriptHost", "WebWorker", "WebWorker.ImportScripts", "Webworker.Iterable", "ES7", "ES2021", "ES2020.SharedMemory", 
+        // "ES2020.Intl", "ES2021.Promise", "ES2021.String", "ES2021.WeakRef", "ESNext.WeakRef", "es2021.intl"
+        // "lib": [
+        //     "DOM"
+        // ],
+        
+        // 指定编译后文件的所在目录
+        "outDir": "./dist",
+
+        // 将编译后的代码合并为一个文件
+        "outFile": "./dist/app.js",
+
+        // 是否对js文件进行编译，默认是false
+        "allowJs": false,
+
+        // 是否检查js代码是否符合语法规范，默认是false
+        "checkJs": false,
+        
+        // 是否移除注释
+        "removeComments": false,
+
+        // 不生成编译后的文件,只想检查语法时使用
+        "noEmit": false,
+            
+        // 有错误时不生成编译文件，把编译变的比较严格
+        "noEmitOnError": false,
+
+        // 所有严格检查的总开关，建议设为true
+        "strict": false,
+
+        // 用来设置编译后的文件是否使用严格模式
+        // 在编译后的文件开头加 'use strict'
+        // 如果使用的es6的导入导出模块的方法，就会自动进入严格模式
+        "alwaysStrict": false,
+
+        // 不允许隐式的any类型
+        "noImplicitAny": false,
+
+        // 不允许不明确类型的this
+        // function a() { console.log(this)}
+        "noImplicitThis": false,
+
+        // 严格的检查空值（比如用document获取一个元素有可能没有这个元素）
+        "strictNullChecks": false,
+        
+    }
 }
