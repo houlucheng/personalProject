@@ -275,7 +275,15 @@
     fn(10); // 不指定泛型，Ts可以自动对类型进行推断
     fn<string>('hello')
 
-    inter
+    interface Inter {
+      length: number
+    }
+
+    function fn3<T extends Inter>(a: T): number{
+      return a.length
+    }
+    fn3({length: 10})
+    fn3([1,2,3])
   ```
 
 ## 编译选项
