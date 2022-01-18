@@ -269,21 +269,36 @@
   ```
     // 形参和返回值的类型相同，不知道形参的类型，也不知道返回值的类型，就可以用如下写法
     // T 可以是任何值
-    function fn<T>(a: T): T{
+    function fn<T, k>(a: T): T{
 
     }
     fn(10); // 不指定泛型，Ts可以自动对类型进行推断
-    fn<string>('hello')
+    fn<string>('hello') //指定泛型
+    fn<number, string>(10, "hello")
 
+
+
+    // 接口继承
     interface Inter {
       length: number
     }
 
+    // T extends Inter 表示泛型T必须是Inter的实现类(子类)
     function fn3<T extends Inter>(a: T): number{
       return a.length
     }
     fn3({length: 10})
     fn3([1,2,3])
+
+
+    // 类
+    class MyClass<T> {
+      name: T;
+      constructor(name: T) {
+        this.name = name
+      }
+    }
+    const mc = new MyClass<string>("孙悟空")
   ```
 
 ## 编译选项
