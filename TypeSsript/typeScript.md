@@ -176,14 +176,14 @@
     ```
 
 - tuple（固定长度类型）
-  - ```jsx
+  - ```tsx
       // 元祖，元祖就是固定长度的数组
       let h: [string, number];
       h = ['hello', 123]
     ```
 
 - enum（枚举）
-  - ```jsx
+  - ```tsx
       enum Gender{
         Male = 0, // 男
         Female = 1 // 女
@@ -215,10 +215,22 @@
       s = <string>b
     ```
 
+## 断言
+```tsx
+  // 类型断言，可以用来告诉解析器变量的实际类型
+  let a: any = 10
+  let s: string = "hello"
+  s = b as string; // 有点欺骗的意思
+  // 有点欺骗的意思
+  s = <string>b 
+
+
+```
+
 ## 接口implements (就是定义一个规范)
 ### type
 - type 描述一个对象的类型，不可以重复声明
-  ```
+  ```tsx
     type myType = {
       name: string,
       age: number
@@ -229,7 +241,7 @@
   ```
 ### interface 和 implements
 - 接口用来定义一个类结构，用来定义一个类中应该包含那些属性和方法，同时接口也可以当成类型声明去使用，可以重复声明，接口里都是抽象方法
-  ```
+  ```tsx
     interface myInterface {
       name: string,
       age: number
@@ -427,6 +439,12 @@
     // core-js 模拟js运行环境
     npm i -D @babel/core @babel/preset-env babel-loader core-js
   ```
+
+## CSS兼容插件
+- postcss用来使css打包后可以兼容更低版本的浏览器
+```
+  npm i -D postcss postcss-loader postcss-preset-env
+```
 
 
 ## 类的私有属性
