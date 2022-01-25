@@ -16,9 +16,6 @@ class Food {
     change() {
         const x = Math.round(Math.random() * 29)  * 10;
         const y = Math.round(Math.random() * 29)  * 10;
-        console.log(x);
-        console.log(y);
-        
         
         this.element.style.left = x + 'px';
         this.element.style.top = y + 'px';

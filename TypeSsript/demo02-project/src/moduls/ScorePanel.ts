@@ -1,6 +1,8 @@
 // 记分牌
 class ScorePanel {
+    // 分数
     score = 0;
+    // 等级
     level = 1;
     scoreEle: HTMLElement;
     levelEle: HTMLElement;

@@ -220,14 +220,18 @@
   // 类型断言，可以用来告诉解析器变量的实际类型
   let a: any = 10
   let s: string = "hello"
+
+  // 第一种
   s = b as string; // 有点欺骗的意思
+
+  // 第二种
   // 有点欺骗的意思
-  s = <string>b 
+  s = <string>b;
 
 
 ```
 
-## 接口implements (就是定义一个规范)
+## 接口interface  (就是定义一个规范)
 ### type
 - type 描述一个对象的类型，不可以重复声明
   ```tsx
