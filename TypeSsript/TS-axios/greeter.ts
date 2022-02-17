@@ -17,9 +17,8 @@ function greeter(val:Person) {
     return 'hello' + val.name + val.age;
 }
 let user = new User('小明',18)
-console.log(555, user);
-
-console.log(greeter(user));
+// console.log(555, user);
+// console.log(greeter(user));
 
 let list: number[] = [1, 2, 3, 5]
 // 泛型
@@ -35,4 +34,17 @@ enum Color {
 }
 
 let c:Color = Color.green
-console.log(888, c);
+// console.log(888, c);
+
+
+type Params = {
+    name?: string,
+    age?: number
+}
+
+function fn(obj: Params){
+    return obj.name
+}
+
+console.log(222, fn({name: "小明"}));
+

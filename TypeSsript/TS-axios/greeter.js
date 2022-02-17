@@ -9,8 +9,8 @@ function greeter(val) {
     return 'hello' + val.name + val.age;
 }
 var user = new User('小明', 18);
-console.log(555, user);
-console.log(greeter(user));
+// console.log(555, user);
+// console.log(greeter(user));
 var list = [1, 2, 3, 5];
 // 泛型
 var list2 = [1, 2, 3, 5];
@@ -24,4 +24,7 @@ var Color;
     Color[Color["blue"] = 7] = "blue";
 })(Color || (Color = {}));
 var c = Color.green;
-console.log(888, c);
+function fn(obj) {
+    return obj.name;
+}
+console.log(222, fn({ name: "小明" }));

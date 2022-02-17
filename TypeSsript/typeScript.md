@@ -41,6 +41,19 @@
     array|[1,2,3]|任意js数组
     tuple|[4,5]|元素，TS新增类型，固定长度数组
     enum|enum{A,B}|枚举ts中新增类型
+- 可选参数
+  ```
+    type Params {
+      name?: tring,
+      age?: number
+    }
+
+    function fn(obj: Params){
+      return obj.name
+    }
+
+    fn({name: "小明"})
+  ```
 
 - 类型中的 “或|” “且&” 语法 及 类型别名
   - ```tsx
@@ -175,7 +188,7 @@
       
     ```
 
-- tuple（固定长度类型）
+- tuple（元组 固定长度类型）
   - ```tsx
       // 元祖，元祖就是固定长度的数组
       let h: [string, number];
