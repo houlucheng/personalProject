@@ -44,7 +44,7 @@
 - 可选参数
   ```
     type Params {
-      name?: tring,
+      name?: string,
       age?: number
     }
 
@@ -53,6 +53,24 @@
     }
 
     fn({name: "小明"})
+  ```
+
+
+
+- 只读属性(readonly  ReadonlyArray)
+
+  ```
+    interface Point {
+      readonly x: number
+      readonly y: number
+    }
+
+    let p1: Point = {x: 10, y: 20}
+    p1.x = 5 // 不可以改
+
+    let a: number[] = [1, 2, 3, 4]
+    let ro: ReadonlyArray<number> = a
+    ro.length = 6 // 会报错
   ```
 
 - 类型中的 “或|” “且&” 语法 及 类型别名
@@ -294,6 +312,33 @@
       };
     }
   ```
+
+## 函数接口类型
+```typescript
+  interface SearchFun {
+    (source: string, subString: string): boolean
+  }
+
+  let mySearchFun: SearchFun
+  mySearchFun = function (src: string, sub: string): boolean {
+    let result = src.search(sub)
+    return result > -1
+  }
+```
+
+## 索引接口(索引签名)
+```typescript
+  interface StringArray {
+    [index: number]: string
+  }
+
+  let myArray: StringArray
+
+  myArray = ['Bob', 'fred']
+  let myStr:string = myArray[1]
+
+
+```
 
 ## 泛型
   ```

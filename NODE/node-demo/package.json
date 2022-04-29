@@ -1,0 +1,15 @@
+{
+  "name": "progresshlc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^8.2.3",
+    "progress": "^2.0.3"
+  }
+}
