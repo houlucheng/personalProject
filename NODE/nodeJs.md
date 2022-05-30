@@ -117,7 +117,7 @@
     
   ```
 
-  # node模块的导出 导入
+# node模块的导出 导入
   - 第一种
     ```javascript
       const car = {
@@ -159,15 +159,13 @@
   ```
 
 - 全局安装
-- 在这种情况下，npm 不会将软件包安装到本地文件夹下，而是使用全局的位置。
-- npm root -g 命令会告知其在计算机上的确切位置。
+在这种情况下，npm 不会将软件包安装到本地文件夹下，而是使用全局的位置。
+npm root -g 命令会告知其在计算机上的确切位置。
   ```javascript
     npm install -g lodash
   ```
-在 macOS 或 Linux 上，此位置可能是 /usr/local/lib/node_modules。 在 Windows 上，可能是 C:\Users\YOU\AppData\Roaming\npm\node_modules。
-
+> 在 macOS 或 Linux 上，此位置可能是 /usr/local/lib/node_modules。 在 Windows 上，可能是 C:\Users\YOU\AppData\Roaming\npm\node_modules。
 但是，如果使用 nvm 管理 Node.js 版本，则该位置会有所不同。
-
 例如，使用 nvm，则软件包的位置可能为 /Users/joe/.nvm/versions/node/v8.9.0/lib/node_modules。
 
 # 环境变量
@@ -507,10 +505,39 @@ path: 'c:\User\houlucheng\Dexktop\hello'
 - doc：用于存放文档的目录
 
 # package.json
+### 属性
+- `version` 表明了当前的版本。
+  > 此属性遵循版本的语义版本控制记法，这意味着版本始终以 3 个数字表示：x.x.x。
+第一个数字是主版本号，第二个数字是次版本号，第三个数字是补丁版本号。
+这些数字中的含义是：仅修复缺陷的版本是补丁版本，引入向后兼容的更改的版本是次版本，具有重大更改的是主版本。
+- `name` 设置了应用程序/软件包的名称。
+- `description` 是应用程序/软件包的简短描述。
+- `contributors` 应用程序/软件包的贡献者
+- `bugs` 链接到软件包的问题跟踪器，最常用的是 GitHub 的 issues 页面。
+- `homepage` 设置软件包的主页
+- `main` 设置了应用程序的入口点。
+- `private` 如果设置为 true，则可以防止应用程序/软件包被意外地发布到 npm。
+- `scripts` 定义了一组可以运行的 node 脚本。
+- `dependencies` 设置了作为依赖安装的 npm 软件包的列表。
+- `devDependencies` 设置了作为开发依赖安装的 npm 软件包的列表。
+- `engines` 设置了此软件包/应用程序在哪个版本的 Node.js 上运行。
+- `browserslist` 用于告知要支持哪些浏览器（及其版本）。
+- `license` 指定软件包的许可证。
+- `keywords` 此属性包含与软件包功能相关的关键字数组。这有助于人们在浏览相似的软件包或浏览 https://www.npmjs.com/ 网站时找到你的软件包。
+- `repository` 此属性指定了此程序包仓库所在的位置。
 ### dependencie 与 devDependencie
-- ^表示第一位版本号不变，后面两位取最新
-- ~前两位不变，最后一位取最新
-- *表示全部取最新
+- `^` 表示第一位版本号不变，后面两位取最新
+- `~` 前两位不变，最后一位取最新
+- `*` 表示全部取最新
+- `>` 接受高于指定版本的任何版本。
+- `>=` 接受等于或高于指定版本的任何版本。
+- `<=` 接受等于或低于指定版本的任何版本。
+- `<` 接受低于指定版本的任何版本。
+- `=` 接受确切的版本。
+- `-` 接受一定范围的版本。例如：2.1.0 - 2.6.2。
+- `||` 组合集合。例如 < 2.1 || > 2.6。
+- 无符号: 仅接受指定的特定版本（例如 1.2.1）。
+- `latest` 使用可用的最新版本。
   ```javascript
   // npm install md5 --save
   "dependencie": { // 生产环境需要使用的
@@ -534,10 +561,45 @@ path: 'c:\User\houlucheng\Dexktop\hello'
   },
   ```
 
+### 安装指定版本的包 以及 查看软件包所有的以前的版本
+  ```javascript
+    // 当前项目安装
+    npm install cowsay@1.2.0
+
+    // 全局安装
+    npm install -g webpack@4.16.4
+
+    // 查看cowsay包以前的版本
+    npm view cowsay versions
+  ```
+
 # 重点
 ### npm
 - npm 安装依赖时新版node自动会在package.json中记录，不是必须加 --save
 ### cnpm
 - cnpm 安装依赖时不加 --save 不会自动记录在package.json中
+### 运行 npm run xxx 的时候发生了什么？
+1. > npm run xxx的时候，首先会去项目的package.json文件里找scripts 里找对应的xxx，然后执行 xxx的命令，例如启动vue项目 npm run serve的时候，实际上就是执行了vue-cli-service serve 这条命令。
+2. > 为什么 不直接执行vue-cli-service serve而要执行npm run serve 呢？
+
+    因为 直接执行vue-cli-service serve，会报错，因为操作系统中没有存在vue-cli-service这一条指令
+3. > 那既然vue-cli-service这条指令不存在操作系统中，为什么执行npm run serve的时候，也就是相当于执行了vue-cli-service serve ，为什么这样它就能成功，而且不报指令不存在的错误呢？
+
+    我们在安装依赖的时候，是通过npm i xxx 来执行的，例如 npm i @vue/cli-service，npm 在 安装这个依赖的时候，就会node_modules/.bin/ 目录中创建 好vue-cli-service 为名的几个可执行文件了。
+    .bin 目录，这个目录不是任何一个 npm 包。目录下的文件，表示这是一个个软链接，打开文件可以看到文件顶部写着 #!/bin/sh ，表示这是一个脚本。
+    由此我们可以知道，当使用 npm run serve 执行 vue-cli-service  serve 时，虽然没有安装 vue-cli-service的全局命令，但是 npm 会到 ./node_modules/.bin 中找到 vue-cli-service 文件作为  脚本来执行，则相当于执行了 ./node_modules/.bin/vue-cli-service serve（最后的 serve 作为参数传入）。
+4. > 你说.bin 目录下的文件表示软连接，那这个bin目录下的那些软连接文件是哪里来的呢？它又是怎么知道这条软连接是执行哪里的呢？
+
+    我们可以直接在新建的vue项目里面搜索vue-cli-service可以看到，它存在项目最外层的package-lock.json文件中
+    从 package-lock.json 中可知，当我们npm i 整个新建的vue项目的时候，npm 将 bin/vue-cli-service.js 作为 bin 声明了。
+    所以在 npm install 时，npm 读到该配置后，就将该文件软链接到 ./node_modules/.bin 目录下，而 npm 还会自动把node_modules/.bin加入$PATH，这样就可以直接作为命令运行依赖程序和开发依赖程序，不用全局安装了。
+    假如我们在安装包时，使用 npm install -g xxx 来安装，那么会将其中的 bin 文件加入到全局，比如 create-react-app 和 vue-cli ，在全局安装后，就可以直接使用如 vue-cli projectName 这样的命令来创建项目了。
+    面试官：搜噶，也就是说，npm i 的时候，npm 就帮我们把这种软连接配置好了，其实这种软连接相当于一种映射，执行npm run xxx 的时候，就会到 node_modules/bin中找对应的映射文件，然后再找到相应的js文件来执行。
+5. > 刚刚看到在node_modules/bin中 有三个vue-cli-service文件。为什么会有三个文件呢？  
+
+    如果我们在 cmd 里运行的时候，windows 一般是调用了 vue-cli-service.cmd，这个文件，这是 windows 下的批处理脚本，
+    所以当我们运行vue-cli-service serve这条命令的时候，就相当于运行 node_modules/.bin/vue-cli-service.cmd serve。
+    然后这个脚本会使用 node 去运行 vue-cli-service.js这个 js 文件
+    由于 node 中可以使用一系列系统相关的 api ，所以在这个 js 中可以做很多事情，例如读取并分析运行这条命令的目录下的文件，根据模板生成文件等。
 
 
