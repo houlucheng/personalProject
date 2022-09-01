@@ -72,11 +72,11 @@ npx create-react-app demo
    ```
 9. jsx中只能写js表达式不能写js语句
   ```javascript
-    表达式：可以用变量接收的都叫表达式
+    // 表达式：可以用变量接收的都叫表达式
       const ary = arr.map()
       const fn1 = function () {}
 
-    语句：不能用变量接收的叫语句
+    // 语句：不能用变量接收的叫语句
       for(let i=0; i<5; i++){}
       if(){}
   ```  

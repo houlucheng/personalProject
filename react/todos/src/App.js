@@ -5,6 +5,8 @@ import List from './components/List'
 import Footer from './components/Footer'
 import FormList from './components/FormData/index'
 import MyForeardRef from './components/MyForeardRef'
+import AntdMy from './components/AntdMy'
+import TicTacToe from './components/TicTacToe'
 
 class App extends Component {
   state = {
@@ -63,7 +65,9 @@ class App extends Component {
         <FormList />
         <hr />
         <MyForeardRef />
-
+        <hr />
+        <AntdMy />
+        <TicTacToe/>
       </div>
     )
     

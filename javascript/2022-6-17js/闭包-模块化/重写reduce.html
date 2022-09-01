@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Array.prototype.reduce = function reduce(callbackFn, initValue) {
+            // debugger
+            let self = this,
+                init = initValue,
+                index = 0;
+            if (!callbackFn) { throw new TypeError('callbackFn is undefined') }
+            if (typeof initValue == 'undefined') {
+                init = self[0];
+                index = 1;
+            }
+            for (; index<self.length; index++) {
+                init = callbackFn(init, self[index], index)
+            }
+            return init
+        }
+        let arr = [10, 20, 30, 40, 50];
+        let arrNum = arr.reduce((pre, net, index) => pre + net, 0)
+        console.log(arrNum);
+    </script>
+</body>
+
+</html>

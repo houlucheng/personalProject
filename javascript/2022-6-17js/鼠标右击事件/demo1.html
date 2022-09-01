@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body,
+    html,
+    ul,
+    li {
+        /* width: 100%;
+        height: 100%; */
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .contextmenu {
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 100px;
+        background-color: bisque;
+    }
+
+    .contextmenu>ul {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contextmenu>ul>li {
+        width: 100%;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        border-bottom: 1px solid #666;
+        cursor: pointer;
+    }
+
+    .contextmenu>ul>li:hover {
+        background-color: cornflowerblue;
+    }
+</style>
+
+<body>
+
+    <script>
+        window.oncontextmenu = function (e) {
+            e.preventDefault();
+            let contextmenu = document.querySelector('.contextmenu');
+            let clientX = e.clientX;
+            let clientY = e.clientY;
+            if (!contextmenu) {
+                contextmenu = document.createElement('div');
+                contextmenu.className = 'contextmenu';
+                contextmenu.innerHTML = `
+                    <ul>
+                        <li>走你</li>
+                        <li>飞起</li>
+                        <li>奥里给</li>
+                    </ul>
+                `
+                document.body.appendChild(contextmenu)
+            }
+            contextmenu.style.left = clientX + 'px'
+            contextmenu.style.top = clientY + 'px'
+        }
+        window.onclick = function (e) {
+            let contextmenu = document.querySelector('.contextmenu');
+            let target = e.target;
+            targetName = target.tagName
+            if (targetName === 'LI') {
+                target = target.parentNode
+                targetName = target.tagName
+            }
+
+            if (targetName === 'UL' && target.parentNode.className == 'contextmenu') {
+                return
+            }
+
+            if (contextmenu) {
+                document.body.removeChild(contextmenu)
+            }
+        }
+    </script>
+</body>
+
+</html>
