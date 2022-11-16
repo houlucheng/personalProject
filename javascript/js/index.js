@@ -311,3 +311,27 @@ console.log(fn(1,2,3))
 //fn(5);
 //obj.fn(10);
 //console.log(num,obj.num);//65 30
+
+
+const o = (function() {
+	let obj = {
+		a: 1,
+		b: 2,
+	}
+
+	return {
+		get: function (key) {
+			return obj[key]
+		}
+	}
+})()
+
+// 如何在不改变上面代码的情况下
+// 修改 obj 对象
+
+Object.defineProperty(Object.prototype, 'abc', {
+	get() {
+		return this
+	}
+})
+o.get('abc')

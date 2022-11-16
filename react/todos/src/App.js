@@ -57,7 +57,7 @@ class App extends Component {
   render() {
     return (
       <div className="todo-container">
-        <div className="todo-wrap">
+        {/* <div className="todo-wrap">
           <Header addtodo={this.addtodo} />
           <List todos={this.state.todos} updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} />
           <Footer todos={this.state.todos} checkAllTodo={this.checkAllTodo} clearAllDone={this.clearAllDone}/>
@@ -65,9 +65,9 @@ class App extends Component {
         <FormList />
         <hr />
         <MyForeardRef />
-        <hr />
+        <hr /> */}
         <AntdMy />
-        <TicTacToe/>
+        {/* <TicTacToe/> */}
       </div>
     )
     

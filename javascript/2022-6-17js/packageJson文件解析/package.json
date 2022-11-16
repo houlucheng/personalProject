@@ -1,0 +1,12 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "这是对项目的描述，以便开发者在npm中发现此项目",
+  "keywords": ["javascript", "react", "和description一样，都是用来增加项目的曝光率"],
+  "author": "houlucheng <15235602279@163.com>",
+  "author": {
+    "name": "houlucheng",
+    "email": "15235602279@163.com",
+    "url": "https://blog.csdn.net/qq_43443700"
+  }
+}
