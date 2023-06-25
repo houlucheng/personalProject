@@ -7,6 +7,7 @@ import FormList from './components/FormData/index'
 import MyForeardRef from './components/MyForeardRef'
 import AntdMy from './components/AntdMy'
 import TicTacToe from './components/TicTacToe'
+import Hello from './components/reduxCom'
 
 class App extends Component {
   state = {
@@ -61,13 +62,14 @@ class App extends Component {
           <Header addtodo={this.addtodo} />
           <List todos={this.state.todos} updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} />
           <Footer todos={this.state.todos} checkAllTodo={this.checkAllTodo} clearAllDone={this.clearAllDone}/>
-        </div>
-        <FormList />
-        <hr />
-        <MyForeardRef />
+        </div> */}
+        {/* <FormList />
         <hr /> */}
-        <AntdMy />
+        {/* <MyForeardRef />
+        <hr /> */}
+        {/* <AntdMy /> */}
         {/* <TicTacToe/> */}
+        <Hello/>
       </div>
     )
     
