@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    div {
+      /* 默认值 */
+      /* writing-mode: horizontal-tb; */
+      /* writing-mode: vertical-lr; */
+      /* writing-mode: vertical-rl; */
+      writing-mode: sideways-lr;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+  </div>
+  <button id="stopEl">Stop</button>
+  <button id="startEl">Start</button>
+  <script>
+    function getData() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ data: [1, 2, 3] });
+        }, 5000);
+      });
+    }
+    function withOperator(promise2) {
+      let operator = {
+        stopable: false,
+        stop() {
+          operator.stopable = true;
+        },
+        continue() {
+          console.log('continue');
+          operator.stopable = false;
+          operator.resolve();
+        },
+      };
+      const operatorPromise = new Promise((resolve, reject) => {
+        console.log('operatorPromise');
+        operator.resolve = resolve;
+        operator.reject = reject;
+      });
+      function wrapper(p) {
+        console.log('wrapper');
+        return p.then((result) => {
+          console.log('wrapper result', operator.stopable);
+          if (!operator.stopable) {
+            operator.continue();
+          }
+          // return result;
+        });
+      }
+      const wrapperPromise = wrapper(promise2);
+      const promises = [operatorPromise, wrapperPromise];
+      const result = Promise.all(promises).then((result) => {
+        console.log('Promise.all', result);
+        return result[1];
+      }).catch((err) => { console.log('err'); });
+      result.operator = operator;
+      return result;
+    }
+    const promiseOperator = withOperator(getData());
+    promiseOperator.then((result) => {
+      console.log("开始渲染了", result);
+    });
+    stopEl.onclick = function () {
+      console.log("stop");
+      promiseOperator.operator.stop();
+    };
+    startEl.onclick = function () {
+      console.log("start");
+      promiseOperator.operator.continue();
+    };
+  </script>
+</body>
+
+</html>
